@@ -8,7 +8,7 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
 	<div class="container">
     	<ul class="navbar-nav me-auto">
-        	<li class="nav-item"><a class="nav-link " href="/app5/home.jsp">홈</a></li>
+        	<li class="nav-item"><a class="nav-link " href="/semi/home.jsp">홈</a></li>
 			<li class="nav-item dropdown">
           		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             	수업
@@ -33,13 +33,13 @@
             	커뮤니티
           		</a>
           		<ul class="dropdown-menu">
-            		<li><a class="dropdown-item" href="">게시판</a></li>
+            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
             		<li><a class="dropdown-item" href="">권한설정</a></li>
           		</ul>
         	</li>
       	</ul>
       	<ul class="navbar-nav">
-         	<li class="nav-item"><a class="nav-link " href="/app5/loginform.jsp">로그인</a></li>
+         	<li class="nav-item"><a class="nav-link " href="/semi/loginform.jsp">로그인</a></li>
 			<li class="nav-item dropdown">
           		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             	회원가입
