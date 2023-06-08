@@ -88,7 +88,4 @@ public class Order {
 		this.coupon = coupon;
 	}
 
-	
-	
-	
 }

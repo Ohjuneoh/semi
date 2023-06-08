@@ -40,6 +40,8 @@ public class Comment {
 	public void setId(User id) {
 		this.id = id;
 	}
+
+	
 	
 	
 	

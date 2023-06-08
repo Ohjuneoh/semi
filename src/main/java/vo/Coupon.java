@@ -69,6 +69,8 @@ public class Coupon {
 	public void setMembership(Membership membership) {
 		this.membership = membership;
 	}
+
+	
 	
 	
 	
