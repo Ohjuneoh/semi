@@ -12,11 +12,12 @@ public class Board {
 	private int viewCnt;
 	private int commentCnt;
 	private String deleted;
-	private User id;
+	private User user;
 	private Date updateDate;
 	private Date createDate;
 	private int likeDislike;
 	private int reportCnt;
+	private String type;
 	
 	public Board() {}
 
@@ -85,11 +86,11 @@ public class Board {
 	}
 
 	public User getId() {
-		return id;
+		return user;
 	}
 
 	public void setId(User id) {
-		this.id = id;
+		this.user = id;
 	}
 
 	public Date getUpdateDate() {
@@ -124,5 +125,11 @@ public class Board {
 		this.reportCnt = reportCnt;
 	}
 	
+	public String getType() {
+		return type;
+	}
 	
+	public void setType(String type) {
+		this.type = type;
+	}
 }
