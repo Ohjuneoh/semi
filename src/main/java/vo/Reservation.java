@@ -5,7 +5,7 @@ public class Reservation {
 	private int no;
 	private User user;
 	private Lesson lesson;
-	
+
 	public Reservation() {}
 	
 	public int getNo() {

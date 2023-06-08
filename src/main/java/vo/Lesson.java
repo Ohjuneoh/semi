@@ -11,13 +11,12 @@ public class Lesson {
 	private int reqCnt;
 	private String description;
 	private Date creatDate;
-	private User id;
+	private User user;
 	private String time;
 	private String status;
 	private Gym gym;
 	
 	public Lesson() {}
-	
 	
 	public int getNo() {
 		return no;
@@ -61,12 +60,19 @@ public class Lesson {
 	public void setCreatDate(Date creatDate) {
 		this.creatDate = creatDate;
 	}
-	public User getId() {
-		return id;
+	
+	
+	
+	public User getUser() {
+		return user;
 	}
-	public void setId(User id) {
-		this.id = id;
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+
 	public String getTime() {
 		return time;
 	}

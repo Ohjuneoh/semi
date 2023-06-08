@@ -2,12 +2,13 @@ package vo;
 
 public class Trainer {
 
-	public User user;
-	public Membership membership;
-	public int salary;
-	public int commissionPct;
-	public String position;
+	private User user;
+	private Membership membership;
+	private int salary;
+	private int commissionPct;
+	private String position;
 	
+	public Trainer() {}
 	
 	public User getUser() {
 		return user;
