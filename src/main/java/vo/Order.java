@@ -11,10 +11,10 @@ public class Order {
 	private Date createDate;
 	private String paymentMethod;
 	private User user;
-	private Memvership memvership;
+	private Membership membership;
 	private Coupon coupon;
 	
-	Order(){}
+	public Order(){}
 
 	public int getNo() {
 		return no;
@@ -32,12 +32,36 @@ public class Order {
 		this.discounteRate = discounteRate;
 	}
 
+	public int getTotalCreditPrice() {
+		return totalCreditPrice;
+	}
+
+	public void setTotalCreditPrice(int totalCreditPrice) {
+		this.totalCreditPrice = totalCreditPrice;
+	}
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	public User getUser() {
@@ -48,12 +72,12 @@ public class Order {
 		this.user = user;
 	}
 
-	public Memvership getMemvership() {
-		return memvership;
+	public Membership getMembership() {
+		return membership;
 	}
 
-	public void setMemvership(Memvership memvership) {
-		this.memvership = memvership;
+	public void setMembership(Membership membership) {
+		this.membership = membership;
 	}
 
 	public Coupon getCoupon() {
@@ -63,4 +87,8 @@ public class Order {
 	public void setCoupon(Coupon coupon) {
 		this.coupon = coupon;
 	}
+
+	
+	
+	
 }

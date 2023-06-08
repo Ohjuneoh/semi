@@ -2,8 +2,11 @@ package vo;
 
 public class Manager {
 
-	public User user;
+	private User user;
 
+	public Manager() {}
+	
+	
 	public User getUser() {
 		return user;
 	}

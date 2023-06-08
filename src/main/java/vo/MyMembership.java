@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class MyMembership {
 
-	private Users user;
+	private User user;
 	private Membership membership;
-	private Orders order;
+	private Order order;
 	private String status;
 	private Date startDate;
 	private Date expirationDate;
@@ -15,11 +15,11 @@ public class MyMembership {
 	
 	public MyMembership() {}
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -31,11 +31,11 @@ public class MyMembership {
 		this.membership = membership;
 	}
 
-	public Orders getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(Orders order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 

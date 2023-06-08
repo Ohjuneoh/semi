@@ -2,9 +2,11 @@ package vo;
 
 public class Reservation {
 
-	public int no;
-	public User user;
-	public Lesson lesson;
+	private int no;
+	private User user;
+	private Lesson lesson;
+	
+	public Reservation() {}
 	
 	
 	public int getNo() {

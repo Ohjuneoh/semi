@@ -3,7 +3,7 @@ package vo;
 public class Comment {
 
 	private int no;
-	private Board no;
+	private Board board;
 	private String content;
 	private User id;
 	
@@ -17,12 +17,12 @@ public class Comment {
 		this.no = no;
 	}
 
-	public Board getNo() {
-		return no;
+	public Board getBoard() {
+		return board;
 	}
 
-	public void setNo(Board no) {
-		this.no = no;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	public String getContent() {
@@ -42,4 +42,7 @@ public class Comment {
 	}
 	
 	
+	
+	
 }
+	
