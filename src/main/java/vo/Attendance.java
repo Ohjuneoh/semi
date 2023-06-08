@@ -5,7 +5,7 @@ import java.util.Date;
 public class Attendance {
 
 	private int no;
-	private User id;
+	private User user;
 	private Date in;
 	private Date out;
 	
@@ -19,12 +19,12 @@ public class Attendance {
 		this.no = no;
 	}
 
-	public User getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setId(User id) {
-		this.id = id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getIn() {

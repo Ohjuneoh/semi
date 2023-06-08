@@ -5,7 +5,7 @@ public class Comment {
 	private int no;
 	private Board board;
 	private String content;
-	private User id;
+	private User user;
 	
 	public Comment() {}
 
@@ -33,13 +33,15 @@ public class Comment {
 		this.content = content;
 	}
 
-	public User getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setId(User id) {
-		this.id = id;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	
 
 	
 	
