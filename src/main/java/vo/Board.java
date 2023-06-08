@@ -132,4 +132,5 @@ public class Board {
 	public void setType(String type) {
 		this.type = type;
 	}
+  
 }
