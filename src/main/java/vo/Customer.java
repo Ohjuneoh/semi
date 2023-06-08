@@ -3,10 +3,8 @@ package vo;
 public class Customer {
 
 	private User user;
-	private Membership membership;
-	
+	private Membership membership;	
 	public Customer() {}
-	
 	
 	public User getUser() {
 		return user;
