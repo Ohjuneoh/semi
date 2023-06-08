@@ -44,7 +44,7 @@
             	회원가입
           		</a>
           		<ul class="dropdown-menu">
-            		<li><a class="dropdown-item" href="/semi/user/form.jsp">일반유저</a></li>
+            		<li><a class="dropdown-item" href="/semi/user/form.jsp">회원</a></li>
             		<li><a class="dropdown-item" href="/semi/trainer/form.jsp">강사</a></li>
             		<li><a class="dropdown-item" href="/semi/manager/form.jsp">관리자</a></li>
           		</ul>
