@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class Lesson {
 
-	public int no;
-	public String name;
-	public String type;
-	public int quota;
-	public int reqCnt;
-	public String description;
-	public Date creatDate;
-	public User id;
-	public String time;
-	public String status;
-	public Gym gym;
+	private int no;
+	private String name;
+	private String type;
+	private int quota;
+	private int reqCnt;
+	private String description;
+	private Date creatDate;
+	private User id;
+	private String time;
+	private String status;
+	private Gym gym;
+	
+	public Lesson() {}
 	
 	
 	public int getNo() {

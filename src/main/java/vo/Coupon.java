@@ -10,7 +10,7 @@ public class Coupon {
 	private double discountRate;
 	private Date startDate;
 	private Date expirationDate;
-	private Membership no;
+	private Membership membership;
 	
 	public Coupon() {}
 
@@ -62,13 +62,15 @@ public class Coupon {
 		this.expirationDate = expirationDate;
 	}
 
-	public Membership getNo() {
-		return no;
+	public Membership getMembership() {
+		return membership;
 	}
 
-	public void setNo(Membership no) {
-		this.no = no;
+	public void setMembership(Membership membership) {
+		this.membership = membership;
 	}
+
+	
 	
 	
 }

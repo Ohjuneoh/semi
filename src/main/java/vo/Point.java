@@ -7,7 +7,7 @@ public class Point {
 	private User user;
 	private Order order;
 	
-	Point() {}
+	public Point() {}
 
 	public int getDepositPoint() {
 		return depositPoint;

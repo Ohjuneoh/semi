@@ -2,8 +2,10 @@ package vo;
 
 public class Customer {
 
-	public User user;
-	public Membership membership;
+	private User user;
+	private Membership membership;
+	
+	public Customer() {}
 	
 	
 	public User getUser() {

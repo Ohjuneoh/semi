@@ -12,7 +12,7 @@ public class ReportHistory {
 	private User reportUser;
 	private Board board;
 	
-	ReportHistory() {}
+	public ReportHistory() {}
 
 	public int getNo() {
 		return no;
