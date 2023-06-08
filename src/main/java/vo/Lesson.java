@@ -18,7 +18,6 @@ public class Lesson {
 	
 	public Lesson() {}
 	
-	
 	public int getNo() {
 		return no;
 	}
