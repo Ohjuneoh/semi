@@ -18,7 +18,7 @@
 <div class="container">
 	<div class="row mb-3">
     	<div class="col-12">
-        	<h1 class="border bg-light fs-4 p-2">일반유저로 등록하기</h1>
+        	<h1 class="border bg-light fs-4 p-2">관리자로 등록하기</h1>
       	</div>
    	</div>
    	<div class="row mb-3">
@@ -30,14 +30,6 @@
 			</div>   				
    			<form class="border bg-light p-3" method="post" action="">
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">xx</label>
-   					<select class="form-select" name="deptNo">
-
-   						<option value=""> xxx</option>
-
-   					</select>
-   				</div>
-   				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
    					<input type="text" class="form-control" name="id" />
    				</div>
@@ -48,6 +40,14 @@
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">이름</label>
    					<input type="text" class="form-control" name="name" />
+   				</div>
+   				<div class="form-group mb-2 w-75">
+   					<label class="form-label">이메일</label>
+   					<input type="text" class="form-control" name="email" />
+   				</div>
+   				<div class="form-group mb-2 w-75">
+   					<label class="form-label">전화번호</label>
+   					<input type="text" class="form-control" name="tel" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">등록</button>

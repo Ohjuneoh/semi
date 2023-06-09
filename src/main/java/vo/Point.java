@@ -2,6 +2,7 @@ package vo;
 
 public class Point {
 
+	private int no;
 	private int depositPoint;
 	private int currentPoint;
 	private User user;
@@ -15,6 +16,14 @@ public class Point {
 
 	public void setDepositPoint(int depositPoint) {
 		this.depositPoint = depositPoint;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public int getCurrentPoint() {

@@ -15,12 +15,25 @@ public class Board {
 	private User user;
 	private Date updateDate;
 	private Date createDate;
-	private int likeDislike;
 	private int reportCnt;
+	private int like;
+	private int dislike;
 	private String type;
 	
 	public Board() {}
-
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -84,14 +97,6 @@ public class Board {
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
-
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
 	public Date getUpdateDate() {
 		return updateDate;
@@ -109,14 +114,6 @@ public class Board {
 		this.createDate = createDate;
 	}
 	
-	public int getLikeDislike() {
-		return likeDislike;
-	}
-	
-	public void setLikeDislike(int likeDislike) {
-		this.likeDislike = likeDislike;
-	}
-	
 	public int getReportCnt() {
 		return reportCnt;
 	}
@@ -125,12 +122,19 @@ public class Board {
 		this.reportCnt = reportCnt;
 	}
 	
-	public String getType() {
-		return type;
+	public int getLike() {
+		return like;
 	}
 	
-	public void setType(String type) {
-		this.type = type;
+	public void setLike(int like) {
+		this.like = like;
 	}
 	
+	public int getDislike() {
+		return dislike;
+	}
+	
+	public void setDislike(int dislike) {
+		this.dislike = dislike;
+	}
 }
