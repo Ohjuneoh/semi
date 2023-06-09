@@ -2,42 +2,61 @@ package vo;
 
 public class Trainer {
 
-	public User user;
-	public Membership membership;
-	public int salary;
-	public int commissionPct;
-	public String position;
+	private String id;
+	private Membership membership;
+	private int salary;
+	private double commissionPct;
+	private String position;
+	private int no;
 	
-	
-	public User getUser() {
-		return user;
+	public Trainer() {}
+
+	public String getId() {
+		return id;
 	}
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setId(String id) {
+		this.id = id;
 	}
+
 	public Membership getMembership() {
 		return membership;
 	}
+
 	public void setMembership(Membership membership) {
 		this.membership = membership;
 	}
+
 	public int getSalary() {
 		return salary;
 	}
+
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-	public int getCommissionPct() {
+
+	public double getCommissionPct() {
 		return commissionPct;
 	}
-	public void setCommissionPct(int commissionPct) {
+
+	public void setCommissionPct(double commissionPct) {
 		this.commissionPct = commissionPct;
 	}
+
 	public String getPosition() {
 		return position;
 	}
+
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 	
 	
