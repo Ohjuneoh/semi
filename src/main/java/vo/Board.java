@@ -20,7 +20,6 @@ public class Board {
 	private int dislike;
 	private String type;
 	
-	
 	public Board() {}
 	
 	public User getUser() {
@@ -99,8 +98,6 @@ public class Board {
 		this.deleted = deleted;
 	}
 
-
-
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -140,6 +137,7 @@ public class Board {
 	public void setReportCnt(int reportCnt) {
 		this.reportCnt = reportCnt;
 	}
-	
-	
+
+
+  
 }

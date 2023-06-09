@@ -2,23 +2,28 @@ package vo;
 
 public class Trainer {
 
+
 	private String id;
 	private Membership membership;
 	private int salary;
 	private double commissionPct;
 	private String position;
 	private int no;
-	
+	private User user;
 	public Trainer() {}
-
+	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Membership getMembership() {
 		return membership;
 	}
