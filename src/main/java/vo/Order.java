@@ -12,7 +12,6 @@ public class Order {
 	private String paymentMethod;
 	private User user;
 	private Membership membership;
-	private Coupon coupon;
 	
 	public Order(){}
 
@@ -79,14 +78,4 @@ public class Order {
 	public void setMembership(Membership membership) {
 		this.membership = membership;
 	}
-
-	public Coupon getCoupon() {
-		return coupon;
-	}
-
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
-	}
-
-	
 }
