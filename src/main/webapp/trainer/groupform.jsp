@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	
+%>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -16,36 +20,32 @@
 <div class="container">
 	<div class="row mb-3">
     	<div class="col-12">
-        	<h1 class="border bg-light fs-4 p-2">그룹수업 등록하기</h1>
+        	<h1 class="border bg-light fs-4 p-2">그룹수업 등록 폼</h1>
       	</div>
    	</div>
    	<div class="row mb-3">
    		<div class="col-12">
-   			<p>사용자 정보를 입력하고 등록하세요.</p>
-
-			<div class = "alert alert-danger">
-				<strong>사용자등록 실패</strong> 이미 사용중인 아이디로 가입할 수 없습니다.
-			</div>   				
-   			<form class="border bg-light p-3" method="post" action="">
+   			<p>그룹수업을 등록하세요.</p>
+			<form class="border bg-light p-3" method="post" action="insert">
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">xx</label>
-   					<select class="form-select" name="deptNo">
-
-   						<option value=""> xxx</option>
-
-   					</select>
+   					<label class="form-label">레슨명</label>
+   					<input type="text" class="form-control" name="lesson-name" />
    				</div>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">아이디</label>
-   					<input type="text" class="form-control" name="id" />
+   					<label class="form-label">레슨타입</label>
+   					<input type="text" class="form-control" name="lasson-type" />
    				</div>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">비밀번호</label>
-   					<input type="text" class="form-control" name="password" />
+   					<label class="form-label">레슨정원</label>
+   					<input type="text" class="form-control" name="lesson-quota" />
    				</div>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">이름</label>
-   					<input type="text" class="form-control" name="name" />
+   					<label class="form-label">레슨설명</label>
+   					<input type="text" class="form-control" name="lesson-description" />
+   				</div>
+   				<div class="form-group mb-2 w-75">
+   					<label class="form-label">레슨시간</label>
+   					<input type="text" class="form-control" name="lesson-time" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">등록</button>

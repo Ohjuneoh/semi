@@ -85,4 +85,52 @@ public class Board {
 		this.deleted = deleted;
 	}
 
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
+	public int getLikeDislike() {
+		return likeDislike;
+	}
+	
+	public void setLikeDislike(int likeDislike) {
+		this.likeDislike = likeDislike;
+	}
+	
+	public int getReportCnt() {
+		return reportCnt;
+	}
+	
+	public void setReportCnt(int reportCnt) {
+		this.reportCnt = reportCnt;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }
