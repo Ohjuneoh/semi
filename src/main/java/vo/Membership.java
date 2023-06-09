@@ -12,6 +12,8 @@ public class Membership {
 	private int numOfUseDay;
 	private int numOfUseWeek;
 	private int numOfPause;
+	private int duration;
+	private int count;
 	private Gym gym;
 	
 	public Membership() {}
@@ -22,6 +24,22 @@ public class Membership {
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public String getCat() {
