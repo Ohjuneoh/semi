@@ -10,7 +10,6 @@ public class Board {
 	private String title;
 	private String content;
 	private int viewCnt;
-	private int commentCnt;
 	private String deleted;
 	private User user;
 	private Date updateDate;
@@ -80,14 +79,6 @@ public class Board {
 
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
-	}
-
-	public int getCommentCnt() {
-		return commentCnt;
-	}
-
-	public void setCommentCnt(int commentCnt) {
-		this.commentCnt = commentCnt;
 	}
 
 	public String getDeleted() {
