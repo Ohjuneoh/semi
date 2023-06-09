@@ -8,6 +8,7 @@ public class Reservation {
 	
 	public Reservation() {}
 	
+	
 	public int getNo() {
 		return no;
 	}
