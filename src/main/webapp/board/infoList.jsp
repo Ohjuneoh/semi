@@ -37,7 +37,7 @@
   			<a class="nav-link" href="dealList.jsp">거래</a>
 		</nav>
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">정보 게시글 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
