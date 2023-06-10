@@ -74,7 +74,7 @@
 	</div>
 			
 			<div class="text-end">
-				<a href="groupInsert.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
+				<a href="groupform.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
 			</div>
 		</div>
 	</div>
