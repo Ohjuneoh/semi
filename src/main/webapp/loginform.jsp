@@ -1,4 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
+
+
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -23,20 +29,25 @@
    	<div class="row mb-3">
    		<div class="col-12">
    			<p>아이디, 비밀번호를 입력하고 로그인하세요</p>
+ <%
+	if("fail".equals(err)){
+%>
+			<div class="alert alert-danger">
+				<strong>로그인 실패</strong> 아이디 혹은 비밀번호가 올바르지 않습니다.
+			</div>
+<%
+	}  else if("req".equals(err)){
+%>
+			<div class="alert alert-danger">
+				<strong>로그인 필요</strong>[<%=job %>]은 로그인 후 사용가능한 서비스입니다.
+			</div>
+
+<%
+	}
+%>   			
+
    			<form class="border bg-light p-3" method="post" action="login.jsp">
    				<div class="form-group mb-2 w-75">
-   					<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="type"  value="STUDENT" checked="checked">
-  						<label class="form-check-label" for="inlineRadio1">일반사용자</label>
-					</div>
-					<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="type" value="PROFESSOR">
-  						<label class="form-check-label" for="inlineRadio2">강사</label>
-					</div>
-						<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="type" value="PROFESSOR">
-  						<label class="form-check-label" for="inlineRadio2">관리자</label>
-					</div>
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>

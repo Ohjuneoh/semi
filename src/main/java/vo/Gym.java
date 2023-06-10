@@ -10,6 +10,15 @@ public class Gym {
 	
 	public Gym() {}
 	
+	
+	
+	public Gym(int no) {
+		super();
+		this.no = no;
+	}
+
+
+
 	public int getNo() {
 		return no;
 	}
