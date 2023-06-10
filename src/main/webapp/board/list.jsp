@@ -23,14 +23,18 @@
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
+		<nav class="nav">
+  			<a class="nav-link" href="#">전체</a>
+  			<a class="nav-link" href="#">잡담</a>
+  			<a class="nav-link" href="#">정보</a>
+  			<a class="nav-link" href="#">거래</a>
+		</nav>
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">게시글 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
-		<div class="col-12">
-			<p>게시글 목록을 확인하세요.</p>
-			
+		<div class="col-12">		
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
