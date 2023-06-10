@@ -1,3 +1,4 @@
+<%@page import="vo.Gym"%>
 <%@page import="dao.UserDao"%>
 <%@page import="dao.TrainerDao"%>
 <%@page import="dao.GroupeLessonDao"%>
@@ -10,11 +11,8 @@
 	
 	// 로그인 상태에서, 세션객체에 담긴 값들 조회
 	String loginId = (String)session.getAttribute("loginId");
-	String type = (String)session.getAttribute("loginType");
-	int gymNo = (Integer)session.getAttribute("loginGymNo");
-	
-	// 오류상황
-	
+	String loginType = (String)session.getAttribute("loginType");
+	int loginGymNo = (Integer)session.getAttribute("loginGymNo");
 	
 	
 	// 트레이너가 form에서입력한 값 조회
@@ -32,9 +30,9 @@
 	groupLesson.setType(lessonType);
 	groupLesson.setQuota(quota);
 	groupLesson.setDescription(description);
-	groupLesson.getUser().setId(loginId);
+	groupLesson.setUser(new User(loginId));
 	groupLesson.setTime(time);
-	groupLesson.getGym().setNo(gymNo);
+	groupLesson.setGym(new Gym(loginGymNo));
 	
 	// 2. 로직수행
 	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
