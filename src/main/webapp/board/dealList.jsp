@@ -7,7 +7,7 @@
 <%
 	String loginId = (String)session.getAttribute("loginId");
 	BoardDao boardDao = BoardDao.getInstance();
-	String type = "거래";
+	String type = "deal";
 	List<Board> boards = boardDao.getBoardsByType(type);
 	CommentDao commentDao = CommentDao.getInstance();
 %>

@@ -24,6 +24,15 @@
 			<p>제목과 내용을 입력하세요</p>		
 			<form class="border bg-light p-3" method="post" action="insert" enctype="multipart/form-data">
 			<!--첨부파일 업로드 시 전송방식은 반드시 post   -->
+				<div>
+					<label class="form-label">게시판</label>
+				</div>
+				<select name="category" class="form-group mb-2">
+					<option disabled="disabled" selected="selected">--- 게시판을 선택하세요 ---</option>
+					<option value="chat">잡담</option>
+					<option value="info">정보</option>
+					<option value="deal">거래</option>
+				</select>
 				<div class="form-group mb-2">
 					<label class="form-label">제목</label>
 					<input type="text" class="form-control" name="title"/>
