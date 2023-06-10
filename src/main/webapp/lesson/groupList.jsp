@@ -27,7 +27,7 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>그룹수업 목록을 확인하세요</p>
+			<p>그룹수업 목록을 확인할 수 있습니다.</p>
 			
 			<table class="table table-sm">
 				<colgroup>
