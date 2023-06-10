@@ -1,8 +1,14 @@
+<%@page import="dao.CommentDao"%>
+<%@page import="vo.Board"%>
+<%@page import="dao.BoardDao"%>
 <%@page import="java.util.List"%>
 <%@page import="util.StringUtils"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String)session.getAttribute("loginId");
+	BoardDao boardDao = BoardDao.getInstance();
+	List<Board> boards = boardDao.getBoards();
+	CommentDao commentDao = CommentDao.getInstance();
 %>
 <!doctype html>
 <html lang="ko">
@@ -24,10 +30,10 @@
 <div class="container my-3">
 	<div class="row mb-3">
 		<nav class="nav">
-  			<a class="nav-link" href="#">전체</a>
-  			<a class="nav-link" href="#">잡담</a>
-  			<a class="nav-link" href="#">정보</a>
-  			<a class="nav-link" href="#">거래</a>
+  			<a class="nav-link" href="list.jsp">전체</a>
+  			<a class="nav-link" href="chatList.jsp">잡담</a>
+  			<a class="nav-link" href="infoList.jsp">정보</a>
+  			<a class="nav-link" href="dealList.jsp">거래</a>
 		</nav>
 		<div class="col-12">
 			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
@@ -53,14 +59,20 @@
 					</tr>
 				</thead>
 				<tbody>
-			
+<%
+	for(Board board : boards) {
+		int commentCnt = commentDao.getCommentCnt(board.getNo());
+%>
 					<tr>
-						<td>xxxx</td>
-						<td><a href="detail.jsp?no=">xxx</a></td>
-						<td>xxx</td>
-						<td>xxx</td>
-						<td>xxx</td>
+						<td><%=board.getNo() %></td>
+						<td><a href="detail.jsp?no="><%=board.getTitle() %></a></td>
+						<td><%=board.getUser().getId() %></td>
+						<td><%=commentCnt %></td>
+						<td><%=board.getCreateDate() %></td>
 					</tr>
+<%
+	}
+%>					
 				</tbody>
 			</table>
 			<div class="row mb-3">
