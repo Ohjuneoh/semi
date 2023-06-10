@@ -31,12 +31,7 @@
 				<div class="form-group mb-2">
 					<label class="form-label">내용</label>
 					<textarea rows="5" class="form-control" name="content"></textarea>
-				</div>
-				<div class="form-group mb-2">
-					<label class="form-label">첨부파일</label>
-					<input type="file" class="form-control" name="upfile"/>
-				</div>
-				
+				</div>			
 				
 				<div class="text-end">
 					<button type="submit" class="btn btn-primary">등록</button>
