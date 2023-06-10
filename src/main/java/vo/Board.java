@@ -14,7 +14,6 @@ public class Board {
 	private User user;
 	private Date updateDate;
 	private Date createDate;
-	private int reportCnt;
 	private int like;
 	private int dislike;
 	private String type;
@@ -101,18 +100,6 @@ public class Board {
 		return createDate;
 	}
 	
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	
-	public int getReportCnt() {
-		return reportCnt;
-	}
-	
-	public void setReportCnt(int reportCnt) {
-		this.reportCnt = reportCnt;
-	}
-	
 	public int getLike() {
 		return like;
 	}
@@ -127,5 +114,9 @@ public class Board {
 	
 	public void setDislike(int dislike) {
 		this.dislike = dislike;
+	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }
