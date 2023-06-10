@@ -1,7 +1,9 @@
 <%@page import="java.util.List"%>
-
 <%@page import="util.StringUtils"%>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	String loginId = (String)session.getAttribute("loginId");
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -72,11 +74,16 @@
 			</nav>
 		</div>
 	</div>
-			
-			<div class="text-end">
-				<a href="form.jsp" class="btn btn-primary btn-sm">새 게시글 등록</a>
-			</div>
+<%
+	if (loginId != null) {
+%>	
+		<div class="text-end">
+			<a href="form.jsp" class="btn btn-primary btn-sm">새 게시글 등록</a>
 		</div>
+<%
+	}
+%>
+	</div>
 	</div>
 </div>
 </body>
