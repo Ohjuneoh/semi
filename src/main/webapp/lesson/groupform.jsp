@@ -43,7 +43,6 @@ pageEncoding="UTF-8"%>
 				</div>
 				<div class="form-group mb-2">
 				  <label class="form-label">강사명</label>
-<%= %>
 				  <span class="form-control"><%=user.getName() %></span>
 				</div>
 				<div class="form-group mb-2">

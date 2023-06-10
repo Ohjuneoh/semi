@@ -17,7 +17,6 @@
 	
 	// 트레이너가 form에서입력한 값 조회
 	String lessonName = request.getParameter("lessonName");
-	String trainerName = request.getParameter("trainerName");
 	int quota = Integer.parseInt(request.getParameter("quota"));
 	String time = request.getParameter("time");
 	String description = request.getParameter("description");
