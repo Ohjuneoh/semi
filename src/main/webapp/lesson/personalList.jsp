@@ -1,7 +1,22 @@
+<%@page import="vo.Lesson"%>
+<%@page import="dto.Pagination"%>
+<%@page import="dao.PersonalLessonDao"%>
 <%@page import="java.util.List"%>
-
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	// 요청 URL- http://localhost/semi/personalList.jsp
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+
+	PersonalLessonDao lessonDao =PersonalLessonDao.getinstance();
+	// 전체 데이터 갯수 조회하기
+	int totalRows =lessonDao.getTotalRows();
+	
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	
+	// 데이터 조회하기
+	List<Lesson> lessonList =lessonDao.getPersonalLesson(pagination.getBegin(), pagination.getEnd());
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -17,7 +32,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="그룹레슨"/>
+	<jsp:param name="menu" value="개인레슨"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -32,49 +47,61 @@
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
-					<col width="45%">
 					<col width="15%">
 					<col width="15%">
-					<col width="15%">
+					<col width="35%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th>xxxx</th>
-						<th>xxxx</th>
-						<th>xxxx</th>
-						<th>xxxx</th>
-						<th>xxxx</th>
+						<th>번호</th>
+						<th>강좌명</th>
+						<th>강사명</th>
+						<th>레슨시간</th>
+						<th>헬스장명</th>
 					</tr>
 				</thead>
 				<tbody>
-			
+<%
+	for(Lesson lesson: lessonList){	
+%>		
 					<tr>
-						<td>xxxx</td>
-						<td><a href="detail.jsp?no=">xxx</a></td>
-						<td>xxx</td>
-						<td>xxx</td>
-						<td>xxx</td>
+						<td><%=lesson.getNo() %></td>
+						<td><a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><%=lesson.getUser().getName() %></td>
+						<td><%=lesson.getTime() %></td>
+						<td><%=lesson.getGym().getName() %></td>
 					</tr>
+<%
+	}
+%>					
 				</tbody>
 			</table>
-			<div class="row mb-3">
-		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link disabled" href="course-list.jsp?page=1">이전</a></li>
-					<li class="page-item"><a class="page-link active" href="course-list.jsp?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=3">3</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=4">4</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=5">5</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">다음</a></li>
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : ""%>">
+						<a href="personalList.jsp?page=<%=pageNo - 1 %>" class="page-link">이전</a>
+					</li>
+<%
+	for(int num = pagination.getBeginPage(); num<=pagination.getEndPage(); num++){
+%>					
+					
+					<li class="page-item <%=pageNo == num ? "active" : ""%>">
+						<a href="personalList.jsp?page=<%=num %>"class="page-link"><%=num %></a>
+					</li>
+<%
+	}
+%>					
+				
+					
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+						<a href="personalList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+					</li>
 				</ul>
 			</nav>
-		</div>
-	</div>
 			
 			<div class="text-end">
-				<a href="form.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
+				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
 			</div>
 		</div>
 	</div>
