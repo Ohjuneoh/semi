@@ -1,3 +1,4 @@
+<%@page import="util.Pagination"%>
 <%@page import="dao.CommentDao"%>
 <%@page import="vo.Board"%>
 <%@page import="dao.BoardDao"%>
@@ -6,9 +7,20 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String)session.getAttribute("loginId");
+	String cat = "deal";
+
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	
 	BoardDao boardDao = BoardDao.getInstance();
-	String type = "deal";
-	List<Board> boards = boardDao.getBoardsByType(type);
+	int totalPage = boardDao.totalPageByCat(cat);
+	
+	Pagination pagination = new Pagination(pageNo, totalPage);
+	
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	
+	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
+	List<Board> notices = boardDao.getNoticesByCat(cat);
 	CommentDao commentDao = CommentDao.getInstance();
 %>
 <!doctype html>
@@ -37,7 +49,7 @@
   			<a class="nav-link" href="dealList.jsp">거래</a>
 		</nav>
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">거래 게시글 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -61,6 +73,19 @@
 				</thead>
 				<tbody>
 <%
+	for(Board notice : notices) {
+		int commentCnt = commentDao.getCommentCnt(notice.getNo());
+%>
+					<tr>
+						<td><%=notice.getNo() %></td>
+						<td><a href="detail.jsp?no="><%=notice.getTitle() %></a></td>
+						<td><%=notice.getUser().getId() %></td>
+						<td><%=commentCnt %></td>
+						<td><%=notice.getCreateDate() %></td>
+					</tr>
+<%
+	}
+
 	for(Board board : boards) {
 		int commentCnt = commentDao.getCommentCnt(board.getNo());
 %>
@@ -73,20 +98,28 @@
 					</tr>
 <%
 	}
-%>	
+%>
 				</tbody>
 			</table>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link disabled" href="course-list.jsp?page=1">이전</a></li>
-					<li class="page-item"><a class="page-link active" href="course-list.jsp?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=3">3</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=4">4</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=5">5</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">다음</a></li>
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+						<a class="page-link" href="<%=pageNo - 1 %>">이전</a>
+					</li>
+<%
+	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=num == pageNo ? "active" : "" %>">
+						<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
+					</li>
+<%
+	}
+%>					
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+						<a class="page-link" href="<%=pageNo + 1 %>">다음</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -96,6 +129,7 @@
 %>	
 		<div class="text-end">
 			<a href="form.jsp" class="btn btn-primary btn-sm">새 게시글 등록</a>
+			<input type="hidden" name="category" value="deal">
 		</div>
 <%
 	}

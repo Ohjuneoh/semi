@@ -47,7 +47,7 @@
 		
 			 				
    			<form class="border bg-light p-3" method="post" action="insert.jsp">
-   			<input type="hidden" name="type" value="회원">
+   			<input type="hidden" name="type" value="customer">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
    					<input type="text" class="form-control" name="id" />
