@@ -1,3 +1,4 @@
+<%@page import="dao.MembershipDao"%>
 <%@page import="vo.Membership"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
@@ -6,7 +7,7 @@
 
 		String cat = request.getParameter("cat");
 		String type = request.getParameter("type");
-		String name = request.getParameter("name");
+		String name = request.getParameter("title");
 		String description = request.getParameter("description");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int discountedRate1 = Integer.parseInt(request.getParameter("discountedRate"));
@@ -15,11 +16,10 @@
 		int numOfUseDay = Integer.parseInt(request.getParameter("numOfUseDay"));
 		int numOfUseWeek = Integer.parseInt(request.getParameter("numOfUseWeek"));
 		int numOfPause = Integer.parseInt(request.getParameter("numOfPause"));
-		int duration1 = Integer.parseInt(request.getParameter("duration1"));
+		String duration1 = request.getParameter("duration1");
 		String duration2 = request.getParameter("duration2");
-		//작동되는지 확인 
 		//이용권 기간 
-		String duration = Integer.toString(duration1) + duration2;
+		String duration = duration1 + duration2;
 		int membershipCnt= Integer.parseInt(request.getParameter("membershipCnt"));
 		
 	
@@ -37,9 +37,12 @@
 	membership.setDiscountedRate(discountedRate);
 	membership.setNumOfUseDay(numOfUseDay);
 	membership.setNumOfUseWeek(numOfUseWeek);
+	membership.setNumOfPause(numOfPause);
 	membership.setDuration(duration);
 	membership.setCount(membershipCnt);
 	
+	MembershipDao membershipDao = new MembershipDao();
+	membershipDao.insertMembership(membership);
 	
 	// 5. 재요청 url 응답
 	response.sendRedirect("membershipList.jsp");
