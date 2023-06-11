@@ -43,9 +43,9 @@ public class UserDao {
 			user.setEmail(rs.getString("user_email"));
 			user.setTel(rs.getString("user_tel"));
 			user.setType(rs.getString("user_type"));
-			user.setStatus(rs.getString("user_status"));
 			user.setCreateDate(rs.getDate("user_create_date"));
 			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
 			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
