@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
+<%
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -13,6 +18,25 @@
 <jsp:include page="nav.jsp">
 	<jsp:param name="menu" value="홈"/>
 </jsp:include>
+
+<%
+	if("professordeny".equals(err)){
+%>
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>[<%=job %>]은 강사만 사용가능한 서비스입니다.
+			</div>
+<%
+	}
+%>
+<%
+	if("managerdeny".equals(err)){
+%>
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>[<%=job %>]은 매니저만 사용가능한 서비스입니다.
+			</div>
+<%
+	}
+%>
 
 
 </body>
