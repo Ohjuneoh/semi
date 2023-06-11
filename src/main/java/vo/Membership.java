@@ -8,11 +8,11 @@ public class Membership {
 	private String name;
 	private String description;
 	private int price;
-	private int discountedRate;
+	private double discountedRate;
 	private int numOfUseDay;
 	private int numOfUseWeek;
 	private int numOfPause;
-	private int duration;
+	private double duration;
 	private int count;
 	private Gym gym;
 	
