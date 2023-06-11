@@ -20,7 +20,7 @@
 	
 	List<Board> boards = boardDao.getBoards(begin, end);
 	List<Board> notices = boardDao.getNotices();
-	CommentDao commentDao = CommentDao.getInstance();
+	CommentDao commentDao = CommentDao.getInstance(); 
 %>
 <!doctype html>
 <html lang="ko">
