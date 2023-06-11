@@ -1,7 +1,6 @@
 <%@page import="dao.PersonalLessonDao"%>
 <%@page import="vo.Gym"%>
 <%@page import="dao.UserDao"%>
-<%@page import="dao.TrainerDao"%>
 <%@page import="vo.Trainer"%>
 <%@page import="vo.User"%>
 <%@page import="vo.Lesson"%>
