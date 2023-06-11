@@ -17,12 +17,12 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="회원권"/>
+	<jsp:param name="menu" value="이용권"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">회원권 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">이용권 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -74,7 +74,7 @@
 	</div>
 			
 			<div class="text-end">
-				<a href="form.jsp" class="btn btn-primary btn-sm">회원권 등록</a>
+				<a href="form.jsp" class="btn btn-primary btn-sm">이용권 등록</a>
 			</div>
 		</div>
 	</div>
