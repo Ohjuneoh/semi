@@ -16,9 +16,9 @@ public class User {
 	private Gym gym;
 	
 	public User() {}
+	
 
 	public User(String id) {
-		super();
 		this.id = id;
 	}
 
