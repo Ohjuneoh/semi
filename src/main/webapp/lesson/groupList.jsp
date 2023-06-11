@@ -60,6 +60,7 @@
 						<th>강좌명</th>
 						<th>강사명</th>
 						<th>강좌시간</th>
+						<th>헬스장명</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -70,6 +71,7 @@
 						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
+						<td><%=lesson.getGym().getName() %></td>
 					</tr>
 <% } %>
 				</tbody>

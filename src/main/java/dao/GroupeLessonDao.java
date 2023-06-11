@@ -49,6 +49,7 @@ public class GroupeLessonDao {
 			user.setName(rs.getString("user_name"));
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
+			gym.setName(rs.getString("gym_name"));
 		
 			groupLesson.setUser(user);
 			groupLesson.setGym(gym);
@@ -75,6 +76,7 @@ public class GroupeLessonDao {
 			user.setName(rs.getString("user_name"));
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
+			gym.setName(rs.getString("gym_name"));
 		
 			groupLesson.setUser(user);
 			groupLesson.setGym(gym);
