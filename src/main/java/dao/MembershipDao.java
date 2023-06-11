@@ -18,8 +18,7 @@ public class MembershipDao {
 														   membership.getNumOfUseWeek(),
 														   membership.getNumOfPause(),
 														   membership.getDuration(),
-														   membership.getCount(),
-														   membership.getGym().getNo());
+														   membership.getCount());
 		
 	}
 	
