@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name= "menu" value="그룹수업"/>
+	<jsp:param name= "menu" value="그룹폼"/>
 </jsp:include>	
 <div class="container my-3">
 	<div class="row mb-3">

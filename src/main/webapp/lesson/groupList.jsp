@@ -9,7 +9,7 @@
 
 	// 오류상황 - html에서 구현 (등록버튼 표현)
 		// 로그인이 되지 않았을 경우
-		// 로그인 타입이 강사가 아닌경우 (?)
+		// 로그인 타입이 강사가 아닌경우 
 		
 	// 로직수행 (레슨 전체조회)
 	GroupeLessonDao groupLessonDao = GroupeLessonDao.getinstance();
@@ -34,7 +34,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="그룹레슨"/>
+	<jsp:param name="menu" value="그룹전체"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -89,11 +89,12 @@
 			</nav>
 		</div>
 	</div>
-<% if(loginId != null) { %>			
 			<div class="text-end">
+<% if(loginId != null && "강사".equals(loginType)) { %>			
 				<a href="groupform.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
-			</div>
 <% } %>
+
+			</div>
 
 		</div>
 	</div>

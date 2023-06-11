@@ -9,12 +9,15 @@ import vo.User;
 
 public class GroupeLessonDao {
 
+	
 	private GroupeLessonDao() {}
 	
 	public static GroupeLessonDao instance = new GroupeLessonDao();
 	public static GroupeLessonDao getinstance() {
 		return instance;
 	}
+	
+	
 	
 	public void insertGroupLesson(Lesson lesson) {
 		DaoHelper.update("groupLessonDao.insertGroupLesson", 
@@ -54,5 +57,29 @@ public class GroupeLessonDao {
 		});
 	}
 	
-	
+	public Lesson getGroupLessonByLessonNo(int lessonNo) {
+		return DaoHelper.selectOne("groupLessonDao.getGroupLessonByLessonNo", rs->{
+			Lesson groupLesson = new Lesson();
+			groupLesson.setNo(rs.getInt("lesson_no"));
+			groupLesson.setName(rs.getString("lesson_name"));
+			groupLesson.setType(rs.getString("lesson_type"));
+			groupLesson.setQuota(rs.getInt("lesson_quota"));
+			groupLesson.setReqCnt(rs.getInt("lesson_req_cnt"));
+			groupLesson.setDescription(rs.getString("lesson_description"));
+			groupLesson.setCreatDate(rs.getDate("lesson_create_date"));
+			groupLesson.setTime(rs.getString("lesson_time"));
+			groupLesson.setStatus(rs.getString("lesson_status"));
+
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setName(rs.getString("user_name"));
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+		
+			groupLesson.setUser(user);
+			groupLesson.setGym(gym);
+			
+			return groupLesson;
+		}, lessonNo);
+	}
 }
