@@ -13,7 +13,6 @@ public class Gym {
 	
 	
 	public Gym(int no) {
-		super();
 		this.no = no;
 	}
 

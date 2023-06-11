@@ -1,4 +1,3 @@
-<%@page import="dao.TrainerDao"%>
 <%@page import="vo.Trainer"%>
 <%@page import="dao.UserDao"%>
 <%@page import="vo.Gym"%>
@@ -29,7 +28,6 @@
 	
 	
 	UserDao userDao = UserDao.getinstance();
-	TrainerDao trainerDao = TrainerDao.getInstance();
 	//똑같은 아이디가 있는지 비교
 	if(userDao.getUserById(id) != null){
 		response.sendRedirect("form.jsp?err=id");
@@ -44,7 +42,7 @@
 	//유저 테이블 insert
 	userDao.insertUser(user);
 	//트레이너 테이블 insert
-	trainerDao.insertTrainer(trainer);
+	userDao.insertTrainer(trainer);
 	
 	
 	

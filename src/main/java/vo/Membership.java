@@ -8,7 +8,7 @@ public class Membership {
 	private String name;
 	private String description;
 	private int price;
-	private int discountedRate;
+	private double discountedRate;
 	private int numOfUseDay;
 	private int numOfUseWeek;
 	private int numOfPause;
@@ -82,11 +82,11 @@ public class Membership {
 		this.price = price;
 	}
 
-	public int getDiscountedRate() {
+	public double getDiscountedRate() {
 		return discountedRate;
 	}
 
-	public void setDiscountedRate(int discountedRate) {
+	public void setDiscountedRate(double discountedRate) {
 		this.discountedRate = discountedRate;
 	}
 
@@ -114,6 +114,7 @@ public class Membership {
 		this.numOfPause = numOfPause;
 	}
 
+	
 	public Gym getGym() {
 		return gym;
 	}

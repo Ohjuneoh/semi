@@ -2,6 +2,8 @@ package dao;
 
 import util.DaoHelper;
 import vo.Gym;
+import vo.Membership;
+import vo.Trainer;
 import vo.User;
 
 public class UserDao {
@@ -41,9 +43,9 @@ public class UserDao {
 			user.setEmail(rs.getString("user_email"));
 			user.setTel(rs.getString("user_tel"));
 			user.setType(rs.getString("user_type"));
-			user.setStatus(rs.getString("user_status"));
 			user.setCreateDate(rs.getDate("user_create_date"));
 			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
 			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
@@ -72,5 +74,26 @@ public class UserDao {
 			user.setGym(gym);
 			return user;
 		}, email);
+	}
+	
+	public void insertMembership(Membership membership){
+		DaoHelper.update("membershipDao.insertMembership", membership.getCat(), 
+														   membership.getType(),
+														   membership.getName(),
+														   membership.getDescription(),
+														   membership.getPrice(),
+														   membership.getDiscountedRate(), 
+														   membership.getNumOfUseDay(),
+														   membership.getNumOfUseWeek(),
+														   membership.getNumOfPause(),
+														   membership.getDuration(),
+														   membership.getCount(),
+														   membership.getGym().getNo());
+		
+	}
+	public void insertTrainer(Trainer trainer) {
+		DaoHelper.update("trainerDao.insertTrainer", trainer.getUser().getId(),
+															trainer.getPosition());
+			
 	}
 }
