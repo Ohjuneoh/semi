@@ -91,15 +91,11 @@
 		}else {
 	%>
 	        	</li>
-	         	<li class="nav-item"><a class="nav-link " href="/semi/logout.jsp">로그아웃</a></li>
+	         	<li class="nav-item"><a class="btn btn-link text-white "href="/semi/logout.jsp"><i class="bi bi-box-arrow-right"></i></a></li>
 	<%
 	}
 	%>
 	      	</ul>
-	      	
-	      	
-	      	
-	      	
 	   	</div>
 	</nav>
 	
