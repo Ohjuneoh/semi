@@ -14,6 +14,7 @@ public class UserDao {
 	public static UserDao getinstance() {
 		return instance;
 	}
+	
 	public void insertUser(User user) {
 		DaoHelper.update("userDao.insertUser", user.getId(),
 												user.getPassword(),
