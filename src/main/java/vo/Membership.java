@@ -26,7 +26,7 @@ public class Membership {
 		this.no = no;
 	}
 
-	public int getDuration() {
+	public double getDuration() {
 		return duration;
 	}
 
@@ -82,7 +82,7 @@ public class Membership {
 		this.price = price;
 	}
 
-	public int getDiscountedRate() {
+	public double getDiscountedRate() {
 		return discountedRate;
 	}
 
