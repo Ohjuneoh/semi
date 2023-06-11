@@ -10,12 +10,10 @@ public class Board {
 	private String title;
 	private String content;
 	private int viewCnt;
-	private int commentCnt;
 	private String deleted;
 	private User user;
 	private Date updateDate;
 	private Date createDate;
-	private int reportCnt;
 	private int like;
 	private int dislike;
 	private String type;
@@ -82,13 +80,6 @@ public class Board {
 		this.viewCnt = viewCnt;
 	}
 
-	public int getCommentCnt() {
-		return commentCnt;
-	}
-
-	public void setCommentCnt(int commentCnt) {
-		this.commentCnt = commentCnt;
-	}
 
 	public String getDeleted() {
 		return deleted;
@@ -130,13 +121,7 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-	public int getReportCnt() {
-		return reportCnt;
-	}
 
-	public void setReportCnt(int reportCnt) {
-		this.reportCnt = reportCnt;
-	}
 
 
   
