@@ -59,7 +59,7 @@
 						<th>강좌번호</th>
 						<th>강좌명</th>
 						<th>강사명</th>
-						<th>레슨시간</th>
+						<th>강좌시간</th>
 					</tr>
 				</thead>
 				<tbody>

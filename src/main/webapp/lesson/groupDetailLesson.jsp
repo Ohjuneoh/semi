@@ -78,7 +78,10 @@
 						<a href="groupRegisterLesson.jsp?id=<%=loginId %>" class="btn btn-warning btn-sm">신청</a>
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
+						
+<% if(loginId != null && "강사".equals(loginType)) { %>
 						<a href="delete.jsp?id=" class="btn btn-danger btn-sm">삭제</a>
+<% } %>
 					</div>
 		</div>
 	</div>
