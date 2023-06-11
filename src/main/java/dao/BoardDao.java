@@ -29,6 +29,21 @@ public class BoardDao {
 				}, begin, end);
 	}
 	
+	public List<Board> getReportBoards(int begin, int end) {
+		return DaoHelper.selectList("boardDao.getReportBoards", 
+				rs -> {
+					Board board = new Board();
+					board.setNo(rs.getInt("board_no"));
+					board.setTitle(rs.getString("board_title"));
+					User user = new User();
+					user.setId(rs.getString("user_id"));
+					board.setUser(user);
+					board.setCreateDate(rs.getDate("board_create_date"));
+					
+					return board;
+				}, begin, end);
+	}
+	
 	public List<Board> getNotices() {
 		return DaoHelper.selectList("boardDao.getNotices", 
 				rs -> {
