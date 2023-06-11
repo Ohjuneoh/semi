@@ -4,10 +4,11 @@
 pageEncoding="UTF-8"%>
 
 <%
-
+	// 로그인타입, 로그인 아이디 조회
 	String loginType = (String)session.getAttribute("loginType");
 	String loginId= (String)session.getAttribute("loginId");
 	
+	// 로직 수행
 	UserDao userDao = UserDao.getinstance();
 	User user = userDao.getUserById(loginId);
 	

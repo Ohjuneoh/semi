@@ -1,5 +1,22 @@
+<%@page import="dao.GroupeLessonDao"%>
+<%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
+<%
 
+	// 로그인정보 조회
+	String loginId = (String)session.getAttribute("loginId");
+	String loginType = (String)session.getAttribute("loginType");
+
+	// 오류상황 - html에서 구현 (등록버튼 표현)
+		// 로그인이 되지 않았을 경우
+		// 로그인 타입이 강사가 아닌경우 (?)
+		
+	// 로직수행 (레슨 전체조회)
+	GroupeLessonDao groupLessonDao = GroupeLessonDao.getinstance();
+	List<Lesson> lessonList = groupLessonDao.getGroupLessons();
+	
+
+%>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!doctype html>
@@ -46,14 +63,15 @@
 					</tr>
 				</thead>
 				<tbody>
-			
+				
+<% for (Lesson lesson : lessonList) { %>
 					<tr>
-						<td>xxxx</td>
-						<td><a href="detail.jsp?no=">xxx</a></td>
-						<td>xxx</td>
-						<td>xxx</td>
-						<td>xxx</td>
+						<td><%=lesson.getNo() %></td>
+						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><%=lesson.getUser().getName() %></td>
+						<td><%=lesson.getTime() %></td>
 					</tr>
+<% } %>
 				</tbody>
 			</table>
 			<div class="row mb-3">
@@ -71,10 +89,12 @@
 			</nav>
 		</div>
 	</div>
-			
+<% if(loginId != null) { %>			
 			<div class="text-end">
 				<a href="groupform.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
 			</div>
+<% } %>
+
 		</div>
 	</div>
 </div>
