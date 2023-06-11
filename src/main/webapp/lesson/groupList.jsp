@@ -1,3 +1,4 @@
+<%@page import="dto.Pagination"%>
 <%@page import="dao.GroupeLessonDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
@@ -11,9 +12,17 @@
 		// 로그인이 되지 않았을 경우
 		// 로그인 타입이 강사가 아닌경우 
 		
-	// 로직수행 (레슨 전체조회)
+	// 페이징처리 
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
+	
 	GroupeLessonDao groupLessonDao = GroupeLessonDao.getinstance();
-	List<Lesson> lessonList = groupLessonDao.getGroupLessons();
+	int totalRows = groupLessonDao.getTotalRows();
+	
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	
+	// 로직수행 (레슨 전체조회)
+	List<Lesson> lessonList = groupLessonDao.getGroupLessons(pagination.getBegin(), pagination.getEnd());
+	
 	
 
 %>
@@ -80,13 +89,19 @@
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link disabled" href="course-list.jsp?page=1">이전</a></li>
-					<li class="page-item"><a class="page-link active" href="course-list.jsp?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=3">3</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=4">4</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=5">5</a></li>
-					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">다음</a></li>
+				
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+					<li class="page-item"><a href="course-list.jsp?page=<%=pageNo -1 %>">이전</a></li>
+<%
+	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=pageNo == num ? "active" : "" %>">
+					<li class="page-item"><a href="course-list.jsp?page=<%=num%>"><%=num %></a></li>
+<% 
+	}
+%>
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+					<li class="page-item"><a href="course-list.jsp?page=<%=pageNo + 1 %>">다음</a></li>
 				</ul>
 			</nav>
 		</div>

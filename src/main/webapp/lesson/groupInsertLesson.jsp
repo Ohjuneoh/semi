@@ -27,7 +27,7 @@
 	String time = request.getParameter("time");
 	String description = request.getParameter("description");
 	
-	String lessonType = "그룹";
+	String lessonType = "group";
 	
 	// 객체에 담기
 	Lesson groupLesson = new Lesson();

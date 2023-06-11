@@ -31,7 +31,7 @@ public class GroupeLessonDao {
 	}
 	
 	
-	public List<Lesson> getGroupLessons() {
+	public List<Lesson> getGroupLessons(int begin, int end) {
 		return DaoHelper.selectList("groupLessonDao.getGroupLessons", rs->{
 			Lesson groupLesson = new Lesson();
 			groupLesson.setNo(rs.getInt("lesson_no"));
@@ -47,6 +47,7 @@ public class GroupeLessonDao {
 			User user = new User();
 			user.setId(rs.getString("user_id"));
 			user.setName(rs.getString("user_name"));
+			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
 			gym.setName(rs.getString("gym_name"));
@@ -55,6 +56,12 @@ public class GroupeLessonDao {
 			groupLesson.setGym(gym);
 			
 			return groupLesson;
+		}, begin, end);
+	}
+	
+	public int getTotalRows () {
+		return DaoHelper.selectOne("groupLessonDao.getTotalRows", rs->{
+			return rs.getInt("cnt");
 		});
 	}
 	

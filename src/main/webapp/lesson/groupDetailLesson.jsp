@@ -61,10 +61,10 @@
 					</tr>
 					<tr>
 						<th class="table-dark" style="width: 15%;">강좌상태</th>
-<% if(groupLesson.getQuota() > 0) { %>
+<% if(groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
 						<td class="btn btn-primary btn-sm" style="width: 25%">모집중</td>
-<% } else if (groupLesson.getQuota() <= 0) { %>
-						<td class="btn btn-primary btn-sm" style="width: 25%">모집완료</td>
+<% } else if (groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
+						<td class="btn btn-danger btn-sm" style="width: 25%">모집완료</td>
 <% } %>
 						<th class="table-dark" style="width: 15%;">헬스장명</th>
 						<td style="width: 35%;"><%=groupLesson.getGym().getName() %></td>
