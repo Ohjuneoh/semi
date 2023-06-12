@@ -26,23 +26,6 @@ public class Membership {
 		this.no = no;
 	}
 
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 	public String getCat() {
 		return cat;
 	}
@@ -115,7 +98,22 @@ public class Membership {
 		this.numOfPause = numOfPause;
 	}
 
-	
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public Gym getGym() {
 		return gym;
 	}
@@ -123,6 +121,9 @@ public class Membership {
 	public void setGym(Gym gym) {
 		this.gym = gym;
 	}
-	
+
+	public int getDiscountedPrice() {
+		return (int)((1 - getDiscountedRate())*getPrice());
+	}
 	
 }

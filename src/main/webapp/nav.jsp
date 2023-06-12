@@ -34,7 +34,7 @@
 <%
 	if("관리자".equals(loginType)){
 %>
-	            		<li><a class="dropdown-item" href="">이용권 등록</a></li>
+	            		<li><a class="dropdown-item" href="/semi/membership/membership-form.jsp">이용권 등록</a></li>
 <%
 	}
 %>	            		
