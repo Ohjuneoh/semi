@@ -62,9 +62,13 @@
 					<tr>
 						<th class="table-dark" style="width: 15%;">강좌상태</th>
 <% if(groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
-						<td class="btn btn-primary btn-sm" style="width: 25%">모집중</td>
+						<td  style="width: 25%">
+							<span class="badge text-bg-success p-2">모집중</span>
+						</td>
 <% } else if (groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
-						<td class="btn btn-danger btn-sm" style="width: 25%">모집완료</td>
+						<td  style="width: 25%">
+							<span class="badge text-bg-secondary p-2">모집완료</span>
+						</td>
 <% } %>
 						<th class="table-dark" style="width: 15%;">헬스장명</th>
 						<td style="width: 35%;"><%=groupLesson.getGym().getName() %></td>
