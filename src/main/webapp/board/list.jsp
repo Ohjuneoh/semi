@@ -20,7 +20,8 @@
 	
 	List<Board> boards = boardDao.getBoards(begin, end);
 	List<Board> notices = boardDao.getNotices();
-	CommentDao commentDao = CommentDao.getInstance(); 
+	CommentDao commentDao = CommentDao.getInstance();
+	String err = request.getParameter("err");
 %>
 <!doctype html>
 <html lang="ko">
@@ -50,6 +51,15 @@
 		<div class="col-12">
 			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
 		</div>
+<%
+	if("deleteBoard".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>이미 삭제된 게시글 입니다.</strong>
+		</div>
+<%
+	}
+%>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">		

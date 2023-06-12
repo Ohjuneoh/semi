@@ -40,4 +40,21 @@ public class CommentDao {
 				comment.getContent(),
 				comment.getUser().getId());
 	}
+	
+	public Comment getCommentByNo(int comNo) {
+		return DaoHelper.selectOne("commentDao.getCommentByNo", 
+				rs -> {
+					Comment comment = new Comment();
+					comment.setNo(rs.getInt("com_no"));
+					comment.setContent(rs.getString("com_content"));
+					comment.setBoard(new Board(rs.getInt("board_no")));
+					comment.setUser(new User(rs.getString("user_id")));
+					
+					return comment;
+				}, comNo);
+	}
+	
+	public void deleteCommentByNo(int comNo) {
+		DaoHelper.update("commentDao.deleteCommentByNo", comNo);
+	}
 }

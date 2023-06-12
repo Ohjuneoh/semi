@@ -9,6 +9,8 @@
 	String loginId = (String) session.getAttribute("loginId");
 	String loginType = (String) session.getAttribute("loginType");
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
 	
 	BoardDao boardDao = BoardDao.getInstance();
 	Board board = boardDao.getBoardByNo(boardNo);
@@ -24,6 +26,11 @@
 	if(!loginId.equals(board.getUser().getId())) {
 		board.setViewCnt(board.getViewCnt() + 1);
 		boardDao.updateBoard(board);
+	}
+	
+	if(!"N".equals(board.getDeleted())) {
+		response.sendRedirect("list.jsp?err=deleteBoard");
+		return;
 	}
 %>
 <!doctype html>
@@ -52,6 +59,15 @@
 			</nav>
 			<h1 class="border bg-light fs-4 p-2">게시글 상세 정보</h1>
 		</div>
+<%
+	if("delete".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>잘못된 접근</strong> [<%=job %>]는 작성자만 사용가능한 서비스입니다.
+	</div>
+<%
+	}
+%>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
@@ -95,8 +111,8 @@
 <%
 	if(loginId.equals(board.getUser().getId())) {
 %>
-					<a href="delete.jsp?boardNo=" class="btn btn-danger btn-sm">삭제</a>
-					<a href="modifyForm.jsp?boardNo=" class="btn btn-warning btn-sm">수정</a>
+					<a href="delete.jsp?boardNo=<%=boardNo %>" class="btn btn-danger btn-sm">삭제</a>
+					<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
 <%
 	} else {
 %>
@@ -138,7 +154,7 @@
 <%
 		if(loginId.equals(comment.getUser().getId())){
 %>
-					<a href="deleteComment.jsp?no=<%=boardNo %>&cno=<%=comment.getNo() %>" 
+					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
 <%
 		}

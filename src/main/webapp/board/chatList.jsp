@@ -91,7 +91,7 @@
 %>
 					<tr>
 						<td><%=board.getNo() %></td>
-						<td><a href="detail.jsp?no="><%=board.getTitle() %></a></td>
+						<td><a href="detail.jsp?boardNo=<%=board.getNo()%>"><%=board.getTitle() %></a></td>
 						<td><%=board.getUser().getId() %></td>
 						<td><%=commentCnt %></td>
 						<td><%=board.getCreateDate() %></td>
