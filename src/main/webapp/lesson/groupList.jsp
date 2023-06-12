@@ -89,19 +89,21 @@
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-				
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-					<li class="page-item"><a href="course-list.jsp?page=<%=pageNo -1 %>">이전</a></li>
+						<a href="groupList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+					</li>
 <%
 	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 					<li class="page-item <%=pageNo == num ? "active" : "" %>">
-					<li class="page-item"><a href="course-list.jsp?page=<%=num%>"><%=num %></a></li>
+						<a href="groupList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+					</li>
 <% 
 	}
 %>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-					<li class="page-item"><a href="course-list.jsp?page=<%=pageNo + 1 %>">다음</a></li>
+						<a href="groupList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
