@@ -32,7 +32,7 @@
 	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 조회</a></li>
 	            		<li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>
 <%
-	if("관리자".equals(loginType)){
+	if("manager".equals(loginType)){
 %>
 	            		<li><a class="dropdown-item" href="">이용권 등록</a></li>
 <%
@@ -50,7 +50,7 @@
 	          		</ul>
 	        	</li>
 	<%
-		if("관리자".equals(loginType)){
+		if("manager".equals(loginType)){
 	%>
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
