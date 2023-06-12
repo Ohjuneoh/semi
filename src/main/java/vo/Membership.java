@@ -12,7 +12,7 @@ public class Membership {
 	private int numOfUseDay;
 	private int numOfUseWeek;
 	private int numOfPause;
-	private double duration;
+	private String duration;
 	private int count;
 	private Gym gym;
 	
@@ -27,11 +27,11 @@ public class Membership {
 	}
 
 
-	public double getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(double duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
