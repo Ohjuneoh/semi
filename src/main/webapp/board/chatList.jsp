@@ -1,4 +1,4 @@
-<%@page import="util.Pagination"%>
+<%@page import="dto.Pagination"%>
 <%@page import="dao.CommentDao"%>
 <%@page import="vo.Board"%>
 <%@page import="dao.BoardDao"%>
