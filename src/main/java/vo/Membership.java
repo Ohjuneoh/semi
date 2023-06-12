@@ -26,6 +26,7 @@ public class Membership {
 		this.no = no;
 	}
 
+
 	public String getDuration() {
 		return duration;
 	}
