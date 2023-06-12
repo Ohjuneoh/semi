@@ -159,6 +159,15 @@
 <%
 		}
 	}
+
+	if(commentCnt > 10) {
+%>
+		<div class="text-center">
+			<button class="btn btn-outline-secondary h-100">더보기</button>
+		</div>
+<%
+	}
+%>
 %>
 				</div>
 			</div>
