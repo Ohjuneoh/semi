@@ -8,6 +8,9 @@ pageEncoding="UTF-8"%>
 	String loginType = (String)session.getAttribute("loginType");
 	String loginId= (String)session.getAttribute("loginId");
 	
+	// 에러 뽑아내기 
+	String err = request.getParameter("err");
+	
 	// 로직 수행
 	UserDao userDao = UserDao.getinstance();
 	User user = userDao.getUserById(loginId);
@@ -35,7 +38,17 @@ pageEncoding="UTF-8"%>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>신규 그룹강좌 정보를 입력할 수 있습니다.</p>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 그룹수업만 등록할 수 있습니다.
+			</div>
+<%
+	}
+%>
+			<p>신규 그룹레슨 정보를 입력할 수 있습니다.</p>
 			
 			<form class="border bg-light p-3" method="post" action="groupInsertLesson.jsp">
 				<div class="form-group mb-2">
@@ -59,16 +72,16 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 							<div class="col-md-12">
 								<select class="form-select" name="time">
-								  <option value="월 10:00 ~ 12:00">월 10:00 ~ 12:00</option>
-								  <option value="월 15:00 ~ 17:00">월 15:00 ~ 17:00</option>
-								  <option value="화 10:00 ~ 12:00">화 10:00 ~ 12:00</option>
-								  <option value="화 15:00 ~ 17:00">화 15:00 ~ 17:00</option>
-								  <option value="수 10:00 ~ 12:00">수 10:00 ~ 12:00</option>
-								  <option value="수 15:00 ~ 17:00">수 15:00 ~ 17:00</option>
-								  <option value="목 10:00 ~ 12:00">목 10:00 ~ 12:00</option>
-								  <option value="목 15:00 ~ 17:00">목 15:00 ~ 17:00</option>
-								  <option value="금 10:00 ~ 12:00">금 10:00 ~ 12:00</option>
-								  <option value="금 15:00 ~ 17:00">금 15:00 ~ 17:00</option>
+								  <option value="월요일 10:00 ~ 12:00">월요일 10:00 ~ 12:00</option>
+								  <option value="월요일 15:00 ~ 17:00">월요일 15:00 ~ 17:00</option>
+								  <option value="화요일 10:00 ~ 12:00">화요일 10:00 ~ 12:00</option>
+								  <option value="화요일 15:00 ~ 17:00">화요일 15:00 ~ 17:00</option>
+								  <option value="수요일 10:00 ~ 12:00">수요일 10:00 ~ 12:00</option>
+								  <option value="수요일 15:00 ~ 17:00">수요일 15:00 ~ 17:00</option>
+								  <option value="목요일 10:00 ~ 12:00">목요일 10:00 ~ 12:00</option>
+								  <option value="목요일 15:00 ~ 17:00">목요일 15:00 ~ 17:00</option>
+								  <option value="금요일 10:00 ~ 12:00">금요일 10:00 ~ 12:00</option>
+								  <option value="금요일 15:00 ~ 17:00">금요일 15:00 ~ 17:00</option>
 								</select>
 							</div>
 						</div>
