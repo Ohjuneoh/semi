@@ -158,14 +158,12 @@
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
 <%
 		}
+	}
 %>
 				</div>
 			</div>
 		</div>
 	</div>
-<%
-	}
-%>
 </div>
 </body>
 </html>
