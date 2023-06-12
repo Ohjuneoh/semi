@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
 			
 			<form class="border bg-light p-3" method="post" action="personalInsertLesson.jsp">
 				<div class="form-group mb-2">
-					<label class="form-label">PT명</label>
+					<label class="form-label">레슨명</label>
 					<input type="text" class="form-control" name="lessonName"/>
 				</div>
 				<div class="form-group mb-2">
@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
 					<input type="text" class="form-control" name="quota"/>
 				</div>
 				<div class="col-md-12">
-						<label class="form-label">PT 시간 </label>	
+						<label class="form-label">레슨 시간 </label>	
 					</div>
 					<div class="col-md-12">
 						<select class="form-select" name="lessonTime">
@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 	   					</select>
 					</div>
 				<div class="form-group mb-2">
-					<label class="form-label">PT설명</label>
+					<label class="form-label">레슨 설명</label>
 					<textarea class="form-control" rows="5" name="description"></textarea>
 				</div>
 				<div class="text-end">
