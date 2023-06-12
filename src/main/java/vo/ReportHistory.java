@@ -7,7 +7,6 @@ public class ReportHistory {
 	private int no;
 	private Date reportDate;
 	private String content;
-	private String status;
 	private User user;
 	private User reportUser;
 	private Board board;
@@ -36,14 +35,6 @@ public class ReportHistory {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public User getUser() {

@@ -28,6 +28,7 @@ public class MembershipDao {
 		
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 모든 이용권 조회하기
 	 * @return 이용권 리스트를 반환한다. 
@@ -82,3 +83,4 @@ public class MembershipDao {
 	
 	
 }
+

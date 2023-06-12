@@ -17,8 +17,7 @@ public class TrainerDao {
 			
 	}
 	
-
-
+	
 	
 
 }

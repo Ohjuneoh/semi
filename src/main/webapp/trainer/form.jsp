@@ -45,7 +45,7 @@
 }
 %>
    			<form class="border bg-light p-3" method="post" action="insert.jsp">
-   				<input type="hidden" name="type" value="강사">
+   				<input type="hidden" name="type" value="trainer">
    				<div class="form-group mb-2 w-75">
    					<div class="form-check form-check-inline">
   						<input class="form-check-input" type="radio" name="position"  value="직원" checked="checked">

@@ -71,7 +71,6 @@ public class Board {
 		this.viewCnt = viewCnt;
 	}
 
-
 	public String getDeleted() {
 		return deleted;
 	}
@@ -79,41 +78,36 @@ public class Board {
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
-
+	
 	public Date getUpdateDate() {
 		return updateDate;
 	}
-
+	
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-
+	
 	public Date getCreateDate() {
 		return createDate;
 	}
-
+	
 	public int getLike() {
 		return like;
 	}
-
+	
 	public void setLike(int like) {
 		this.like = like;
 	}
-
+	
 	public int getDislike() {
 		return dislike;
 	}
-
+	
 	public void setDislike(int dislike) {
 		this.dislike = dislike;
 	}
-
+	
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-
-
-
-  
 }
