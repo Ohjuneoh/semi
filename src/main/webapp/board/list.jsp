@@ -88,7 +88,10 @@
 					<tr>
 						<td><%=notice.getNo() %></td>
 						<td><a href="detail.jsp?boardNo=<%=notice.getNo() %>"><%=notice.getTitle() %></a></td>
-						<td><%=notice.getUser().getId() %></td>
+						<td>
+							<%=notice.getUser().getId() %>
+							<span class="badge rounded-pill text-bg-secondary">관리자</span>
+						</td>
 						<td><%=commentCnt %></td>
 						<td><%=notice.getCreateDate() %></td>
 					</tr>

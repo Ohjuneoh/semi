@@ -79,7 +79,10 @@
 					<tr>
 						<td><%=notice.getNo() %></td>
 						<td><a href="detail.jsp?no="><%=notice.getTitle() %></a></td>
-						<td><%=notice.getUser().getId() %></td>
+						<td>
+							<%=notice.getUser().getId() %>
+							<span class="badge rounded-pill text-bg-secondary">관리자</span>
+						</td>
 						<td><%=commentCnt %></td>
 						<td><%=notice.getCreateDate() %></td>
 					</tr>
@@ -106,7 +109,7 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a class="page-link" href="<%=pageNo - 1 %>">이전</a>
+						<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
 					</li>
 <%
 	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -118,7 +121,7 @@
 	}
 %>					
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a class="page-link" href="<%=pageNo + 1 %>">다음</a>
+						<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
 					</li>
 				</ul>
 			</nav>

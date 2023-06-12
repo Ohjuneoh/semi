@@ -149,7 +149,15 @@
    		<div class="col-12">
    			<div class="border p-2 mb-2">
 	   			<div class="d-flex justify-content-between mb-1">
-	   				<strong><%=comment.getUser().getId() %></strong>
+	   				<strong><%=comment.getUser().getId() %>
+<%		
+		if(board.getUser().getId().equals(comment.getUser().getId())) {
+%>
+						<span class="badge bg-success" >작성자</span>
+<%
+		}
+%>
+	   				</strong>
 				</div>
 				<div>
 					<%=comment.getContent() %>
