@@ -33,6 +33,18 @@ public class CommentDao {
 			return comment;
 		}, boardNo);
 	}
+
+	public List<Comment> getCommentss(int boardNo, int begin, int end) {
+		return DaoHelper.selectList("commentDao.getCommentss", rs -> {
+			Comment comment = new Comment();
+			comment.setNo(rs.getInt("com_no"));
+			comment.setBoard(new Board(rs.getInt("board_no")));
+			comment.setContent(rs.getString("com_content"));
+			comment.setUser(new User(rs.getString("user_id")));
+			
+			return comment;
+		}, boardNo, begin, end);
+	}
 	
 	public void insertComment(Comment comment) {
 		DaoHelper.update("commentDao.insertComment", 

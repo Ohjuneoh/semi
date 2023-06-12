@@ -1,3 +1,5 @@
+<%@page import="dto.Pagination"%>
+<%@page import="util.StringUtils"%>
 <%@page import="vo.Comment"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.CommentDao"%>
@@ -156,23 +158,14 @@
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
-<%
-		}
-	}
-
-	if(commentCnt > 10) {
-%>
-		<div class="text-center">
-			<button class="btn btn-outline-secondary h-100">더보기</button>
-		</div>
-<%
-	}
-%>
-%>
 				</div>
 			</div>
 		</div>
 	</div>
+<%
+		}
+	}
+%>
 </div>
 </body>
 </html>
