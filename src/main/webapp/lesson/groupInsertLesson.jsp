@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="vo.Gym"%>
 <%@page import="dao.UserDao"%>
 <%@page import="dao.TrainerDao"%>
@@ -14,12 +15,17 @@
 	String loginType = (String)session.getAttribute("loginType");
 	int gymNo = Integer.parseInt((String) session.getAttribute("loginGymNo"));
 	
-	// 아이디유형 다를 때 오류메세지 출력
-/*	if("강사".equals("loginType")) {
-		response.sendRedirect("../loginform.jsp?err=type&job=" + URLEncoder.encode("신규 그룹강좌 등록", "utf-8"));
+	
+	// 오류사항: 로그인 안된 상태이거나, 트레이너 타입이 아닐때 등록불가능
+	if(loginId == null) {
+		response.sendRedirect("../home.jsp?err=req&job=" + URLEncoder.encode("그룹강좌 등록", "utf-8"));
 		return;
 	}
-*/
+	if(!"trainer".equals(loginType)) {
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("그룹강좌 등록", "utf-8"));
+		return;
+	}
+	
 
 	// 트레이너가 form에서입력한 값 조회
 	String lessonName = request.getParameter("lessonName");
