@@ -12,7 +12,7 @@
 		int price = Integer.parseInt(request.getParameter("price"));
 		int discountedRate1 = Integer.parseInt(request.getParameter("discountedRate"));
 		//작동되는지 확인 
-		double discountedRate = discountedRate1/100;
+		double discountedRate = (double) discountedRate1/100;
 		int numOfUseDay = Integer.parseInt(request.getParameter("numOfUseDay"));
 		int numOfUseWeek = Integer.parseInt(request.getParameter("numOfUseWeek"));
 		int numOfPause = Integer.parseInt(request.getParameter("numOfPause"));

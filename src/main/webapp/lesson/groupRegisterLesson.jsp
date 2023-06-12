@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@page import="java.net.URLEncoder"%>
 <%@page import="jakarta.websocket.SendResult"%>
 <%@page import="vo.User"%>
@@ -61,4 +62,3 @@
 	
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
-%>
