@@ -158,12 +158,16 @@
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
+					<a href="../modifyForm.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
+	   					class="btn btn-link text-decoration-none float-end"><i class="bi bi-brush-fill"></i></a>
+<%
+		}
+%>
 				</div>
 			</div>
 		</div>
 	</div>
 <%
-		}
 	}
 %>
 </div>

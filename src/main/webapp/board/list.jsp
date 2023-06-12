@@ -115,7 +115,7 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a class="page-link" href="<%=pageNo - 1 %>">이전</a>
+						<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
 					</li>
 <%
 	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -127,7 +127,7 @@
 	}
 %>					
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a class="page-link" href="<%=pageNo + 1 %>">다음</a>
+						<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
 					</li>
 				</ul>
 			</nav>
