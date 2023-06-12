@@ -132,4 +132,18 @@ public class BoardDao {
 					return board;
 				}, boardNo);
 	}
+
+	public void updateBoard(Board board) {
+		DaoHelper.update("boardDao.updateBoard", 
+				board.getCategory(),
+				board.getTitle(),
+				board.getContent(),
+				board.getViewCnt(),
+				board.getDeleted(),
+				board.getUpdateDate(),
+				board.getLike(),
+				board.getDislike(),
+				board.getNo());
+	}
+	
 }

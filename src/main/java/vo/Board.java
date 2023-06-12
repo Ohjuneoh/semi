@@ -19,6 +19,10 @@ public class Board {
 	
 	public Board() {}
 	
+	public Board(int no) {
+		this.no = no;
+	}
+	
 	public User getUser() {
 		return user;
 	}
