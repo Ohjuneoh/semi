@@ -1,4 +1,3 @@
-<%@page import="dao.TrainerDao"%>
 <%@page import="vo.Trainer"%>
 <%@page import="dao.UserDao"%>
 <%@page import="vo.Gym"%>
