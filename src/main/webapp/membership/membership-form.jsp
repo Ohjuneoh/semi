@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	String loginId = (String) session.getAttribute("loginId");	
+
+%>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -98,7 +103,7 @@
 	   						<option value="1">1</option>
 	   						<option value="2">2</option>
 	   						<option value="3">3</option>
-	   						<option value="무제한">무제한</option>
+	   						<option value="-1">무제한</option>
 	   					</select>
 					</div>
 					<div class="col-md-6">
@@ -109,7 +114,7 @@
 	   						<option value="3">3</option>
 	   						<option value="4">4</option>
 	   						<option value="5">5</option>
-	   						<option value="무제한">무제한</option>
+	   						<option value="-1">무제한</option>
 	   					</select>
 					</div>
 					<div class="col-md-6">
@@ -123,7 +128,7 @@
 	   						<option value="20">20</option>
 	   						<option value="25">25</option>
 	   						<option value="30">30</option>
-	   						<option value="무제한">무제한</option>
+	   						<option value="-1">무제한</option>
 	   					</select>
 					</div>
 					<div class="col-md-6">
