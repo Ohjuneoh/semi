@@ -81,7 +81,7 @@
 			</table>
 					<div class="text-end">
 <% if(loginId != null && "회원".equals(loginType)) { %>
-						<a href="groupRegisterLesson.jsp?id=<%=loginId %>" class="btn btn-warning btn-sm">신청</a>
+						<a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
