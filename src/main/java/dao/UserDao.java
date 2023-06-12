@@ -1,7 +1,6 @@
 package dao;
 
 import util.DaoHelper;
-import vo.Customer;
 import vo.Gym;
 import vo.Membership;
 import vo.Trainer;
