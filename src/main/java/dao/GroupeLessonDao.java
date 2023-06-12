@@ -91,4 +91,19 @@ public class GroupeLessonDao {
 			return groupLesson;
 		}, lessonNo);
 	}
+	
+	public void updateGroupLesson(Lesson lesson) {
+		DaoHelper.update("groupLessonDao.updateGroupLesson", 
+															
+															 lesson.getName(),
+															 lesson.getType(),
+															 lesson.getQuota(),
+															 lesson.getReqCnt(),
+															 lesson.getDescription(),
+															 lesson.getUser().getId(),
+															 lesson.getTime(),
+															 lesson.getStatus(),
+															 lesson.getGym().getNo(),
+															 lesson.getNo());
+	}
 }
