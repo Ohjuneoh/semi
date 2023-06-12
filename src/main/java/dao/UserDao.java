@@ -1,6 +1,7 @@
 package dao;
 
 import util.DaoHelper;
+import vo.Customer;
 import vo.Gym;
 import vo.Membership;
 import vo.Trainer;
@@ -97,4 +98,24 @@ public class UserDao {
 															trainer.getPosition());
 			
 	}
+	
+	public void deleteUserById(String id) {
+		DaoHelper.update("userDao.deleteUserById", id);
+	}
+	public void deleteTrainerById(String id) {
+		DaoHelper.update("userDao.deleteTrainerById", id);
+	}
+	
+	public void updateUser(User user) {
+		DaoHelper.update("userDao.updateUser", user.getPassword(),
+														user.getName(),
+														user.getTel(),
+														user.getEmail(),
+														user.getStatus(),
+														user.getGym().getNo(),
+														user.getId());
+		
+	}
+	
+	
 }

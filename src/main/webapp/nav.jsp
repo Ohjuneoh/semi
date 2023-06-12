@@ -15,6 +15,9 @@
 		<div class="container-fluid">
 	    	<ul class="navbar-nav me-auto">
 	        	<li class="nav-item me-3"><a class="nav-link " href="/semi/home.jsp" style="font-size: 20px;"><i class="bi bi-house"></i></a></li>
+<%
+	if(loginType != null){
+%>	        	
 				<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	수업
@@ -31,8 +34,9 @@
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 조회</a></li>
 	            		<li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>
+
 <%
-	if("관리자".equals(loginType)){
+	if("manager".equals(loginType)){
 %>
 	            		<li><a class="dropdown-item" href="/semi/membership/membership-form.jsp">이용권 등록</a></li>
 <%
@@ -49,9 +53,39 @@
 	            		<li><a class="dropdown-item" href="">권한설정</a></li>
 	          		</ul>
 	        	</li>
-	<%
-		if("관리자".equals(loginType)){
-	%>
+	        	<li class="nav-item dropdown">
+	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	마이페이지
+	          		</a>
+	          		<ul class="dropdown-menu">
+	          			<li><a class="dropdown-item" href="/semi/user/detail.jsp">내 정보 조회</a></li>
+<%
+	if("user".equals(loginType)){
+%>
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">내 이용권 조회</a></li>
+	            		<li><a class="dropdown-item" href="">내 수업 조회</a></li>
+	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
+<%
+	}
+%>
+<%
+	if("trainer".equals(loginType)){
+%>
+						<li><a class="dropdown-item" href="">내 수업 조회</a></li>
+						<li><a class="dropdown-item" href="">출결조회</a></li>
+						<li><a class="dropdown-item" href="">출결등록</a></li>
+				
+<%
+	}
+%>
+	          		</ul>
+	        	</li>
+<%
+	}
+%>
+<%
+		if("manager".equals(loginType)){
+%>
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	관리자 페이지
