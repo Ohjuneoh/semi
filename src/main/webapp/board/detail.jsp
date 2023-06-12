@@ -1,3 +1,5 @@
+<%@page import="dto.Pagination"%>
+<%@page import="util.StringUtils"%>
 <%@page import="vo.Comment"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.CommentDao"%>
@@ -147,7 +149,15 @@
    		<div class="col-12">
    			<div class="border p-2 mb-2">
 	   			<div class="d-flex justify-content-between mb-1">
-	   				<strong><%=comment.getUser().getId() %></strong>
+	   				<strong><%=comment.getUser().getId() %>
+<%		
+		if(board.getUser().getId().equals(comment.getUser().getId())) {
+%>
+						<span class="badge bg-success" >작성자</span>
+<%
+		}
+%>
+	   				</strong>
 				</div>
 				<div>
 					<%=comment.getContent() %>
@@ -156,14 +166,18 @@
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
+					<a href="../modifyForm.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
+	   					class="btn btn-link text-decoration-none float-end"><i class="bi bi-brush-fill"></i></a>
 <%
 		}
-	}
 %>
 				</div>
 			</div>
 		</div>
 	</div>
+<%
+	}
+%>
 </div>
 </body>
 </html>
