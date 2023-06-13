@@ -106,7 +106,7 @@ public class UserDao {
 	}
 	
 	public void updateUser(User user) {
-		DaoHelper.update("userDao.updateUser", user.getPassword(),
+		DaoHelper.update("userDao.updateUser", 			user.getPassword(),
 														user.getName(),
 														user.getTel(),
 														user.getEmail(),
