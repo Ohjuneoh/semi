@@ -11,7 +11,6 @@
 		String description = request.getParameter("description");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int discountedRate1 = Integer.parseInt(request.getParameter("discountedRate"));
-		//작동되는지 확인 
 		double discountedRate = (double) discountedRate1/100;
 		int numOfUseDay = Integer.parseInt(request.getParameter("numOfUseDay"));
 		int numOfUseWeek = Integer.parseInt(request.getParameter("numOfUseWeek"));
@@ -41,7 +40,7 @@
 	membership.setDuration(duration);
 	membership.setCount(membershipCnt);
 	
-	MembershipDao membershipDao = new MembershipDao();
+	MembershipDao membershipDao = MembershipDao.getInstance();
 	membershipDao.insertMembership(membership);
 	
 	// 5. 재요청 url 응답

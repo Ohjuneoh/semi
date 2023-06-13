@@ -52,6 +52,9 @@
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
 	          		</ul>
 	        	</li>
+	<%
+		if("manager".equals(loginType)){
+	%>
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	마이페이지
@@ -73,7 +76,15 @@
 						<li><a class="dropdown-item" href="/semi/lesson/AllTrainerMyLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
-				
+	        	<li class="nav-item dropdown">
+	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	회원관리
+	          		</a>
+	          		<ul class="dropdown-menu">
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">전체 회원조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">나의 회원조회 </a></li>
+	          		</ul>
+	        	</li>
 <%
 	}
 %>
@@ -85,13 +96,16 @@
 <%
 		if("manager".equals(loginType)){
 %>
+
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	관리자 페이지
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="">헬스장 등록</a></li>
+	            		<li><a class="dropdown-item" href="/semi/gym/list.jsp">헬스장 조회</a></li>
 	            		<li><a class="dropdown-item" href="">신고내역</a></li>
+	            		<li><a class="dropdown-item" href="">수업조회</a></li>
+	            		<li><a class="dropdown-item" href="">예약조회</a></li>
 	          		</ul>
 	        	</li>
 	<%
@@ -106,6 +120,7 @@
 			</span>
 	<%	
 		}
+	}
 	%>
 	<%
 		if(loginType == null){
@@ -128,6 +143,7 @@
 	         	<li class="nav-item"><a class="btn btn-link text-white "href="/semi/logout.jsp"><i class="bi bi-box-arrow-right"></i></a></li>
 	<%
 	}
+	
 	%>
 	      	</ul>
 	   	</div>

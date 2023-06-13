@@ -5,7 +5,8 @@ import java.util.Date;
 public class Order {
 
 	private int no;
-	private int discounteRate;
+	private int discountedPrice;
+	private int usedPoint; 
 	private int totalCreditPrice;
 	private String status;
 	private Date createDate;
@@ -23,12 +24,20 @@ public class Order {
 		this.no = no;
 	}
 
-	public int getDiscounteRate() {
-		return discounteRate;
+	public int getDiscountedPrice() {
+		return discountedPrice;
 	}
 
-	public void setDiscounteRate(int discounteRate) {
-		this.discounteRate = discounteRate;
+	public void setDiscountedPrice(int discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
+	
+	public int getUsedPoint() {
+		return usedPoint;
+	}
+
+	public void setUsedPoint(int usedPoint) {
+		this.usedPoint = usedPoint;
 	}
 
 	public int getTotalCreditPrice() {

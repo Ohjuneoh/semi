@@ -35,7 +35,7 @@
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>개인정보를 확인하고, 수정하세요</p>
-			<form class="border bg-light p-3" method="post" action="modify.jsp">
+			<form class="border bg-light p-3" method="post" action="modify.jsp" onsubmit="return fn1();">
 				<input type = "hidden" name="id" value="">		
 				<div class="form-group mb-2">
 					<label class="form-label">이름</label>
@@ -43,7 +43,11 @@
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">비밀번호</label>
-					<input type="password" class="form-control" name="password" value="<%=user.getPassword()%>"/>
+					<input id = "user-password1" type="password" class="form-control" name="password" />
+				</div>
+				<div class="form-group mb-2">
+					<label class="form-label">비밀번호 확인</label>
+					<input id = "user-password2" type="password" class="form-control" />
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">이메일</label>
@@ -53,10 +57,6 @@
 					<label class="form-label">전화번호</label>
 					<input type="text" class="form-control" name="tel" value="<%=user.getTel()%>"/>
 				</div>
-				<div class="form-group mb-2">
-					<label class="form-label">헬스장 번호</label>
-					<input type = "text" class="form-control" name="gymNo"  value="<%=user.getGym().getNo()%>" />
-				</div>
 				<div class="text-end">
 					<button type="reset" class="btn btn-secondary btn-sm">취소</button>
 					<button type="submit" class="btn btn-primary btn-sm">수정</button>
@@ -65,5 +65,19 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	function fn1() {
+		let password1 = document.getElementById("user-password1").value;
+		let password2 = document.getElementById("user-password2").value;
+		if(password1 != password2){
+			alert("입력한 두 비밀번호가 일치하지 않습니다.")
+			return false;
+		}
+			return true;
+	}
+
+
+</script>
+
 </body>
 </html>

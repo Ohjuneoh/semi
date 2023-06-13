@@ -5,6 +5,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
+	String loginType = (String) session.getAttribute("loginType");
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	BoardDao boardDao = BoardDao.getInstance();
 	Board board = boardDao.getBoardByNo(boardNo);
@@ -14,7 +15,7 @@
 		return;
 	}
 	
-	if(!loginId.equals(board.getUser().getId())) {
+	if(!loginId.equals(board.getUser().getId()) && !"manager".equals(loginType)) {
 		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=delete&job=" + URLEncoder.encode("게시글 삭제", "utf-8"));
 		return;
 	}

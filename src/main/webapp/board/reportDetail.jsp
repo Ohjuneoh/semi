@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="vo.ReportHistory"%>
 <%@page import="dao.CommentDao"%>
 <%@page import="vo.Board"%>
 <%@page import="dao.BoardDao"%>
@@ -9,9 +11,13 @@
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	BoardDao boardDao = BoardDao.getInstance();
 	Board board = boardDao.getBoardByNo(boardNo);
-	CommentDao commentDao = CommentDao.getInstance();
-	int commentCnt = commentDao.getCommentCnt(boardNo);
+	List<ReportHistory> reps = boardDao.getReportHistoryByNo(boardNo);
 
+	if(loginId == null) {
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("신고 게시글 보기", "utf-8"));
+		return;
+	}
+	
 	if(!"manager".equals(loginType)) {
 		response.sendRedirect("../home.jsp?err=managerdeny&job=" + URLEncoder.encode("신고 게시글 조회", "utf-8"));
 		return;
@@ -53,12 +59,7 @@
 						<td><%=board.getTitle() %></td>
 						<th class="table-dark">작성자</th>
 						<td><%=board.getUser().getId() %></td>
-					</tr>
-					<tr>
-						<th class="table-dark">조회수</th>
-						<td><%=board.getViewCnt() %></td>
-						<th class="table-dark">댓글갯수</th>
-						<td><%=commentCnt %></td>
+
 					</tr>
 					<tr>
 						<th class="table-dark">등록일</th>
@@ -67,14 +68,26 @@
 						<td><%=board.getUpdateDate() %></td>
 					</tr>
 					<tr>
+						<th class="table-dark" style="vertical-align: middle;">신고사유</thc>
+						<td colspan="3" style="height: 200px">
+<%
+	for(ReportHistory rep : reps) {
+%>						
+						<%=rep.getContent() %> (<%=rep.getReportDate()%>) <br />
+<%
+	}
+%>						
+						</td>
+					</tr>
+					<tr>
 						<th class="table-dark" style="vertical-align: middle;">내용</th>
 						<td colspan="3" style="height: 200px"><%=board.getContent() %></td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="text-center">
-				<button type="button" class="btn btn-outline-primary">복구</button>
-				<button type="button" class="btn btn-outline-secondary">삭제</button>
+				<a href="restore.jsp?boardNo=<%=boardNo %>" class="btn btn-primary">복구</a>
+				<a href="delete.jsp?boardNo=<%=boardNo %>" class="btn btn-danger">삭제</a>
 			</div>
 		</div>
 	</div>
