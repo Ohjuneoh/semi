@@ -87,7 +87,7 @@
 	</div>
 			
 			<div class="text-end">
-				<a href="form.jsp" class="btn btn-primary btn-sm">이용권 등록</a>
+				<a href="membership-form.jsp" class="btn btn-primary btn-sm">이용권 등록</a>
 			</div>
 		</div>
 	</div>

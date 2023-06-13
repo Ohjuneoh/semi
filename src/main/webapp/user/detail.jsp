@@ -116,7 +116,7 @@
 <% 
 	}
 %>
-				<a href="modifyform.jsp?id=<%=user.getId()%>" class="btn btn-warning btn-sm">수정</a>
+				<a href="modifyForm.jsp?id=<%=user.getId()%>" class="btn btn-warning btn-sm">수정</a>
 <%
 	if("Y".equals(user.getStatus())){
 %>				
