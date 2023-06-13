@@ -6,7 +6,7 @@
 <%@page import="util.StringUtils"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	String loginId = (String)session.getAttribute("loginId");
+	String loginId = (String) session.getAttribute("loginId");
 	String cat = "deal";
 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
