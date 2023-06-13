@@ -1,7 +1,20 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");	
-
+	String loginType = (String) session.getAttribute("loginType");
+	
+	// 로그인 여부 확인
+		if(loginId == null){
+			response.sendRedirect("../loginform.jsp?err=req&job="+URLEncoder.encode("수업 등록", "utf-8"));
+			return;
+		}
+		
+		// 관리자인지 확인
+		if(!loginType.equals("manager")){
+			response.sendRedirect("../home.jsp?err=deny&job="+URLEncoder.encode("수업 등록", "utf-8"));
+			return;
+		}
 %>
 
 <!doctype html>

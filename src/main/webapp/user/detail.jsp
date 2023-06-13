@@ -80,11 +80,15 @@
 						<th class="table-dark">포인트</th>
 <%
     if (point == null) {
-        point = new Point();
-        point.setCurrentPoint(0);
-    }
 %>
+    					<td><%=0%></td>
+<%
+    }else{
+%>    		
 						<td><%=point.getCurrentPoint()%></td>
+<%
+	}
+%>						
 						<th class="table-dark">탈퇴여부</th>
 						<td>
 <%
@@ -116,7 +120,7 @@
 <% 
 	}
 %>
-				<a href="modifyform.jsp?id=<%=user.getId()%>" class="btn btn-warning btn-sm">수정</a>
+				<a href="../certificationForm.jsp" class="btn btn-warning btn-sm">수정</a>
 <%
 	if("Y".equals(user.getStatus())){
 %>				
