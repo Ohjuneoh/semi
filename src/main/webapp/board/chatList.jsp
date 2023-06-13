@@ -38,7 +38,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="게시판"/>
+	<jsp:param name="menu" value="커뮤니티"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">

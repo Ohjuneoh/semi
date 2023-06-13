@@ -23,7 +23,7 @@
 </head>
 <body>
 <jsp:include page="nav.jsp">
-	<jsp:param name="menu" value="로그인"/>
+	<jsp:param name="menu" value="마이페이지"/>
 </jsp:include>
 
 <div class="container">
