@@ -45,6 +45,7 @@
 	}
 %>			 				
    			<form class="border bg-light p-3" method="post" action="insert.jsp" onsubmit="return fn1();">
+
    			<input type="hidden" name="type" value="user">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>

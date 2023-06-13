@@ -10,6 +10,11 @@
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
+	if(loginId == null) {
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("신고 게시판 조회", "utf-8"));
+		return;
+	}
+	
 	if(!"manager".equals(loginType)) {
 		response.sendRedirect("../home.jsp?err=managerdeny&job=" + URLEncoder.encode("신고 게시글 조회", "utf-8"));
 		return;
@@ -18,15 +23,14 @@
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
 	
 	BoardDao boardDao = BoardDao.getInstance();
-	int totalPage = boardDao.totalPage();
+	int totalReportPage = boardDao.totalReportPage();
 	
-	Pagination pagination = new Pagination(pageNo, totalPage);
+	Pagination pagination = new Pagination(pageNo, totalReportPage);
 	
 	int begin = pagination.getBegin();
 	int end = pagination.getEnd();
 	
 	List<Board> reports = boardDao.getReportBoards(begin, end);
-	CommentDao commentDao = CommentDao.getInstance();
 %>
 <!doctype html>
 <html lang="ko">
@@ -57,29 +61,26 @@
 				<colgroup>
 					<col width="10%">
 					<col width="45%">
-					<col width="15%">
-					<col width="15%">
-					<col width="15%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>리뷰갯수</th>
 						<th>등록일</th>
 					</tr>
 				</thead>
 				<tbody>
 <%
 	for(Board report : reports) {
-		int commentCnt = commentDao.getCommentCnt(report.getNo());
 %>
 					<tr>
 						<td><%=report.getNo() %></td>
 						<td><a href="reportDetail.jsp?boardNo=<%=report.getNo() %>"><%=report.getTitle() %></a></td>
 						<td><%=report.getUser().getId() %></td>
-						<td><%=commentCnt %></td>
 						<td><%=report.getCreateDate() %></td>
 					</tr>
 <%
@@ -87,6 +88,9 @@
 %>
 				</tbody>
 			</table>
+<%
+	if(totalReportPage != 0) {
+%>
 			<div class="row mb-3">
 				<div class="col-12">
 					<nav>
@@ -95,13 +99,13 @@
 								<a class="page-link" href="<%=pageNo - 1 %>">이전</a>
 							</li>
 <%
-	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+		for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 							<li class="page-item <%=num == pageNo ? "active" : "" %>">
-								<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
+								<a class="page-link" href="reportList.jsp?page=<%=num %>"><%=num %></a>
 							</li>
 <%
-	}
+		}
 %>					
 							<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
 								<a class="page-link" href="<%=pageNo + 1 %>">다음</a>
@@ -110,6 +114,9 @@
 					</nav>
 				</div>
 			</div>
+<%
+	}
+%>
 		</div>
 	</div>
 </div>
