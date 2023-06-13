@@ -39,7 +39,7 @@
    	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>그룹수업 상세정보를 확인할 수 있습니다.</p>
+			<p>개인수업 상세정보를 확인할 수 있습니다.</p>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -81,13 +81,13 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "회원".equals(loginType)) { %>
+<% if(loginId != null && "customer".equals(loginType)) { %>
 						<a href="groupRegisterLesson.jsp?id=<%=loginId %>" class="btn btn-warning btn-sm">신청</a>
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
-<% if(loginId != null && "강사".equals(loginType)) { %>
-						<a href="delete.jsp?id=" class="btn btn-danger btn-sm">삭제</a>
+<% if(loginId != null && "trainer".equals(loginType)) { %>
+						<a href="personalDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>
 <% } %>
 					</div>
 		</div>
