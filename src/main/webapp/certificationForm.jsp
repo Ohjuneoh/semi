@@ -1,8 +1,14 @@
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String err = request.getParameter("err");
 	String job = request.getParameter("job");
-
+	String loginId = (String)session.getAttribute("loginId");
+	
+	UserDao userDao = UserDao.getinstance();
+	User user = userDao.getUserById(loginId);
+	
 
 %>
 <!doctype html>
@@ -28,57 +34,30 @@
    	</div>
    	<div class="row mb-3">
    		<div class="col-12">
-   			<p>아이디와 비밀번호를 입력하세요</p>
+   			<p>비밀번호를 입력하세요</p>
  <%
 	if("fail".equals(err)){
 %>
 			<div class="alert alert-danger">
-				<strong>로그인 실패</strong> 아이디 혹은 비밀번호가 올바르지 않습니다.
+				<strong>비밀번호가 올바르지 않습니다.</strong> 
 			</div>
 <%
-	}  else if("req".equals(err)){
+	} 
 %>
-			<div class="alert alert-danger">
-				<strong>로그인 필요</strong>[<%=job %>]은 로그인 후 사용가능한 서비스입니다.
-			</div>
+   			
 
-<%
-	}
-%>   			
-
-   			<form class="border bg-light p-3" method="post" action="login.jsp" onsubmit="return fn1();">
-   				<div class="form-group mb-2 w-75">
-   				</div>
-   				<div class="form-group mb-2 w-75">
-   					<label class="form-label">아이디</label>
-   					<input id = "user-id" type="text" class="form-control" name="id" />
-   				</div>
+   			<form class="border bg-light p-3" method="post" action="certification.jsp">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
    					<input id="user-password" type="password" class="form-control" name="password" />
    				</div>
    				<div class="text-end w-75">
-   					<button type="submit" class="btn btn-primary">로그인</button>
+   					<button type="submit" class="btn btn-primary">입력</button>
    				</div>
    			</form>
    		</div>
    	</div>
 </div>
-<script type="text/javascript">
-	function fn1() {
-		let id = document.getElementById("user-id").value;
-		let password = document.getElementById("user-password").value;
-		if(id ===""){
-			alert("아이디는 필수 입력값입니다.")
-			return false;
-		}
-		if(password ===""){
-			alert("비밀번호는 필수 입력값입니다.")
-			return false;
-		}
-		return true;
-	}
-</script>
 
 </body>
 </html>

@@ -44,31 +44,31 @@
 <%
 	}
 %>			 				
-   			<form class="border bg-light p-3" method="post" action="insert.jsp">
+   			<form class="border bg-light p-3" method="post" action="insert.jsp" onsubmit="return fn1();">
    			<input type="hidden" name="type" value="user">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
-   					<input type="text" class="form-control" name="id" />
+   					<input id="user-id" type="text" class="form-control" name="id" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
-   					<input type="text" class="form-control" name="password" />
+   					<input id = "user-password" type="text" class="form-control" name="password" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">이름</label>
-   					<input type="text" class="form-control" name="name" />
+   					<input id ="user-name" type="text" class="form-control" name="name" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">이메일</label>
-   					<input type="text" class="form-control" name="email" />
+   					<input id="user-email" type="text" class="form-control" name="email" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">전화번호</label>
-   					<input type="text" class="form-control" name="tel" />
+   					<input id="user-tel" type="text" class="form-control" name="tel" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">헬스장 번호</label>
-   					<input type="text" class="form-control" name="gymNo" />
+   					<input id="user-gymNo" type="text" class="form-control" name="gymNo" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">등록</button>
@@ -77,5 +77,41 @@
    		</div>
    	</div>
 </div>
+<script type="text/javascript">
+	function fn1() {
+		let id = document.getElementById("user-id").value;
+		let password = document.getElementById("user-password").value;
+		let name = document.getElementById("user-name").value;
+		let email = document.getElementById("user-email").value;
+		let gymNo = document.getElementById("user-gymNo").value;
+		let tel = document.getElementById("user-tel").value;
+		if(id ===""){
+			alert("아이디는 필수 입력값입니다.")
+			return false;
+		}
+		if(password ===""){
+			alert("비밀번호는 필수 입력값입니다.")
+			return false;
+		}
+		if(name ===""){
+			alert("이름 필수 입력값입니다.")
+			return false;
+		}
+		if(email ===""){
+			alert("이메일은 필수 입력값입니다.")
+			return false;
+		}
+		if(tel ===""){
+			alert("전화번호는 필수 입력값입니다.")
+			return false;
+		}
+		if(gymNo ===""){
+			alert("헬스장 번호는 필수 입력값입니다.")
+			return false;
+		}
+		return true;
+	}
+</script>
+
 </body>
 </html>

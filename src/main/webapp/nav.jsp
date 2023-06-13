@@ -76,7 +76,15 @@
 						<li><a class="dropdown-item" href="/semi/lesson/myLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
-				
+	        	<li class="nav-item dropdown">
+	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	회원관리
+	          		</a>
+	          		<ul class="dropdown-menu">
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">전체 회원조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">나의 회원조회 </a></li>
+	          		</ul>
+	        	</li>
 <%
 	}
 %>
@@ -94,8 +102,10 @@
 	            	관리자 페이지
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="">헬스장 등록</a></li>
+	            		<li><a class="dropdown-item" href="/semi/gym/list.jsp">헬스장 조회</a></li>
 	            		<li><a class="dropdown-item" href="">신고내역</a></li>
+	            		<li><a class="dropdown-item" href="">수업조회</a></li>
+	            		<li><a class="dropdown-item" href="">예약조회</a></li>
 	          		</ul>
 	        	</li>
 	<%
