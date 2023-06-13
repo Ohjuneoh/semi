@@ -109,7 +109,7 @@
 		</div>
 	</div>
 			<div class="text-end">
-<% if(loginId != null && "강사".equals(loginType)) { %>			
+<% if(loginId != null && "trainer".equals(loginType)) { %>			
 				<a href="groupForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
 <% } %>
 
