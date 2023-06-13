@@ -4,9 +4,10 @@
 
 <%@page import="util.StringUtils"%>
 <%
-	MembershipDao membershipDao = new MembershipDao();
+	MembershipDao membershipDao = MembershipDao.getInstance();
 	
 	List<Membership> membershipList = membershipDao.getAllMembership();
+	String loginType = (String) session.getAttribute("loginType");
 	
 
 	
@@ -85,10 +86,15 @@
 			</nav>
 		</div>
 	</div>
-			
+<%
+	if("manager".equals(loginType)){
+%>		
 			<div class="text-end">
-				<a href="form.jsp" class="btn btn-primary btn-sm">이용권 등록</a>
+				<a href="membership-form.jsp" class="btn btn-primary btn-sm">이용권 등록</a>
 			</div>
+<%
+	}
+%>
 		</div>
 	</div>
 </div>

@@ -8,6 +8,12 @@ import vo.Gym;
 
 public class MembershipDao {
 
+	private static MembershipDao instance = new MembershipDao();
+	private MembershipDao() {}
+	public static MembershipDao getInstance() {
+		return instance;
+	}
+	
 	
 	/** 
 	 * 이용권 등록하기 
@@ -28,7 +34,7 @@ public class MembershipDao {
 		
 	}
 	
-<<<<<<< HEAD
+
 	/**
 	 * 모든 이용권 조회하기
 	 * @return 이용권 리스트를 반환한다. 
