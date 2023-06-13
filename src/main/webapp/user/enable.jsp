@@ -9,7 +9,6 @@
 
 	//요청 파라미터로 전달받은 아이디에 해당하는 고객정보를 조회하기
 	
-	//고객정보의 disabled를 "Yes"로 변경한다.
 	UserDao userDao = UserDao.getinstance();
 	
 	User user = userDao.getUserById(id);
