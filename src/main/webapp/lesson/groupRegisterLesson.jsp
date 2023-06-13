@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<%@page import="dao.MembershipDao"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="jakarta.websocket.SendResult"%>
 <%@page import="vo.User"%>
