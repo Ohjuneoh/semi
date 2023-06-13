@@ -17,7 +17,7 @@
 	
 		// 오류사항: 로그인 안된 상태이거나, 트레이너 타입이 아닐때 등록불가능
 	if(loginId == null) {
-		response.sendRedirect("../home.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 등록", "utf-8"));
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 등록", "utf-8"));
 		return;
 	}
 	if(!"trainer".equals(loginType)) {

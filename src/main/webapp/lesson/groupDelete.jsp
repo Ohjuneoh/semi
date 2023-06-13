@@ -11,7 +11,7 @@
 	
 	// 오류사항 : 로그인 상태가 아니거나, 강사가 아닌 다른 유형일때 삭제불가능
 	if(loginId == null) {
-		response.sendRedirect("../home.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 삭제", "utf-8"));
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 삭제", "utf-8"));
 		return;
 	}
 	if(!"trainer".equals(loginType)) {

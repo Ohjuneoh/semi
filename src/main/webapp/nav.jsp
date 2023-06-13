@@ -70,7 +70,7 @@
 <%
 	if("trainer".equals(loginType)){
 %>
-						<li><a class="dropdown-item" href="/semi/lesson/myLessonList.jsp">내 수업 조회</a></li>
+						<li><a class="dropdown-item" href="/semi/lesson/AllTrainerMyLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
 				

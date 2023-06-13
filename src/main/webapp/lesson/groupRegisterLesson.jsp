@@ -26,7 +26,7 @@
 	
 		// 오류사항: 로그인 안된 상태이거나, 회원타입이 아닐때 신청불가능
 	if(loginId == null) {
-		response.sendRedirect("../home.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 신청", "utf-8"));
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 신청", "utf-8"));
 		return;
 	}
 	if(!"user".equals(loginType)) {
@@ -53,6 +53,7 @@
 			lesson.setStatus("N");
 		}
 		groupLessonDao.updateGroupLesson(lesson);
+		
 		// 똑같은 회원이 같은 수업을 2번이상 등록하지 못하게 제한하기
 /*		XXX xxx = dao.getXXXByMemberIdAndLessonNo(loginId, lessonNo);
 		if (xxx != null) {
