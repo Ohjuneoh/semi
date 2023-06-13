@@ -150,9 +150,7 @@
     				let like = document.getElementById("like");
     				let disLike = document.getElementById("disLike");
 
-    				// 버튼 클릭 이벤트 핸들러 등록
    		 			like.addEventListener("click", function() {
-      					// 입력 필드를 비활성화
       					<%
       						board.setLike(board.getLike() + 1);
       						boardDao.updateBoard(board);
