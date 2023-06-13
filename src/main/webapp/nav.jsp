@@ -18,8 +18,8 @@
 <%
 	if(loginType != null){
 %>	        	
-				<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<li class="nav-item dropdown ">
+	          		<a class="nav-link dropdown-toggle <%="수업".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	수업
 	          		</a>
 	          		<ul class="dropdown-menu">
@@ -28,7 +28,7 @@
 	          		</ul>
 	        	</li>
 				<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          		<a class="nav-link dropdown-toggle <%="이용권".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	이용권
 	          		</a>
 	          		<ul class="dropdown-menu">
@@ -45,16 +45,16 @@
 	          		</ul>
 	        	</li>
 	        	<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          		<a class="nav-link dropdown-toggle <%="커뮤니티".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	커뮤니티
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
-	            		<li><a class="dropdown-item" href="">권한설정</a></li>
+	            		<li><a class="dropdown-item " href="/semi/board/list.jsp">게시판</a></li>
 	          		</ul>
 	        	</li>
+
 	        	<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          		<a class="nav-link dropdown-toggle <%="마이페이지".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	마이페이지
 	          		</a>
 	          		<ul class="dropdown-menu">
@@ -62,36 +62,46 @@
 <%
 	if("user".equals(loginType)){
 %>
-	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">내 이용권 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 수업 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
+	            		<li><a class="dropdown-item" href="">내 이용권 조회</a></li>
 <%
 	}
 %>
 <%
 	if("trainer".equals(loginType)){
 %>
-						<li><a class="dropdown-item" href="">내 수업 조회</a></li>
+						<li><a class="dropdown-item" href="/semi/lesson/myLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
-				
+	          	</ul>
+	       		</li>
+	        	<li class="nav-item dropdown">
+	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	회원관리
+	          		</a>
+	          		<ul class="dropdown-menu">
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">전체 회원조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">나의 회원조회 </a></li>
 <%
 	}
 %>
 	          		</ul>
-	        	</li>
-<%
-	}
-%>
+	        		</li>
+
 <%
 		if("manager".equals(loginType)){
 %>
+
 	        	<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          		<a class="nav-link dropdown-toggle <%="관리자페이지".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	관리자 페이지
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="">헬스장 등록</a></li>
+	            		<li><a class="dropdown-item" href="/semi/gym/list.jsp">헬스장 조회</a></li>
+	            		<li><a class="dropdown-item" href="">신고내역</a></li>
+	            		<li><a class="dropdown-item" href="">수업조회</a></li>
+	            		<li><a class="dropdown-item" href="">예약조회</a></li>
 	          		</ul>
 	        	</li>
 	<%
@@ -106,14 +116,15 @@
 			</span>
 	<%	
 		}
+	}
 	%>
 	<%
 		if(loginType == null){
 	%>
 	      	<ul class="navbar-nav" >
-	         	<li class="nav-item"><a class="nav-link " href="/semi/loginform.jsp">로그인</a></li>
+	         	<li class="nav-item"><a class="nav-link <%="로그인".equals(menu) ? "active" : "" %>" href="/semi/loginform.jsp">로그인</a></li>
 				<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          		<a class="nav-link dropdown-toggle <%="회원가입".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	회원가입
 	          		</a>
 	          		<ul class="dropdown-menu">
@@ -125,7 +136,8 @@
 		}else {
 	%>
 	        	</li>
-	         	<li class="nav-item"><a class="btn btn-link text-white "href="/semi/logout.jsp"><i class="bi bi-box-arrow-right"></i></a></li>
+	         	<li class="nav-item"><a class="btn btn-link text-white "href="/semi/logout.jsp"><i class="bi bi-box-arrow-right"></i></a>
+	         	</li>
 	<%
 	}
 	%>

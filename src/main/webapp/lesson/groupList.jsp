@@ -43,7 +43,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="그룹전체"/>
+	<jsp:param name="menu" value="수업"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -109,7 +109,7 @@
 		</div>
 	</div>
 			<div class="text-end">
-<% if(loginId != null && "강사".equals(loginType)) { %>			
+<% if(loginId != null && "trainer".equals(loginType)) { %>			
 				<a href="groupForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
 <% } %>
 

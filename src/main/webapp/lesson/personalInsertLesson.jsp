@@ -19,7 +19,7 @@
 	String lessonTime = request.getParameter("lessonTime");
 	String description = request.getParameter("description");
 	
-	String lessonType = "개인";
+	String lessonType = "personal";
 	
 	// 객체에 담기
 	Lesson lesson = new Lesson();

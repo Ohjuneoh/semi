@@ -28,7 +28,7 @@
    	</div>
    	<div class="row mb-3">
    		<div class="col-12">
-   			<p>아이디, 비밀번호를 입력하고 로그인하세요</p>
+   			<p>아이디와 비밀번호를 입력하세요</p>
  <%
 	if("fail".equals(err)){
 %>
@@ -46,16 +46,16 @@
 	}
 %>   			
 
-   			<form class="border bg-light p-3" method="post" action="login.jsp">
+   			<form class="border bg-light p-3" method="post" action="login.jsp" onsubmit="return fn1();">
    				<div class="form-group mb-2 w-75">
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
-   					<input type="text" class="form-control" name="id" />
+   					<input id = "user-id" type="text" class="form-control" name="id" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
-   					<input type="password" class="form-control" name="password" />
+   					<input id="user-password" type="password" class="form-control" name="password" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">로그인</button>
@@ -64,5 +64,21 @@
    		</div>
    	</div>
 </div>
+<script type="text/javascript">
+	function fn1() {
+		let id = document.getElementById("user-id").value;
+		let password = document.getElementById("user-password").value;
+		if(id ===""){
+			alert("아이디는 필수 입력값입니다.")
+			return false;
+		}
+		if(password ===""){
+			alert("비밀번호는 필수 입력값입니다.")
+			return false;
+		}
+		return true;
+	}
+</script>
+
 </body>
 </html>
