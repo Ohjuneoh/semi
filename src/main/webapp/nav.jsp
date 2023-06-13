@@ -52,11 +52,9 @@
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
 	          		</ul>
 	        	</li>
-<<<<<<< HEAD
 	<%
 		if("manager".equals(loginType)){
 	%>
-=======
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	마이페이지
@@ -112,6 +110,7 @@
 			</span>
 	<%	
 		}
+	}
 	%>
 	<%
 		if(loginType == null){
@@ -134,6 +133,7 @@
 	         	<li class="nav-item"><a class="btn btn-link text-white "href="/semi/logout.jsp"><i class="bi bi-box-arrow-right"></i></a></li>
 	<%
 	}
+	
 	%>
 	      	</ul>
 	   	</div>
