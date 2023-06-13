@@ -52,9 +52,7 @@
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
 	          		</ul>
 	        	</li>
-	<%
-		if("manager".equals(loginType)){
-	%>
+
 	        	<li class="nav-item dropdown">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	마이페이지
@@ -90,9 +88,7 @@
 %>
 	          		</ul>
 	        	</li>
-<%
-	}
-%>
+
 <%
 		if("manager".equals(loginType)){
 %>
