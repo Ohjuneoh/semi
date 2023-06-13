@@ -138,8 +138,41 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<button type="button" class="btn btn-outline-primary">좋아요</button>
-				<button type="button" class="btn btn-outline-secondary">싫어요</button>
+				<button type="button" class="btn btn-outline-primary" id="like">
+					좋아요<br />
+					<%=board.getLike() %>
+				</button>
+				<button type="button" class="btn btn-outline-secondary" id="disLike">
+					싫어요 <br />
+					<%=board.getDislike() %>
+				</button>
+				<script>
+    				let like = document.getElementById("like");
+    				let disLike = document.getElementById("disLike");
+
+    				// 버튼 클릭 이벤트 핸들러 등록
+   		 			like.addEventListener("click", function() {
+      					// 입력 필드를 비활성화
+      					<%
+      						board.setLike(board.getLike() + 1);
+      						boardDao.updateBoard(board);
+      					%>
+      					like.style.backgroundColor = "blue";
+						like.style.color = "white";
+      					disLike.disabled = true;
+    				});
+
+   		 			disLike.addEventListener("click", function() {
+      					// 입력 필드를 비활성화
+      					<%
+      						board.setLike(board.getDislike() + 1);
+      						boardDao.updateBoard(board);
+      					%>
+      					disLike.style.backgroundColor = "gray";
+      					disLike.style.color = "white";
+      					like.disabled = true;
+    				});
+  				</script>
 			</div>
 			<div class="text-end">
 <%
@@ -222,7 +255,7 @@
 				<div>
 					<%=comment.getContent() %>
 <%
-		if(loginId.equals(comment.getUser().getId())){
+		if(loginId.equals(comment.getUser().getId())) {
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
 	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
