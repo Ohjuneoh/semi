@@ -30,10 +30,16 @@ public class Pagination {
 	}
 	
 	public int getCurrentBlock() {							// 요청한 페이지가 속한 블럭의 번호
+		if (totalRows == 0) {
+			return 0;
+		}
 		return (int) Math.ceil((double) page/pages);		// 요청한 페이지 번호/한 화면에 표시할 페이지 번호 개수
 	}
 
 	public int getBeginPage() {						// 현재 속한 블럭의 첫 페이지 번호
+		if (getCurrentBlock() == 0) {
+			return 0;
+		}
 		return (getCurrentBlock() - 1)*pages + 1;	// (요청한 페이지가 속한 블럭 - 1)*한 화면에 표시할 페이지 번호 개수 + 1
 	}
 	
