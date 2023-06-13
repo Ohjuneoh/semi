@@ -1,7 +1,6 @@
 <%@page import="dao.PersonalLessonDao"%>
 <%@page import="vo.Gym"%>
 <%@page import="dao.UserDao"%>
-<%@page import="dao.TrainerDao"%>
 <%@page import="vo.Trainer"%>
 <%@page import="vo.User"%>
 <%@page import="vo.Lesson"%>
@@ -20,7 +19,7 @@
 	String lessonTime = request.getParameter("lessonTime");
 	String description = request.getParameter("description");
 	
-	String lessonType = "개인";
+	String lessonType = "personal";
 	
 	// 객체에 담기
 	Lesson lesson = new Lesson();

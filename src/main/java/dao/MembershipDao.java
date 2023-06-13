@@ -84,9 +84,5 @@ public class MembershipDao {
 		}, no);
 		
 	}
-	
-	
-	
-	
 }
 

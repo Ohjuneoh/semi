@@ -32,18 +32,28 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="개인레슨"/>
+	<jsp:param name="menu" value="레슨"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">개인수업 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">내 수업 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>개인수업 목록을 확인하세요</p>
-			
+		<ul class="navbar-nav me-auto">
+			<li class="nav-item dropdown">
+	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	수업유형
+	          		</a>
+	          		<ul class="dropdown-menu">
+	            		<li><a class="dropdown-item" href="/semi/lesson/personalList.jsp">전체</a></li>
+	            		<li><a class="dropdown-item" href="/semi/lesson/personalList.jsp">개인</a></li>
+	            		<li><a class="dropdown-item" href="/semi/lesson/groupList.jsp">그룹</a></li>
+	          		</ul>
+	        	</li>
+			</ul>
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
@@ -54,8 +64,8 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>레슨번호</th>
-						<th>레슨명</th>
+						<th>번호</th>
+						<th>강좌명</th>
 						<th>강사명</th>
 						<th>레슨시간</th>
 						<th>헬스장명</th>

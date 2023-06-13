@@ -51,11 +51,11 @@
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
-   					<input type="text" class="form-control" name="id" />
+   					<input id = "user-id" type="text" class="form-control" name="id" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
-   					<input type="text" class="form-control" name="password" />
+   					<input id="user-password" type="password" class="form-control" name="password" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">로그인</button>
@@ -64,5 +64,17 @@
    		</div>
    	</div>
 </div>
+<script type="text/javascript">
+	function fn1() {
+		let id = document.getElementById("user-id").value;
+		let password = document.getElementById("user-password").value;
+		if(id ===""){
+			alert()
+			
+		}
+		
+	}
+</script>
+
 </body>
 </html>

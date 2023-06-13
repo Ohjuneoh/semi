@@ -1,4 +1,15 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	String loginId = (String) session.getAttribute("loginId");
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
+
+	if(loginId == null) {
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 작성", "utf-8"));
+		return;
+	}
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -19,11 +30,43 @@
          	<h1 class="border bg-light fs-4 p-2">게시글 등록폼</h1>
       	</div>
 	</div>
+<%
+	if("formcat".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>게시글 등록 실패</strong> 게시판을 선택해주세요.
+	</div>
+<%
+	}
+
+	if("formtitle".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>게시글 등록 실패</strong> [<%=job %>]을 입력해주세요.
+	</div>
+<%
+	}
+	
+	if("formcon".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>게시글 등록 실패</strong> [<%=job %>]을 입력해주세요.
+	</div>
+<%
+	}
+%>
 	<div class="row mb-3">
-		<div class="col-12">
-			<p>제목과 내용을 입력하세요</p>		
-			<form class="border bg-light p-3" method="post" action="insert" enctype="multipart/form-data">
-			<!--첨부파일 업로드 시 전송방식은 반드시 post   -->
+		<div class="col-12">	
+			<form class="border bg-light p-3" method="post" action="insert.jsp" >
+				<div class="form-group mb-2" >
+					<label class="form-label" >게시판</label>
+					<select class="form-select" name="category" >
+						<option disabled="disabled" selected="selected" >--- 게시판을 선택하세요 ---</option>
+						<option value="chat" >잡담</option>
+						<option value="info" >정보</option>
+						<option value="deal" >거래</option>
+					</select>
+				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">제목</label>
 					<input type="text" class="form-control" name="title"/>
@@ -31,17 +74,11 @@
 				<div class="form-group mb-2">
 					<label class="form-label">내용</label>
 					<textarea rows="5" class="form-control" name="content"></textarea>
-				</div>
-				<div class="form-group mb-2">
-					<label class="form-label">첨부파일</label>
-					<input type="file" class="form-control" name="upfile"/>
-				</div>
-				
-				
+				</div>			
 				<div class="text-end">
+					<button type="reset" class="btn btn-secondary">취소</button>
 					<button type="submit" class="btn btn-primary">등록</button>
-				</div>
-				
+				</div>				
 			</form>
 		</div>
 	</div>
