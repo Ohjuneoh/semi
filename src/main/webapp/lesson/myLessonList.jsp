@@ -32,12 +32,12 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="레슨"/>
+	<jsp:param name="menu" value="내레슨"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">내 수업 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">내 레슨 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -49,8 +49,8 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/lesson/personalList.jsp">전체</a></li>
-	            		<li><a class="dropdown-item" href="/semi/lesson/personalList.jsp">개인</a></li>
-	            		<li><a class="dropdown-item" href="/semi/lesson/groupList.jsp">그룹</a></li>
+	            		<li><a class="dropdown-item" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+	            		<li><a class="dropdown-item" href="/semi/lesson/groupMyList.jsp">그룹</a></li>
 	          		</ul>
 	        	</li>
 			</ul>

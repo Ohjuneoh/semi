@@ -42,6 +42,16 @@
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>그룹레슨 상세정보를 확인할 수 있습니다.</p>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
+			</div>
+<%
+	}
+%>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -91,21 +101,10 @@
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
-<% if(loginId != null && "trainer".equals(loginType)) { %>
-						<a href="delete.jsp?id=" class="btn btn-danger btn-sm">삭제</a>
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(groupLesson.getUser().getId())) { %>
+						<a href="groupDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>
 <% } %>
 					</div>
-					
-<%
-	if("fail".equals(err)) {
-%>
-
-			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
-			</div>
-<%
-	}
-%>
 		</div>
 	</div>
 </div>

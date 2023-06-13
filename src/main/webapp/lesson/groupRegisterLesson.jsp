@@ -20,7 +20,7 @@
 	Lesson lesson = lessonDao.getGroupLessonByLessonNo(lessonNo);
 	
 	if(lesson.getQuota() == lesson.getReqCnt()) {
-		response.sendRedirect("groupDetailLesson.jsp?no=" + lessonNo+ "&err=fail") ;
+		response.sendRedirect("groupDetailLesson.jsp?no=" + lessonNo+ "&err=fail");
 		return;
 	}
 	
@@ -54,7 +54,12 @@
 		}
 		groupLessonDao.updateGroupLesson(lesson);
 		// 똑같은 회원이 같은 수업을 2번이상 등록하지 못하게 제한하기
-		
+/*		XXX xxx = dao.getXXXByMemberIdAndLessonNo(loginId, lessonNo);
+		if (xxx != null) {
+			response.sendRedirect("form.jsp?err=dup");
+			return;
+		}
+*/		
 		// 멤버쉽테이블에 cnt -1 
 		
 		// 내 멤버쉽 테이블에 cnt -1
@@ -62,3 +67,4 @@
 	
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
+%>
