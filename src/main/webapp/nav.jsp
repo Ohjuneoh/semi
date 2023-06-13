@@ -50,7 +50,6 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">게시판</a></li>
-	            		<li><a class="dropdown-item" href="">권한설정</a></li>
 	          		</ul>
 	        	</li>
 	        	<li class="nav-item dropdown">
@@ -62,16 +61,16 @@
 <%
 	if("user".equals(loginType)){
 %>
-	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">내 이용권 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 수업 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
+	            		<li><a class="dropdown-item" href="">내 이용권 조회</a></li>
 <%
 	}
 %>
 <%
 	if("trainer".equals(loginType)){
 %>
-						<li><a class="dropdown-item" href="">내 수업 조회</a></li>
+						<li><a class="dropdown-item" href="/semi/lesson/myLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
 				
@@ -92,6 +91,7 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="">헬스장 등록</a></li>
+	            		<li><a class="dropdown-item" href="">신고내역</a></li>
 	          		</ul>
 	        	</li>
 	<%
