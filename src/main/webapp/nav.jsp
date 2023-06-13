@@ -83,11 +83,11 @@
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">전체 회원조회</a></li>
 	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">나의 회원조회 </a></li>
-	          		</ul>
-	        		</li>
 <%
 	}
 %>
+	          		</ul>
+	        		</li>
 
 <%
 		if("manager".equals(loginType)){
