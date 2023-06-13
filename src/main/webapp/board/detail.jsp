@@ -139,11 +139,11 @@
 			</table>
 			<div class="text-center">
 				<button type="button" class="btn btn-outline-primary" id="like">
-					좋아요<br />
+					추천<br />
 					<%=board.getLike() %>
 				</button>
 				<button type="button" class="btn btn-outline-secondary" id="disLike">
-					싫어요 <br />
+					비추 <br />
 					<%=board.getDislike() %>
 				</button>
 				<script>
