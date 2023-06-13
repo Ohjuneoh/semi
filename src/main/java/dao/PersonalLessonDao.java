@@ -79,5 +79,5 @@ public class PersonalLessonDao {
 	public void deletePersonalLesson(int lessonNo) {
 		DaoHelper.update("personalLessonDao.deletePersonalLesson",lessonNo);
 	}
-	//
+	
 }

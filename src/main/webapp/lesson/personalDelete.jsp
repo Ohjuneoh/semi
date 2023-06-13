@@ -35,6 +35,6 @@
 	
 	// 재요청 URL
 	response.sendRedirect("personalList.jsp");
-	//
+	
 	
 %>	

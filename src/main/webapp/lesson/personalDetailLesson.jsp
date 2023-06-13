@@ -88,7 +88,7 @@
 						
 <% if(loginId != null && "trainer".equals(loginType)) { %>
 						<a href="personalDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>
-<% } // %>
+<% }  %>
 
 					</div>
 		</div>
