@@ -163,7 +163,6 @@
     				});
 
    		 			disLike.addEventListener("click", function() {
-      					// 입력 필드를 비활성화
       					<%
       						board.setLike(board.getDislike() + 1);
       						boardDao.updateBoard(board);
