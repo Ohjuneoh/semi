@@ -54,8 +54,8 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>강좌명</th>
+						<th>레슨번호</th>
+						<th>레슨명</th>
 						<th>강사명</th>
 						<th>레슨시간</th>
 						<th>헬스장명</th>

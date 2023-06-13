@@ -55,7 +55,7 @@
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
-   					<input type="text" class="form-control" name="password" />
+   					<input type="password" class="form-control" name="password" />
    				</div>
    				<div class="text-end w-75">
    					<button type="submit" class="btn btn-primary">로그인</button>
