@@ -28,7 +28,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="헬스장"/>
+	<jsp:param name="menu" value="관리자페이지"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -95,7 +95,7 @@
 			</nav>
 			
 			<div class="text-end">
-				<a href="insert.jsp" class="btn btn-primary btn-sm">헬스장 등록</a>
+				<a href="form.jsp" class="btn btn-primary btn-sm">헬스장 등록</a>
 			</div>
 		</div>
 	</div>
