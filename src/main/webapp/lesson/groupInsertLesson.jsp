@@ -50,7 +50,7 @@
 	groupLesson.setTime(time);
 	groupLesson.setGym(new Gym(gymNo));
 	
-	// 2. 로직수행(그룹레슨 등록)
+	// 2. 로직수행()
 	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
 	groupDao.insertGroupLesson(groupLesson);
 	
