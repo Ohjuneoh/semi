@@ -59,6 +59,13 @@
 		</div>
 <%
 	}
+	if("notice".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>공지는 신고할 수 없습니다.</strong>
+	</div>		
+<%
+	}
 %>
 	</div>
 	<div class="row mb-3">
@@ -113,30 +120,35 @@
 %>
 				</tbody>
 			</table>
-			<div class="row mb-3">
-		<div class="col-12">
-			<nav>
-				<ul class="pagination justify-content-center">
-					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
-					</li>
 <%
-	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+	if(totalPage != 0) {
 %>
-					<li class="page-item <%=num == pageNo ? "active" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
-					</li>
+			<div class="row mb-3">
+				<div class="col-12">
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+								<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
+							</li>
+<%
+		for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+							<li class="page-item <%=num == pageNo ? "active" : "" %>">
+								<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
+							</li>
+<%
+		}
+%>					
+							<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+								<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
 <%
 	}
-%>					
-					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-<%
+
 	if (loginId != null) {
 %>	
 		<div class="text-end">

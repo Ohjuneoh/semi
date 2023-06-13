@@ -20,12 +20,12 @@
 		return;
 	}
 	
-	if(title == null) {
+	if(title.isBlank()) {
 		response.sendRedirect("form.jsp?err=formtitle&job=" + URLEncoder.encode("제목", "utf-8"));
 		return;
 	}
 
-	if(content == null) {
+	if(content.isBlank()) {
 		response.sendRedirect("form.jsp?err=formcon&job=" + URLEncoder.encode("내용", "utf-8"));
 		return;
 	}

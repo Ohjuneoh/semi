@@ -14,6 +14,11 @@
 		return;
 	}
 	
+	if(content.isBlank()) {
+		response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo + "&err=commentNull");
+		return;
+	}
+	
 	Comment comment = new Comment();
 	comment.setBoard(new Board(boardNo));
 	comment.setContent(content);
