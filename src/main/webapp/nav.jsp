@@ -1,4 +1,4 @@
-	<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 	<%
 		// 1. 세션에 저장된 로그인타입, 로그인아이디 조회하기
 		String loginType = (String) session.getAttribute("loginType");
@@ -71,7 +71,7 @@
 <%
 	if("trainer".equals(loginType)){
 %>
-						<li><a class="dropdown-item" href="/semi/lesson/myLessonList.jsp">내 수업 조회</a></li>
+						<li><a class="dropdown-item" href="/semi/lesson/AllTrainerMyLessonList.jsp">내 수업 조회</a></li>
 						<li><a class="dropdown-item" href="">출결조회</a></li>
 						<li><a class="dropdown-item" href="">출결등록</a></li>
 	          	</ul>
@@ -144,5 +144,4 @@
 	      	</ul>
 	   	</div>
 	</nav>
-	
 	
