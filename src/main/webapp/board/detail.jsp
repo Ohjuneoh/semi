@@ -48,7 +48,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="게시글"/>
+	<jsp:param name="menu" value="커뮤니티"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -64,9 +64,41 @@
 <%
 	if("delete".equals(err)) {
 %>
-	<div class="alert alert-danger">
-		<strong>잘못된 접근</strong> [<%=job %>]는 작성자만 사용가능한 서비스입니다.
-	</div>
+		<div class="alert alert-danger">
+			<strong>잘못된 접근</strong> [<%=job %>]는 작성자만 사용가능한 서비스입니다.
+		</div>
+<%
+	}
+
+	if("commentNull".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>댓글 내용은 비워둘 수 없습니다.</strong>
+		</div>
+<%
+	}
+	
+	if("reportNull".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>신고 사유를 선택하세요.</strong>
+		</div>
+<%
+	}
+	
+	if("overlap".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>중복신고는 불가합니다.</strong>
+		</div>
+<%
+	}
+	
+	if("yourBoard".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>작성자 본인의 게시글은 신고할 수 없습니다.</strong>
+		</div>
 <%
 	}
 %>
@@ -116,11 +148,39 @@
 					<a href="delete.jsp?boardNo=<%=boardNo %>" class="btn btn-danger btn-sm">삭제</a>
 					<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
 <%
-	} else {
+	} else if(!"manager".equals(board.getType())) {
 %>
-		<div class="text-end">
-			<a href="report.jsp?boardNo=" class="btn btn-danger btn-sm">신고</a>
-		</div>
+			<div class="text-end">
+				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>
+			
+			</div>
+			<div class="modal fade" id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+      					<div class="modal-header">
+        					<h1 class="modal-title fs-5" id="exampleModalLabel">게시글 신고</h1>
+        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      					</div>
+      					<div class="modal-body" style="text-align: left !important;">
+        					<form method="post" action="report.jsp">
+								<input type="hidden" name="boardNo" value="<%=boardNo %>">
+        						<p style="font-weight: bold;">신고사유 선택</p>
+          						<div class="mb-3 ">
+						        	<input type="radio" name="report" value="욕설, 비방, 차별, 혐오" /> 욕설, 비방, 차별, 혐오 <br />
+						        	<input type="radio" name="report" value="불법 정보" /> 불법 정보 <br />
+						        	<input type="radio" name="report" value="음란, 청소년 유해" /> 음란, 청소년 유해 <br />
+						        	<input type="radio" name="report" value="도배 스팸" /> 도배 스팸 <br />
+						        	<input type="radio" name="report" value="기타" /> 기타
+						    	</div>
+						    	<div class="modal-footer">
+									<button type="submit" class="btn btn-danger">신고</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 <%
 	}
 %>
@@ -129,7 +189,7 @@
 	</div>
 	<div class="row mb-3">
    		<div class="col-12">
-			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp">
+			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp" >
 				<input type="hidden" name="boardNo" value="<%=boardNo %>" />
  				<div class="row">
 					<div class="col-11">

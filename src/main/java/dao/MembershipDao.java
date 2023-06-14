@@ -8,6 +8,12 @@ import vo.Gym;
 
 public class MembershipDao {
 
+	private static MembershipDao instance = new MembershipDao();
+	private MembershipDao() {}
+	public static MembershipDao getInstance() {
+		return instance;
+	}
+	
 	
 	/** 
 	 * 이용권 등록하기 
@@ -28,11 +34,12 @@ public class MembershipDao {
 		
 	}
 	
+
 	/**
 	 * 모든 이용권 조회하기
 	 * @return 이용권 리스트를 반환한다. 
 	 */
-	public List<Membership> getAllMembership(){
+	public List<Membership> getAllMembership(int begin, int end){
 		return DaoHelper.selectList("membershipDao.getAllMembership", rs-> {
 			Membership membership = new Membership();
 			membership.setNo(rs.getInt("membership_no"));
@@ -42,7 +49,7 @@ public class MembershipDao {
 			membership.setPrice(rs.getInt("membership_price"));
 			membership.setDiscountedRate(rs.getDouble("membership_discounted_rate"));
 			return membership; 
-		}); 
+		}, begin, end); 
 	}
 	
 	
@@ -76,6 +83,17 @@ public class MembershipDao {
 			
 		}, no);
 		
+	
 	}
+	
+	
+	public int totalPage() {
+		return DaoHelper.selectOne("membershipDao.totalPage", 
+				rs -> {
+					return rs.getInt("totalPage");
+				});
+	}
+	
+	
 }
 

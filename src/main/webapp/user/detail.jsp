@@ -35,7 +35,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="회원"/>
+	<jsp:param name="menu" value="마이페이지"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -80,11 +80,15 @@
 						<th class="table-dark">포인트</th>
 <%
     if (point == null) {
-        point = new Point();
-        point.setCurrentPoint(0);
-    }
 %>
+    					<td><%=0%></td>
+<%
+    }else{
+%>    		
 						<td><%=point.getCurrentPoint()%></td>
+<%
+	}
+%>						
 						<th class="table-dark">탈퇴여부</th>
 						<td>
 <%
@@ -116,7 +120,7 @@
 <% 
 	}
 %>
-				<a href="modifyForm.jsp?id=<%=user.getId()%>" class="btn btn-warning btn-sm">수정</a>
+				<a href="../certificationForm.jsp" class="btn btn-warning btn-sm">수정</a>
 <%
 	if("Y".equals(user.getStatus())){
 %>				

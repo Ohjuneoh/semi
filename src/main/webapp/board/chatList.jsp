@@ -38,7 +38,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="게시판"/>
+	<jsp:param name="menu" value="커뮤니티"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -78,7 +78,7 @@
 %>
 					<tr>
 						<td><%=notice.getNo() %></td>
-						<td><a href="detail.jsp?no="><%=notice.getTitle() %></a></td>
+						<td><a href="detail.jsp?boardNo=<%=notice.getNo()%>"><%=notice.getTitle() %></a></td>
 						<td>
 							<%=notice.getUser().getId() %>
 							<span class="badge rounded-pill text-bg-secondary">관리자</span>
@@ -104,30 +104,35 @@
 %>
 				</tbody>
 			</table>
-			<div class="row mb-3">
-		<div class="col-12">
-			<nav>
-				<ul class="pagination justify-content-center">
-					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
-					</li>
 <%
-	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+	if(totalPage != 0) {
 %>
-					<li class="page-item <%=num == pageNo ? "active" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
-					</li>
+			<div class="row mb-3">
+				<div class="col-12">
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+								<a class="page-link" href="chatList.jsp?page=<%=pageNo - 1 %>">이전</a>
+							</li>
+<%
+		for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+							<li class="page-item <%=num == pageNo ? "active" : "" %>">
+								<a class="page-link" href="chatList.jsp?page=<%=num %>"><%=num %></a>
+							</li>
+<%
+		}
+%>					
+							<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+								<a class="page-link" href="chatList.jsp?page=<%=pageNo + 1 %>">다음</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
 <%
 	}
-%>					
-					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-<%
+
 	if (loginId != null) {
 %>	
 		<div class="text-end">

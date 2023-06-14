@@ -8,10 +8,8 @@
 	
 	int membershipNo = Integer.parseInt(request.getParameter("membershipNo"));
 	
-	MembershipDao membershipDao = new MembershipDao();
+	MembershipDao membershipDao = MembershipDao.getInstance();
 	Membership membership = membershipDao.getMembershipDetailByNo(membershipNo);
-	
-	
 	
 	
 	
@@ -78,6 +76,18 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<div class="text-end">
+				<a href="membershipList.jsp" class="btn btn-primary btn-sm">목록</a>
+<%
+	if("user".equals(logintType)){
+%>
+				<a href="../order/order-form.jsp?membershipNo=<%=membershipNo%>" class="btn btn-primary btn-sm">구매하기</a>
+<%
+	}
+%>
+			</div>
+
 		</div>
 	</div>
 </div>
