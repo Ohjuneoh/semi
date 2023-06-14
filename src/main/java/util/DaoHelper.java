@@ -41,21 +41,20 @@ public class DaoHelper {
 	 * @return 조회결과가 포함된 객체 한 개
 	 */
 	public static <T> T selectOne(String key, RowMapper<T> rowMapper, Object...params) {
-		try (Connection conn = ConnUtils.getConnection(); 
-			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
-			 ResultSet rs = pstmt.executeQuery();) {
-			
-				T t = null;
-				setParams(pstmt, params);
-			
-			while (rs.next()) {
-				t = rowMapper.mapRow(rs);
+		try (Connection conn = ConnUtils.getConnection();
+			     PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key))) {
+
+			    setParams(pstmt, params);
+			    ResultSet rs = pstmt.executeQuery();
+			    T t = null;
+			    while (rs.next()) {
+			        t = rowMapper.mapRow(rs);
+			    }
+			    return t;
+
+			} catch (SQLException ex) {
+			    throw new RuntimeException(ex);
 			}
-			
-			return t;
-		} catch (SQLException ex) {
-			throw new RuntimeException(ex);
-		}
 	}
 
 	/**
@@ -68,11 +67,11 @@ public class DaoHelper {
 	 */
 	public static <T> List<T> selectList(String key, RowMapper<T> rowMapper, Object...params) {
 		try (Connection conn = ConnUtils.getConnection();
-			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
-			 ResultSet rs = pstmt.executeQuery();) {
+				PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key))) {
+
 			List<T> list = new ArrayList<>();
-			
 			setParams(pstmt, params);
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				T t = rowMapper.mapRow(rs);
 				list.add(t);
@@ -92,9 +91,8 @@ public class DaoHelper {
 	public static void update(String key, Object... params) {
 	
 		try (Connection conn = ConnUtils.getConnection();
-			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
-				) {
-			
+				PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key))) {
+						
 			setParams(pstmt, params);
 			pstmt.executeUpdate();
 
