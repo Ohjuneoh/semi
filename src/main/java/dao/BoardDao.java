@@ -4,6 +4,7 @@ import java.util.List;
 
 import util.DaoHelper;
 import vo.Board;
+import vo.ReportHistory;
 import vo.User;
 
 public class BoardDao {
@@ -20,6 +21,8 @@ public class BoardDao {
 					Board board = new Board();
 					board.setNo(rs.getInt("board_no"));
 					board.setTitle(rs.getString("board_title"));
+					board.setCategory(rs.getString("board_cat"));
+					
 					User user = new User();
 					user.setId(rs.getString("user_id"));
 					board.setUser(user);
@@ -95,6 +98,13 @@ public class BoardDao {
 					return rs.getInt("totalPage");
 				});
 	}
+
+	public int totalReportPage() {
+		return DaoHelper.selectOne("boardDao.totalReportPage", 
+				rs -> {
+					return rs.getInt("totalReportPage");
+				});
+	}
 	
 	public int totalPageByCat(String cat) {
 		return DaoHelper.selectOne("boardDao.totalPageByCat", 
@@ -125,9 +135,7 @@ public class BoardDao {
 					board.setUser(new User(rs.getString("user_id")));
 					board.setUpdateDate(rs.getDate("board_update_date"));
 					board.setCreateDate(rs.getDate("board_create_date"));
-					board.setLike(rs.getInt("board_like"));
 					board.setType(rs.getString("board_type"));
-					board.setDislike(rs.getInt("board_dislike"));
 					
 					return board;
 				}, boardNo);
@@ -145,4 +153,45 @@ public class BoardDao {
 				board.getNo());
 	}
 	
+	public void insertReportHistory(ReportHistory rep) {
+		DaoHelper.update("boardDao.insertReportHistory", 
+				rep.getBoard().getNo(),
+				rep.getUser().getId(),
+				rep.getReportUser().getId(),
+				rep.getContent());
+	}
+	
+	public ReportHistory getReportHistoryByNoId(int boardNo, String userId) {
+		return DaoHelper.selectOne("boardDao.getReportHistoryByNoId", 
+				rs -> {
+					ReportHistory rep = new ReportHistory();
+					rep.setNo(rs.getInt("report_no"));
+					rep.setBoard(new Board(rs.getInt("board_no")));
+					rep.setUser(new User(rs.getString("user_id")));
+					rep.setReportUser(new User(rs.getString("report_user_id")));
+					rep.setReportDate(rs.getDate("report_date"));
+					rep.setContent(rs.getString("report_content"));
+					
+					return rep;
+		}, boardNo, userId);
+	}
+
+	public List<ReportHistory> getReportHistoryByNo(int boardNo) {
+		return DaoHelper.selectList("boardDao.getReportHistorysByNo", 
+				rs -> {
+					ReportHistory rep = new ReportHistory();
+					rep.setNo(rs.getInt("report_no"));
+					rep.setBoard(new Board(rs.getInt("board_no")));
+					rep.setUser(new User(rs.getString("user_id")));
+					rep.setReportUser(new User(rs.getString("report_user_id")));
+					rep.setReportDate(rs.getDate("report_date"));
+					rep.setContent(rs.getString("report_content"));
+					
+					return rep;
+				}, boardNo);
+	}
+	
+	public void deleteReportHistoryByNo(int boardNo) {
+		DaoHelper.update("boardDao.deleteReportHistoryByNo", boardNo);
+	}
 }
