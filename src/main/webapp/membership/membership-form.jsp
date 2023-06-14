@@ -29,7 +29,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="관리자"/>
+	<jsp:param name="menu" value="이용권"/>
 </jsp:include>
 <div class="container">
 	<div class="row mb-3">
