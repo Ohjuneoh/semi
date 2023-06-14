@@ -64,7 +64,7 @@
 %>
 	            		<li><a class="dropdown-item" href="">내 수업 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
-	            		<li><a class="dropdown-item" href="">내 이용권 조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/my-membership/my-membership-list.jsp">내 이용권 조회</a></li>
 <%
 	}
 %>

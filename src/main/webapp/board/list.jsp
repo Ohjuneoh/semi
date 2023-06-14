@@ -151,7 +151,7 @@
 <%
 		for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
-							<li class="page-item <%=num == pageNo ? "active" : "" %>">
+							<li class="page-item <%=pageNo == num ? "active" : "" %>">
 								<a class="page-link" href="list.jsp?page=<%=num %>"><%=num %></a>
 							</li>
 <%

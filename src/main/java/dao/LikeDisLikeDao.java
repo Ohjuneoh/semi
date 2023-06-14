@@ -1,7 +1,9 @@
 package dao;
 
 import util.DaoHelper;
+import vo.Board;
 import vo.LikeDisLike;
+import vo.User;
 
 public class LikeDisLikeDao {
 
@@ -27,9 +29,21 @@ public class LikeDisLikeDao {
 	
 	public void insertLikeDisLike(LikeDisLike likeDisLike) {
 		DaoHelper.update("likeDisLikeDao.insertLikeDisLike",
-				likeDisLike.getNo(),
 				likeDisLike.getBoard().getNo(),
 				likeDisLike.getUser().getId(),
 				likeDisLike.getType());
+	}
+	
+	public LikeDisLike getLikeDisLikeByNoId(int boardNo, String loginId) {
+		return DaoHelper.selectOne("likeDisLikeDao.getLikeDisLikeByNoId", 
+				rs -> {
+					LikeDisLike likeDislike = new LikeDisLike();
+					likeDislike.setNo(rs.getInt("likedislike_no"));
+					likeDislike.setBoard(new Board(rs.getInt("board_no")));
+					likeDislike.setUser(new User(rs.getString("user_id")));
+					likeDislike.setType(rs.getString("likedislike_type"));
+					
+					return likeDislike;
+				}, boardNo, loginId);
 	}
 }
