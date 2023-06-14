@@ -1,5 +1,6 @@
 package vo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MyMembership {
@@ -11,7 +12,7 @@ public class MyMembership {
 	private Order order;
 	private String status;
 	private Date startDate;
-	private Date expirationDate;
+	private LocalDate expirationDate;
 	private Date restartDate;
 	private Date pauseDate;
 	
@@ -71,11 +72,11 @@ public class MyMembership {
 		this.startDate = startDate;
 	}
 
-	public Date getExpirationDate() {
+	public LocalDate getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(LocalDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 

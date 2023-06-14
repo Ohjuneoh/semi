@@ -13,16 +13,25 @@ public class OrderDao {
 	}
 
 	
-	public void insertOrder(Order order) {
-		DaoHelper.update("OrderDao.insertOrder", order.getMembership().getNo(),
+
+	public int insertOrder(Order order) {
+		DaoHelper.update("OrderDao.insertOrder", order.getNo(),
+												 order.getMembership().getNo(),
 												 order.getDiscountedPrice(),
 												 order.getUsedPoint(),
 												 order.getTotalCreditPrice(),
 												 order.getStatus(),
 												 order.getPaymentMethod(),
-												 order.getUser().getId());
+												 order.getUser().getId()); 
+		
+		int generatedOrderNo = getGeneratedOrderNo();
+		return generatedOrderNo;
 		
 	}
 	
+	public int getGeneratedOrderNo() {
+		return DaoHelper.selectOne("OrderDao.getGeneratedOrderNo", (rs) -> rs.getInt(1));
+	}
+
 	
 }
