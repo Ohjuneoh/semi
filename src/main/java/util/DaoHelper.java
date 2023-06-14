@@ -41,18 +41,16 @@ public class DaoHelper {
 	 * @return 조회결과가 포함된 객체 한 개
 	 */
 	public static <T> T selectOne(String key, RowMapper<T> rowMapper, Object...params) {
-		try {
-			T t = null;
-			Connection conn = ConnUtils.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
-			setParams(pstmt, params);
-			ResultSet rs = pstmt.executeQuery();
+		try (Connection conn = ConnUtils.getConnection(); 
+			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
+			 ResultSet rs = pstmt.executeQuery();) {
+			
+				T t = null;
+				setParams(pstmt, params);
+			
 			while (rs.next()) {
 				t = rowMapper.mapRow(rs);
 			}
-			rs.close();
-			pstmt.close();
-			conn.close();
 			
 			return t;
 		} catch (SQLException ex) {
@@ -69,20 +67,16 @@ public class DaoHelper {
 	 * @return 조회결과가 포함된 List객체
 	 */
 	public static <T> List<T> selectList(String key, RowMapper<T> rowMapper, Object...params) {
-		try {
+		try (Connection conn = ConnUtils.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
+			 ResultSet rs = pstmt.executeQuery();) {
 			List<T> list = new ArrayList<>();
-			Connection conn = ConnUtils.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
+			
 			setParams(pstmt, params);
-			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				T t = rowMapper.mapRow(rs);
 				list.add(t);
 			}
-			
-			rs.close();
-			pstmt.close();
-			conn.close();
 			
 			return list;
 		} catch (SQLException ex) {
@@ -97,14 +91,13 @@ public class DaoHelper {
 	 */
 	public static void update(String key, Object... params) {
 	
-		try {
-			Connection conn = ConnUtils.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
+		try (Connection conn = ConnUtils.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key));
+				) {
+			
 			setParams(pstmt, params);
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			conn.close();
+
 		} catch (SQLException ex) {
 			throw new RuntimeException(ex);
 		}
