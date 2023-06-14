@@ -11,7 +11,7 @@
 	String type = request.getParameter("type");
 	
 	if(loginId == null) {
-		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 평가", "utf-8"));
 		return;
 	}
 	
@@ -29,6 +29,7 @@
 	if(likeDislike != null) {
 		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=likeDislike");
 		return;
+
 	}
 	
 	LikeDisLike saveLikeDislike = new LikeDisLike();

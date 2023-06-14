@@ -111,7 +111,7 @@
 	if("likeDislike".equals(err)) {
 %>
 		<div class="alert alert-danger">
-			<strong>평가는 한 번만 할 수 있습니다.</strong>
+			<strong>잘못된 접근</strong> 중복 평가는 불가합니다.
 		</div>
 <%
 	}
