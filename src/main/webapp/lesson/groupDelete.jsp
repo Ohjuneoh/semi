@@ -1,9 +1,9 @@
 <%@page import="vo.Lesson"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 로그인 정보 조회
+// 로그인 정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
@@ -20,7 +20,7 @@
 	}
 	
 	// 오류사항 : 본인이 올린 강좌가 아니면 삭제불가능
-	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
+	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	Lesson groupLesson = groupDao.getGroupLessonByLessonNo(lessonNo);
 	
 	if(!loginId.equals(groupLesson.getUser().getId())) {
@@ -29,10 +29,9 @@
 	}
 	
 	// 로직수행(삭제)
-	GroupeLessonDao groupDao2 = GroupeLessonDao.getinstance();
+	GroupLessonDao groupDao2 = GroupLessonDao.getinstance();
 	groupDao2.deleteGroupLesson(lessonNo);
 	
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
-	
 %>
