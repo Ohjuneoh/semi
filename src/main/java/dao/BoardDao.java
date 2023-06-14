@@ -21,6 +21,8 @@ public class BoardDao {
 					Board board = new Board();
 					board.setNo(rs.getInt("board_no"));
 					board.setTitle(rs.getString("board_title"));
+					board.setCategory(rs.getString("board_cat"));
+					
 					User user = new User();
 					user.setId(rs.getString("user_id"));
 					board.setUser(user);

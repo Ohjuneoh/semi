@@ -1,12 +1,24 @@
+<%@page import="dto.Pagination"%>
 <%@page import="vo.Membership"%>
 <%@page import="dao.MembershipDao"%>
 <%@page import="java.util.List"%>
 
 <%@page import="util.StringUtils"%>
 <%
+	String loginId = (String) session.getAttribute("loginId");
+
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+
 	MembershipDao membershipDao = MembershipDao.getInstance();
+	int totalPage = membershipDao.totalPage();
 	
-	List<Membership> membershipList = membershipDao.getAllMembership();
+	Pagination pagination = new Pagination(pageNo, totalPage);
+	
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	
+	
+	List<Membership> membershipList = membershipDao.getAllMembership(begin, end);
 	String loginType = (String) session.getAttribute("loginType");
 	
 

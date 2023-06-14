@@ -1,3 +1,7 @@
+<%@page import="java.text.ParseException"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="vo.User"%>
 <%@page import="vo.Membership"%>
 <%@page import="vo.Order"%>
@@ -11,6 +15,9 @@
 	int totalCreditPrice = Integer.parseInt(request.getParameter("totalCreditPrice"));
 	String paymentMethod = request.getParameter("paymentMethod");
 	String userId = (String) session.getAttribute("loginId");
+	String dateString = request.getParameter("membershipStartDate");
+	
+
 	
 	// 2. 로그인 아이디 조회
 	
@@ -31,10 +38,17 @@
 	order.setUser(user);
 	
 	OrderDao orderDao = OrderDao.getinstance();
+	int orderNo = orderDao.getGeneratedOrderNo();
+	order.setNo(orderNo);
 	orderDao.insertOrder(order);
 	
+	
+	session.setAttribute("orderNo", orderNo);
+	session.setAttribute("dateString", dateString);
+	session.setAttribute("membershipNo", membershipNo);
+	
 	// 5. 재요청 url 전달
-	response.sendRedirect("order-paymentComplete.jsp");
+	response.sendRedirect("../my-membership/my-membership-insert.jsp?");
 	
 	
 	

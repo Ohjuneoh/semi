@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import util.DaoHelper;
 import vo.Gym;
 import vo.Membership;
@@ -116,5 +118,25 @@ public class UserDao {
 		
 	}
 	
+	
+	public List<User> getUserByType(String type){
+		return DaoHelper.selectList("userDao.getUserByType", rs -> {
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setType(rs.getString("user_type"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+			user.setGym(gym);
+			
+			return user;
+		}, type);
+	}
 	
 }

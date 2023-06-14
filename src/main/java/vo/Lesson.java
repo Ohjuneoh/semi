@@ -18,6 +18,19 @@ public class Lesson {
 	
 	public Lesson() {}
 	
+	// 생성자 추가
+	public Lesson(int no) {
+		this.no = no;
+	}
+	
+	public Lesson(User user) {
+		this.user = user;
+	}
+	
+	public Lesson(Gym gym) {
+		this.gym = gym;
+	}
+	
 	public int getNo() {
 		return no;
 	}

@@ -15,7 +15,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="헬스장 등록"/>
+	<jsp:param name="menu" value="관리자페이지"/>
 </jsp:include>
 <div class="container">
 	<div class="row mb-3">
@@ -38,7 +38,7 @@
    			<form class="border bg-light p-3" method="post" action="insert.jsp" onsubmit="return fn1();">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">지역명</label>
-   					<input id="gym-locationName" type="text" class="form-control" name="locationName" placeholder="금오동" />
+   					<input id="gym-locationName" type="text" class="form-control" name="locationName" placeholder="ex)금오동" />
    				</div>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">헬스장 전화번호</label>

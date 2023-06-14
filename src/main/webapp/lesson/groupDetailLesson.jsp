@@ -9,6 +9,9 @@
 	
 	// 레슨번호 뽑아내기
 	int lessonNo = Integer.parseInt(request.getParameter("no"));
+	// 에러 뽑아내기 
+	String err = request.getParameter("err");
+	
 	
 	// 로직수행
 	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
@@ -33,18 +36,28 @@
 <div class="container">
 	<div class="row mb-3">
     	<div class="col-12">
-        	<h1 class="border bg-light fs-4 p-2">그룹수업 상세 정보</h1>
+        	<h1 class="border bg-light fs-4 p-2">그룹레슨 상세 정보</h1>
       	</div>
    	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>그룹수업 상세정보를 확인할 수 있습니다.</p>
+			<p>그룹레슨 상세정보를 확인할 수 있습니다.</p>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
+			</div>
+<%
+	}
+%>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<th class="table-dark" style="width: 15%;">강좌명</th>
+						<th class="table-dark" style="width: 15%;">레슨명</th>
 						<td style="width: 35%;"><%=groupLesson.getName() %></td>
-						<th class="table-dark" style="width: 15%;">강사명</th>
+						<th class="table-dark" style="width: 15%;">레슨명</th>
 						<td style="width: 35%;"><%=groupLesson.getUser().getName() %></td>
 					</tr>
 					<tr>
@@ -56,16 +69,16 @@
 					<tr>
 						<th class="table-dark" style="width: 15%;">등록일</th>
 						<td style="width: 35%;"><%=groupLesson.getCreatDate() %></td>
-						<th class="table-dark" style="width: 15%;">강좌시간</th>
+						<th class="table-dark" style="width: 15%;">레슨시간</th>
 						<td style="width: 35%;"><%=groupLesson.getTime() %></td>
 					</tr>
 					<tr>
-						<th class="table-dark" style="width: 15%;">강좌상태</th>
+						<th class="table-dark" style="width: 15%;">레슨상태</th>
 <% if(groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
 						<td  style="width: 25%">
 							<span class="badge text-bg-success p-2">모집중</span>
 						</td>
-<% } else if (groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
+<% } else if (groupLesson.getQuota() == groupLesson.getReqCnt()) { %>
 						<td  style="width: 25%">
 							<span class="badge text-bg-secondary p-2">모집완료</span>
 						</td>
@@ -80,13 +93,16 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "회원".equals(loginType)) { %>
-						<a href="groupRegisterLesson.jsp?id=<%=loginId %>" class="btn btn-warning btn-sm">신청</a>
+<% if(loginId != null && "user".equals(loginType)) { %>
+<%  if(groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
+
+						<a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
+<% 	 } %>
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
-<% if(loginId != null && "강사".equals(loginType)) { %>
-						<a href="delete.jsp?id=" class="btn btn-danger btn-sm">삭제</a>
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(groupLesson.getUser().getId())) { %>
+						<a href="groupDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>
 <% } %>
 					</div>
 		</div>

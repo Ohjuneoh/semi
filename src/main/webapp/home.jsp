@@ -20,7 +20,17 @@
 </jsp:include>
 
 <%
-	if("professordeny".equals(err)){
+	if("userdeny".equals(err)){
+%>
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>[<%=job %>]은 회원만 사용가능한 서비스입니다.
+			</div>
+<%
+	}
+%>
+
+<%
+	if("trainerdeny".equals(err)){
 %>
 			<div class="alert alert-danger">
 				<strong>잘못된 접근</strong>[<%=job %>]은 강사만 사용가능한 서비스입니다.
@@ -28,6 +38,7 @@
 <%
 	}
 %>
+
 <%
 	if("managerdeny".equals(err)){
 %>

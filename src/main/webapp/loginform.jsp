@@ -76,6 +76,7 @@
 			alert("비밀번호는 필수 입력값입니다.")
 			return false;
 		}
+
 		return true;
 	}
 </script>

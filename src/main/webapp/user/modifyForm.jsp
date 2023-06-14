@@ -24,7 +24,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="수정"/>
+	<jsp:param name="menu" value="마이페이지"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
