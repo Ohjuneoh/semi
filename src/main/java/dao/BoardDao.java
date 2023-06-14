@@ -135,9 +135,7 @@ public class BoardDao {
 					board.setUser(new User(rs.getString("user_id")));
 					board.setUpdateDate(rs.getDate("board_update_date"));
 					board.setCreateDate(rs.getDate("board_create_date"));
-					board.setLike(rs.getInt("board_like"));
 					board.setType(rs.getString("board_type"));
-					board.setDislike(rs.getInt("board_dislike"));
 					
 					return board;
 				}, boardNo);

@@ -1,5 +1,7 @@
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
+
 
 ### Eclipse ###
 .metadata
@@ -13,6 +15,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
 build/
 
 # External tool builders
