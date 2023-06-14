@@ -1,0 +1,26 @@
+@charset "UTF-8";
+a{
+	font-weight: 1000;
+	
+}
+label{
+	font-weight: 1000;
+	font-size : 20px;
+	margin-bottom:5px;
+	
+}
+h1{
+	font-weight: 1000;
+	
+}
+input[type="checkbox"] {
+	margin-bottom:10px;
+	font-size:20px;
+}
+
+
+custom-scrollbar{
+	overflow: auto;
+  scrollbar-width: 10px;
+}
+
