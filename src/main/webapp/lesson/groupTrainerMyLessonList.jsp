@@ -1,10 +1,9 @@
 <%@page import="dto.Pagination"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-
-	// 로그인정보 조회
+// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 
@@ -15,15 +14,13 @@
 	// 페이징처리 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupeLessonDao groupLessonDao = GroupeLessonDao.getinstance();
+	GroupLessonDao groupLessonDao = GroupLessonDao.getinstance();
 	int totalRows = groupLessonDao.getTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
 	// 로직수행 (레슨 전체조회)
 	List<Lesson> lessonList = groupLessonDao.getGroupMyLessonsById(loginId, pagination.getBegin(), pagination.getEnd());
-	
-
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -42,7 +39,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="내그룹전체"/>
+	<jsp:param name="menu" value="마이페이지"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -83,7 +80,7 @@
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
-						<td><a href="groupMyDetail.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
 						<td><%=lesson.getGym().getName() %></td>
@@ -94,6 +91,7 @@
  %>
 				</tbody>
 			</table>
+<% if(totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
@@ -117,6 +115,7 @@
 			</nav>
 		</div>
 	</div>
+<% } %>
 		</div>
 	</div>
 </div>

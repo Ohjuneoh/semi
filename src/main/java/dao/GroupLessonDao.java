@@ -7,13 +7,13 @@ import vo.Gym;
 import vo.Lesson;
 import vo.User;
 
-public class GroupeLessonDao {
+public class GroupLessonDao {
 
 	
-	private GroupeLessonDao() {}
+	private GroupLessonDao() {}
 	
-	public static GroupeLessonDao instance = new GroupeLessonDao();
-	public static GroupeLessonDao getinstance() {
+	public static GroupLessonDao instance = new GroupLessonDao();
+	public static GroupLessonDao getinstance() {
 		return instance;
 	}
 	
