@@ -107,8 +107,7 @@
  %>
   							</select>
   						</div>
-					</div>
-					<div class="col-md-12">
+  						<div class="col-md-12">
   						<label class="form-label title">총 결제 금액</label>
   						<div class="d-flex justify-content-start">
    						<input type="text" class="form-control w-75" name="totalCreditPrice" value="<%=membership.getDiscountedPrice()%>" style=" font-weight: bold;" /> <!--  자세한 것은 추후 혹은 파이널 때 구현 -->
@@ -116,8 +115,10 @@
    						&nbsp;&nbsp;
   						</div>
 					</div>
+					</div>
 		</div>
-		<br>
+		
+		<div class="border bg-light p-3">
 		<div class="row mb-3">
     	<div class="col-12">
         	<h1 class="border bg-light fs-4 p-2">결제수단</h1>
@@ -144,6 +145,7 @@
 					</div>
         		</div>
       	</div>
+   		</div>
    		</div>
 	</form>
 					<br>
