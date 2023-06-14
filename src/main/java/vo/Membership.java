@@ -126,4 +126,6 @@ public class Membership {
 		return (int)((1 - getDiscountedRate())*getPrice());
 	}
 	
+
+	
 }

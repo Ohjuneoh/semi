@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@page import="vo.Membership"%>
 <%@page import="dao.MembershipDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -5,6 +8,8 @@
 	int membershipNo = Integer.parseInt(request.getParameter("membershipNo"));
 	MembershipDao membershipDao = MembershipDao.getInstance();
 	Membership membership = membershipDao.getMembershipDetailByNo(membershipNo);
+	UserDao userDao = UserDao.getinstance();
+	List<User> userList = userDao.getUserByType("trainer");
 
 %>
 <!doctype html>
@@ -46,9 +51,9 @@
       	</div>
    	</div>
  	<div class="row mb-3">
+			<form  id="form-order" class="row g-3" method="post" action="order-insert.jsp?membershipNo=<%=membershipNo %>">
 		<div class="col-12">
 		<h1 class="border bg-light fs-4 p-2">주문 이용권 </h1>
-			<form  id="form-order" class="row g-3" method="post" action="order-insert.jsp?membershipNo=<%=membershipNo %>">
 			<div class="border bg-light p-3">
 	 				<div class="col-md-12">
 						<label class="form-label title">이용권 이름</label>
@@ -90,14 +95,17 @@
    						&nbsp;&nbsp;
   						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
   						<label class="form-label title"> &#x2665; 구매를 추천한 강사님</label>
-  						<div class="d-flex justify-content-start">
-  						<input list="browsers" class="form-control w-75" name="bestTrainer">
-							<datalist id="browsers">
-  								<option value="더미 수정 예정">
-  							</datalist>
-   						&nbsp;&nbsp;
+  						<select class="form-select" name="bestTrainer">
+<%
+	for(User user : userList ){
+%>
+  								<option value="<%=user.getName()%>"><%=user.getName() %></option>
+ <%
+	}
+ %>
+  							</select>
   						</div>
 					</div>
 					<div class="col-md-12">
@@ -144,7 +152,6 @@
 					</div>
 			</div>
 		</div>
-	</div>
 <script type="text/javascript">
 	function formsubmit() {
 		document.getElementById("form-order").submit();
