@@ -8,17 +8,17 @@
 		// 2. 요청파라미터 조회하기
 		String menu = request.getParameter("menu");
 	%>
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3 " >
 		<div class="container-fluid">
 	    	<ul class="navbar-nav me-auto">
-	        	<li class="nav-item me-3"><a class="nav-link " href="/semi/home.jsp" style="font-size: 20px;"><i class="bi bi-house"></i></a></li>
+	        	<li class="nav-item me-3"><a class="nav-link " href="/semi/home.jsp" style="font-size: 20px;"><img src="/semi/resources/images/logo.png" width="80" height="30" alt="helf"/></a></li>
+	        	
 <%
 	if(loginType != null){
 %>	        	
-				<li class="nav-item dropdown ">
+				<li class="nav-item dropdown " style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="수업".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	수업
 	          		</a>
@@ -27,7 +27,7 @@
 	            		<li><a class="dropdown-item" href="/semi/lesson/groupList.jsp">그룹수업</a></li>
 	          		</ul>
 	        	</li>
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="이용권".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	이용권
 	          		</a>
@@ -44,7 +44,7 @@
 %>	            		
 	          		</ul>
 	        	</li>
-	        	<li class="nav-item dropdown">
+	        	<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="커뮤니티".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	커뮤니티
 	          		</a>
@@ -53,7 +53,7 @@
 	          		</ul>
 	        	</li>
 
-	        	<li class="nav-item dropdown">
+	        	<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="마이페이지".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	마이페이지
 	          		</a>
@@ -64,7 +64,7 @@
 %>
 	            		<li><a class="dropdown-item" href="">내 수업 조회</a></li>
 	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
-	            		<li><a class="dropdown-item" href="">내 이용권 조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/my-membership/my-membership-list.jsp">내 이용권 조회</a></li>
 <%
 	}
 %>
@@ -76,7 +76,7 @@
 						<li><a class="dropdown-item" href="">출결등록</a></li>
 	          	</ul>
 	       		</li>
-	        	<li class="nav-item dropdown">
+	        	<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	회원관리
 	          		</a>
@@ -93,7 +93,7 @@
 		if("manager".equals(loginType)){
 %>
 
-	        	<li class="nav-item dropdown">
+	        	<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="관리자페이지".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	관리자 페이지
 	          		</a>
@@ -121,9 +121,9 @@
 	<%
 		if(loginType == null){
 	%>
-	      	<ul class="navbar-nav" >
-	         	<li class="nav-item"><a class="nav-link <%="로그인".equals(menu) ? "active" : "" %>" href="/semi/loginform.jsp">로그인</a></li>
-				<li class="nav-item dropdown">
+	      	<ul class="navbar-nav"  >
+	         	<li class="nav-item" style="margin-top: 3px;"><a class="nav-link <%="로그인".equals(menu) ? "active" : "" %>" href="/semi/loginform.jsp">로그인</a></li>
+				<li class="nav-item dropdown" style="margin-top: 3px;">
 	          		<a class="nav-link dropdown-toggle <%="회원가입".equals(menu) ? "active" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            	회원가입
 	          		</a>
@@ -144,4 +144,6 @@
 	      	</ul>
 	   	</div>
 	</nav>
+	
+	
 	
