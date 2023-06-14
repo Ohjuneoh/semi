@@ -1,7 +1,5 @@
-/build/
-/bin/
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse,windows,java .gitignore
-# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,windows,java .gitignore
+# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
 
 ### Eclipse ###
 .metadata
@@ -15,6 +13,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+build/
 
 # External tool builders
 .externalToolBuilders/
@@ -69,32 +68,30 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
-#!! ERROR: java .gitignore is undefined. Use list command to see defined gitignore types !!#
+### Java ###
+# Compiled class file
+*.class
 
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
+# Log file
+*.log
 
-# Dump file
-*.stackdump
+# BlueJ files
+*.ctxt
 
-# Folder config file
-[Dd]esktop.ini
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
 
-# Windows shortcuts
-*.lnk
-
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,windows,java .gitignore
+# End of https://www.toptal.com/developers/gitignore/api/java,eclipse
