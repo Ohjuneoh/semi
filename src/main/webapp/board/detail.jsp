@@ -1,3 +1,4 @@
+<%@page import="dao.LikeDisLikeDao"%>
 <%@page import="dto.Pagination"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Comment"%>
@@ -19,6 +20,9 @@
 	CommentDao commentDao = CommentDao.getInstance();
 	int commentCnt = commentDao.getCommentCnt(boardNo);
 	List<Comment> comments = commentDao.getComments(boardNo);
+	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
+	int totalLike = likeDislikeDao.totalLike(boardNo);
+	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
 
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
@@ -138,38 +142,12 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<button type="button" class="btn btn-outline-primary" id="like">
-					좋아요<br />
-					<%=board.getLike() %>
-				</button>
-				<button type="button" class="btn btn-outline-secondary" id="disLike">
-					싫어요<br />
-					<%=board.getDislike() %>
-				</button>
-				<script>
-    				let like = document.getElementById("like");
-    				let disLike = document.getElementById("disLike");
-
-   		 			like.addEventListener("click", function() {
-      					<%
-      						board.setLike(board.getLike() + 1);
-      						boardDao.updateBoard(board);
-      					%>
-      					like.style.backgroundColor = "blue";
-						like.style.color = "white";
-      					disLike.disabled = true;
-    				});
-
-   		 			disLike.addEventListener("click", function() {
-      					<%
-      						board.setLike(board.getDislike() + 1);
-      						boardDao.updateBoard(board);
-      					%>
-      					disLike.style.backgroundColor = "gray";
-      					disLike.style.color = "white";
-      					like.disabled = true;
-    				});
-  				</script>
+				<a href="insertLikeDisLike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
+					좋아요<br /><%=totalLike%>
+				</a>
+				<a href="insertLikeDisLike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-secondary">
+					싫어요<br /><%=totalDisLike %>
+				</a>
 			</div>
 			<div class="text-end">
 <%
@@ -219,7 +197,7 @@
 	</div>
 	<div class="row mb-3">
    		<div class="col-12">
-			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp" >
+			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp">
 				<input type="hidden" name="boardNo" value="<%=boardNo %>" />
  				<div class="row">
 					<div class="col-11">
@@ -249,15 +227,18 @@
 %>
 	   				</strong>
 				</div>
-				<div>
+				<div id="comment">
 					<%=comment.getContent() %>
 <%
 		if(loginId.equals(comment.getUser().getId())) {
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
-					<a href="../modifyForm.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-decoration-none float-end"><i class="bi bi-brush-fill"></i></a>
+	   					class="btn btn-link text-danger text-decoration-none float-end">
+	   					<i class="bi bi-trash"></i>
+	   				</a>
+					<a class="btn btn-link text-decoration-none float-end" >
+						<i class="bi bi-brush-fill"></i>
+	   				</a>
 <%
 		}
 %>
