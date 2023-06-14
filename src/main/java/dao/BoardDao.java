@@ -148,8 +148,6 @@ public class BoardDao {
 				board.getContent(),
 				board.getViewCnt(),
 				board.getDeleted(),
-				board.getLike(),
-				board.getDislike(),
 				board.getNo());
 	}
 	
