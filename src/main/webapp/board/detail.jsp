@@ -1,3 +1,5 @@
+<%@page import="vo.LikeDisLike"%>
+<%@page import="dao.LikeDisLikeDao"%>
 <%@page import="dto.Pagination"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Comment"%>
@@ -19,7 +21,11 @@
 	CommentDao commentDao = CommentDao.getInstance();
 	int commentCnt = commentDao.getCommentCnt(boardNo);
 	List<Comment> comments = commentDao.getComments(boardNo);
-
+	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
+	int totalLike = likeDislikeDao.totalLike(boardNo);
+	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
+	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
+	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
 		return;
@@ -101,6 +107,14 @@
 		</div>
 <%
 	}
+	
+	if("likeDislike".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>잘못된 접근</strong> 중복 평가는 불가합니다.
+		</div>
+<%
+	}
 %>
 	</div>
 	<div class="row mb-3">
@@ -138,8 +152,14 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<button type="button" class="btn btn-outline-primary">좋아요</button>
-				<button type="button" class="btn btn-outline-secondary">싫어요</button>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" 
+					class="btn btn-outline-primary <%=likeDislike != null && "like".equals(likeDislike.getType()) ? "active" : "" %>">
+					좋아요<br /><%=totalLike%>
+				</a>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" 
+					class="btn btn-outline-secondary <%=likeDislike != null && "disLike".equals(likeDislike.getType()) ? "active" : "" %>">
+					싫어요<br /><%=totalDisLike %>
+				</a>
 			</div>
 			<div class="text-end">
 <%
@@ -189,7 +209,7 @@
 	</div>
 	<div class="row mb-3">
    		<div class="col-12">
-			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp" >
+			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp">
 				<input type="hidden" name="boardNo" value="<%=boardNo %>" />
  				<div class="row">
 					<div class="col-11">
@@ -219,15 +239,18 @@
 %>
 	   				</strong>
 				</div>
-				<div>
+				<div id="comment">
 					<%=comment.getContent() %>
 <%
-		if(loginId.equals(comment.getUser().getId())){
+		if(loginId.equals(comment.getUser().getId())) {
 %>
 					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
-					<a href="../modifyForm.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-decoration-none float-end"><i class="bi bi-brush-fill"></i></a>
+	   					class="btn btn-link text-danger text-decoration-none float-end">
+	   					<i class="bi bi-trash"></i>
+	   				</a>
+					<a class="btn btn-link text-decoration-none float-end" >
+						<i class="bi bi-brush-fill"></i>
+	   				</a>
 <%
 		}
 %>

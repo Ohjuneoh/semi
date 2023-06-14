@@ -99,7 +99,7 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/gym/list.jsp">헬스장 조회</a></li>
-	            		<li><a class="dropdown-item" href="">신고내역</a></li>
+	            		<li><a class="dropdown-item" href="/semi/board/reportList.jsp">신고내역</a></li>
 	            		<li><a class="dropdown-item" href="">수업조회</a></li>
 	            		<li><a class="dropdown-item" href="">예약조회</a></li>
 	          		</ul>
