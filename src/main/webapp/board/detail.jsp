@@ -1,3 +1,4 @@
+<%@page import="vo.LikeDisLike"%>
 <%@page import="dao.LikeDisLikeDao"%>
 <%@page import="dto.Pagination"%>
 <%@page import="util.StringUtils"%>
@@ -23,7 +24,8 @@
 	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
 	int totalLike = likeDislikeDao.totalLike(boardNo);
 	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
-
+	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
+	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
 		return;
@@ -52,7 +54,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="게시글"/>
+	<jsp:param name="menu" value="커뮤니티"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
@@ -105,6 +107,14 @@
 		</div>
 <%
 	}
+	
+	if("likeDislike".equals(err)) {
+%>
+		<div class="alert alert-danger">
+			<strong>평가는 한 번만 할 수 있습니다.</strong>
+		</div>
+<%
+	}
 %>
 	</div>
 	<div class="row mb-3">
@@ -142,10 +152,12 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<a href="insertLikeDisLike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" 
+					class="btn btn-outline-primary <%=likeDislike != null && "like".equals(likeDislike.getType()) ? "active" : "" %>">
 					좋아요<br /><%=totalLike%>
 				</a>
-				<a href="insertLikeDisLike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-secondary">
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" 
+					class="btn btn-outline-secondary <%=likeDislike != null && "disLike".equals(likeDislike.getType()) ? "active" : "" %>">
 					싫어요<br /><%=totalDisLike %>
 				</a>
 			</div>

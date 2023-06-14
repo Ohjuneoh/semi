@@ -38,18 +38,19 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="게시판"/>
+	<jsp:param name="menu" value="커뮤니티"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
-		<nav class="nav">
-  			<a class="nav-link" href="list.jsp">전체</a>
-  			<a class="nav-link" href="chatList.jsp">잡담</a>
-  			<a class="nav-link" href="infoList.jsp">정보</a>
-  			<a class="nav-link" href="dealList.jsp">거래</a>
-		</nav>
+		<p>정보 게시판</p>
+			<ul class="nav nav-tabs mb-3">
+           		<li class="nav-item"><a class="nav-link " href="list.jsp">전체</a></li>
+           		<li class="nav-item"><a class="nav-link" href="chatList.jsp">잡담</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="infoList.jsp">정보</a></li>
+           		<li class="nav-item"><a class="nav-link" href="dealList.jsp">거래</a></li>
+			</ul>
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">게시글 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
