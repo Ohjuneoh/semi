@@ -111,7 +111,7 @@
 	if("likeDislike".equals(err)) {
 %>
 		<div class="alert alert-danger">
-			<strong>평가는 한 번만 할 수 있습니다.</strong>
+			<strong>잘못된 접근</strong> 중복 평가는 불가합니다.
 		</div>
 <%
 	}
@@ -171,9 +171,9 @@
 	} else if(!"manager".equals(board.getType())) {
 %>
 			<div class="text-end">
-				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>
-			
+				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>			
 			</div>
+			
 			<div class="modal fade" id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -201,6 +201,7 @@
 					</div>
 				</div>
 			</div>
+
 <%
 	}
 %>
