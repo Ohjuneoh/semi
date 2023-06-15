@@ -27,18 +27,22 @@
 		return;
 	}
 	
+	String type = request.getParameter("type");
 	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();	
 	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);	
-	if(likeDislike != null) {
+	
+	if(likeDislike != null && type.equals(likeDislike.getType())) {
+		likeDislikeDao.deleteLikeDisLikeByNOId(boardNo, loginId);	
+		response.sendRedirect("detail.jsp?boardNo=" + boardNo);
+		return;
+	} else if(likeDislike != null && !type.equals(likeDislike.getType())) {
 		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=likeDislike");
 		return;
-
 	}
 	
 	LikeDisLike saveLikeDislike = new LikeDisLike();
 	saveLikeDislike.setBoard(new Board(boardNo));
 	saveLikeDislike.setUser(new User(loginId));
-	String type = request.getParameter("type");
 	saveLikeDislike.setType(type);
 	
 	likeDislikeDao.insertLikeDisLike(saveLikeDislike);

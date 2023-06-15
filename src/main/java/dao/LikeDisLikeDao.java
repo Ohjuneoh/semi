@@ -46,4 +46,8 @@ public class LikeDisLikeDao {
 					return likeDislike;
 				}, boardNo, loginId);
 	}
+	
+	public void deleteLikeDisLikeByNOId(int boardNo, String loginId) {
+		DaoHelper.update("likeDisLikeDao.deleteLikeDisLikeByNOId", boardNo, loginId);
+	}
 }

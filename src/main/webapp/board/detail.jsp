@@ -159,14 +159,31 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" 
-					class="btn btn-outline-primary <%=likeDislike != null && "like".equals(likeDislike.getType()) ? "active" : "" %>">
+<%
+	if (likeDislike == null) {
+%>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
 					좋아요<br /><%=totalLike%>
 				</a>
-				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" 
-					class="btn btn-outline-secondary <%=likeDislike != null && "disLike".equals(likeDislike.getType()) ? "active" : "" %>">
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger">
 					싫어요<br /><%=totalDisLike %>
 				</a>
+<%
+	} else {
+%>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary 
+					<%="like".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					좋아요<br /><%=totalLike%>
+				</a>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger
+					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					싫어요<br /><%=totalDisLike %>
+				</a>
+
+<%		
+	}
+%>
+				
 			</div>
 			<div class="text-end">
 <%
@@ -208,7 +225,6 @@
 					</div>
 				</div>
 			</div>
-
 <%
 	}
 %>
