@@ -92,11 +92,7 @@
 			alert("아이디는 필수 입력값입니다.")
 			return false;
 		}
-		//비밀번호 유효성 검사 실패 시 비밀번호 창으로 포커스 이동
-		if (!pwdCheck.test(password.value)) {
-		    document.getElementById("user-password").focus();
-		    return false;
-		}
+
 		if(name ===""){
 			alert("이름 필수 입력값입니다.")
 			return false;
@@ -122,6 +118,7 @@
 	    
 	    if (!pwdCheck.test(password)) {
 	        document.getElementById("password-error").textContent = "비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리를 사용해야 합니다.";
+	        document.getElementById("user-password").focus();
 	    } else {
 	        document.getElementById("password-error").textContent = "";
 	    }
