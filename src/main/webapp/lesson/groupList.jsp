@@ -82,8 +82,7 @@
 				<tbody>
 				
 <% for (Lesson lesson : lessonList) { 
-	String lessonType = lesson.getType(); 
-		if("group".equals(lessonType)) { 
+
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
@@ -93,7 +92,6 @@
 						<td><%=lesson.getGym().getName() %></td>
 					</tr>
 <% 	
-		}
 	}
  %>
 				</tbody>

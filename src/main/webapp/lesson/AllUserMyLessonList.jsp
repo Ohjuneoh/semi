@@ -8,7 +8,6 @@
 <%
 	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
-	System.out.println("로그인 아이디 -> " + loginId);
 	String loginType = (String)session.getAttribute("loginType");
 	
 	// 오류상황
@@ -27,12 +26,12 @@
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
 	GroupReservationDao reserveDao = GroupReservationDao.getinstance();
-	int totalRows = reserveDao.getTotalRows(loginId);
+	int totalRows = reserveDao.getAllTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
 	// 로직수행 (예약 조회)
-	List<Reservation> reserveList = reserveDao.getGroupReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	List<Reservation> reserveList = reserveDao.getAllReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -79,7 +78,9 @@
 					</tr>
 				</thead>
 				<tbody>
-<% for (Reservation reserve : reserveList) { %>
+<%
+	for (Reservation reserve : reserveList) { 
+%>
 					<tr>
 						<td style="width: 10%;"><%=reserve.getLesson().getNo() %>
 						<td style="width: 36%;">
@@ -99,13 +100,15 @@
 								개인레슨
 								<% } %>
 						</td>
-<% } %>
+<% 
+	} 
+%>
 					</tr>
 				</tbody>
 			</table>
+<% if (totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
-<% if (totalRows != 0) { %>
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
