@@ -8,29 +8,16 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String)session.getAttribute("loginId");
-	String loginType = (String)session.getAttribute("loginType");
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("신고 게시판 조회", "utf-8"));
 		return;
 	}
 	
+	String loginType = (String)session.getAttribute("loginType");
 	if(!"manager".equals(loginType)) {
 		response.sendRedirect("../home.jsp?err=managerdeny&job=" + URLEncoder.encode("신고 게시글 조회", "utf-8"));
 		return;
 	}
-
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-	
-	BoardDao boardDao = BoardDao.getInstance();
-	int totalReportPage = boardDao.totalReportPage();
-	
-	Pagination pagination = new Pagination(pageNo, totalReportPage);
-	
-	int begin = pagination.getBegin();
-	int end = pagination.getEnd();
-	
-	List<Board> reports = boardDao.getReportBoards(begin, end);
 %>
 <!doctype html>
 <html lang="ko">
@@ -54,6 +41,17 @@
 		<div class="col-12">
 			<h1 class="border bg-light fs-4 p-2">신고 게시글 목록</h1>
 		</div>
+<%
+	String err = request.getParameter("err");
+
+	if("invalid".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>잘못된 접근</strong> 정상적인 URL이 아닙니다.
+	</div>
+<%
+	}
+%>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">		
@@ -75,6 +73,14 @@
 				</thead>
 				<tbody>
 <%
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	BoardDao boardDao = BoardDao.getInstance();
+	int totalReportPage = boardDao.totalReportPage();	
+	Pagination pagination = new Pagination(pageNo, totalReportPage);	
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();	
+	List<Board> reports = boardDao.getReportBoards(begin, end);
+
 	for(Board report : reports) {
 %>
 					<tr>

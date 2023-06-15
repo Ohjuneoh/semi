@@ -11,35 +11,38 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	String loginType = (String) session.getAttribute("loginType");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	String err = request.getParameter("err");
-	String job = request.getParameter("job");
-	
-	BoardDao boardDao = BoardDao.getInstance();
-	Board board = boardDao.getBoardByNo(boardNo);
-	CommentDao commentDao = CommentDao.getInstance();
-	int commentCnt = commentDao.getCommentCnt(boardNo);
-	List<Comment> comments = commentDao.getComments(boardNo);
-	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
-	int totalLike = likeDislikeDao.totalLike(boardNo);
-	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
-	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
 		return;
 	}
 	
+	BoardDao boardDao = BoardDao.getInstance();
+	int boardNo = 0;
+	try{
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("list.jsp?err=invalid");
+		return;
+	};
+	Board board = boardDao.getBoardByNo(boardNo);
+
 	if(!loginId.equals(board.getUser().getId())) {
 		board.setViewCnt(board.getViewCnt() + 1);
 		boardDao.updateBoard(board);
 	}
-	
 	if(!"N".equals(board.getDeleted())) {
 		response.sendRedirect("list.jsp?err=deleteBoard");
 		return;
 	}
+	
+	CommentDao commentDao = CommentDao.getInstance();
+	int commentCnt = commentDao.getCommentCnt(boardNo);
+	List<Comment> comments = commentDao.getComments(boardNo);
+	
+	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
+	int totalLike = likeDislikeDao.totalLike(boardNo);
+	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
+	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
 %>
 <!doctype html>
 <html lang="ko">
@@ -68,6 +71,10 @@
 			<h1 class="border bg-light fs-4 p-2">게시글 상세 정보</h1>
 		</div>
 <%
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
+
+	
 	if("delete".equals(err)) {
 %>
 		<div class="alert alert-danger">
@@ -152,14 +159,31 @@
 				</tbody>
 			</table>
 			<div class="text-center">
-				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" 
-					class="btn btn-outline-primary <%=likeDislike != null && "like".equals(likeDislike.getType()) ? "active" : "" %>">
+<%
+	if (likeDislike == null) {
+%>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
 					좋아요<br /><%=totalLike%>
 				</a>
-				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" 
-					class="btn btn-outline-secondary <%=likeDislike != null && "disLike".equals(likeDislike.getType()) ? "active" : "" %>">
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger">
 					싫어요<br /><%=totalDisLike %>
 				</a>
+<%
+	} else {
+%>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary 
+					<%="like".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					좋아요<br /><%=totalLike%>
+				</a>
+				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger
+					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					싫어요<br /><%=totalDisLike %>
+				</a>
+
+<%		
+	}
+%>
+				
 			</div>
 			<div class="text-end">
 <%
@@ -171,9 +195,9 @@
 	} else if(!"manager".equals(board.getType())) {
 %>
 			<div class="text-end">
-				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>
-			
+				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>			
 			</div>
+			
 			<div class="modal fade" id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
