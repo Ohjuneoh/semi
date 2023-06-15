@@ -6,19 +6,24 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	String reportContent = request.getParameter("report");
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 신고", "utf-8"));
 		return;
 	}
+
+	int boardNo = 0;
+	try {
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("list.jsp?err=invalid");
+		return;
+	}
 	
+	String reportContent = request.getParameter("report");
 	if(reportContent == null) {
 		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=reportNull");
 		return;
 	}
-	
 	
 	BoardDao boardDao = BoardDao.getInstance();
 	ReportHistory repHistory = boardDao.getReportHistoryByNoId(boardNo, loginId);	

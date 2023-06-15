@@ -6,22 +6,9 @@
 <%@page import="util.StringUtils"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	String loginId = (String) session.getAttribute("loginId");
-	String cat = "deal";
-
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-	
 	BoardDao boardDao = BoardDao.getInstance();
-	int totalPage = boardDao.totalPageByCat(cat);
-	
-	Pagination pagination = new Pagination(pageNo, totalPage);
-	
-	int begin = pagination.getBegin();
-	int end = pagination.getEnd();
-	
-	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
-	List<Board> notices = boardDao.getNoticesByCat(cat);
 	CommentDao commentDao = CommentDao.getInstance();
+	String cat = "deal";
 %>
 <!doctype html>
 <html lang="ko">
@@ -75,6 +62,7 @@
 				</thead>
 				<tbody>
 <%
+	List<Board> notices = boardDao.getNoticesByCat(cat);
 	for(Board notice : notices) {
 		int commentCnt = commentDao.getCommentCnt(notice.getNo());
 %>
@@ -90,6 +78,13 @@
 					</tr>
 <%
 	}
+
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);	
+	int totalPage = boardDao.totalPageByCat(cat);	
+	Pagination pagination = new Pagination(pageNo, totalPage);	
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
 
 	for(Board board : boards) {
 		int commentCnt = commentDao.getCommentCnt(board.getNo());
@@ -134,6 +129,8 @@
 			</div>
 <%
 	}
+	
+	String loginId = (String) session.getAttribute("loginId");
 	if (loginId != null) {
 %>	
 		<div class="text-end">

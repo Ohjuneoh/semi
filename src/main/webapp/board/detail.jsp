@@ -11,35 +11,38 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	String loginType = (String) session.getAttribute("loginType");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	String err = request.getParameter("err");
-	String job = request.getParameter("job");
-	
-	BoardDao boardDao = BoardDao.getInstance();
-	Board board = boardDao.getBoardByNo(boardNo);
-	CommentDao commentDao = CommentDao.getInstance();
-	int commentCnt = commentDao.getCommentCnt(boardNo);
-	List<Comment> comments = commentDao.getComments(boardNo);
-	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
-	int totalLike = likeDislikeDao.totalLike(boardNo);
-	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
-	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 보기", "utf-8"));
 		return;
 	}
 	
+	BoardDao boardDao = BoardDao.getInstance();
+	int boardNo = 0;
+	try{
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("list.jsp?err=invalid");
+		return;
+	};
+	Board board = boardDao.getBoardByNo(boardNo);
+
 	if(!loginId.equals(board.getUser().getId())) {
 		board.setViewCnt(board.getViewCnt() + 1);
 		boardDao.updateBoard(board);
 	}
-	
 	if(!"N".equals(board.getDeleted())) {
 		response.sendRedirect("list.jsp?err=deleteBoard");
 		return;
 	}
+	
+	CommentDao commentDao = CommentDao.getInstance();
+	int commentCnt = commentDao.getCommentCnt(boardNo);
+	List<Comment> comments = commentDao.getComments(boardNo);
+	
+	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
+	int totalLike = likeDislikeDao.totalLike(boardNo);
+	int totalDisLike = likeDislikeDao.totalDisLike(boardNo);
+	LikeDisLike likeDislike = likeDislikeDao.getLikeDisLikeByNoId(boardNo, loginId);
 %>
 <!doctype html>
 <html lang="ko">
@@ -68,6 +71,10 @@
 			<h1 class="border bg-light fs-4 p-2">게시글 상세 정보</h1>
 		</div>
 <%
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
+
+	
 	if("delete".equals(err)) {
 %>
 		<div class="alert alert-danger">
