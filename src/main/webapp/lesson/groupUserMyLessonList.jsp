@@ -27,13 +27,13 @@
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
 	GroupReservationDao groupReservationDao = GroupReservationDao.getinstance();
-	int totalRows = groupReservationDao.getTotalRows(loginId);
+	int totalRows = groupReservationDao.getGroupTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 로직수행 (예약 조회)
+	// 로직수행 (신청 조회)
 	GroupReservationDao reserveDao = GroupReservationDao.getinstance();
-	List<Reservation> reserveList = reserveDao.getGroupReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	List<Reservation> reserveList = reserveDao.getGroupMyReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -87,9 +87,8 @@
 				</thead>
 				<tbody>
 				
-<% for (Reservation reserve : reserveList) { 
-	String lessonType = reserve.getLesson().getType(); 
-		if("group".equals(lessonType)) { 
+<% 
+	for (Reservation reserve : reserveList) { 
 %>
 					<tr>
 						<td><%=reserve.getLesson().getNo() %></td>
@@ -99,7 +98,6 @@
 						<td><%=reserve.getLesson().getGym().getName() %></td>
 					</tr>
 <% 	
-		}
 	}
  %>
 				</tbody>

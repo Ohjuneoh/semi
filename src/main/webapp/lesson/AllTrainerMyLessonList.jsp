@@ -24,12 +24,12 @@
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
 	GroupLessonDao groupLessonDao = GroupLessonDao.getinstance();
-	int totalRows = groupLessonDao.getTotalMyRows(loginId);
+	int totalRows = groupLessonDao.getTotalMyAllRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
 	// 로직수행 (레슨 전체조회)
-	List<Lesson> lessonList = groupLessonDao.getGroupMyLessonsById(loginId, pagination.getBegin(), pagination.getEnd());
+	List<Lesson> lessonList = groupLessonDao.getAllMyLessonsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -77,7 +77,9 @@
 				</thead>
 				<tbody>
 					<tr>
-<% for(Lesson lesson : lessonList) { %>
+<% 
+	for(Lesson lesson : lessonList) {
+ %>
 						<td style="width: 10%;"><%=lesson.getNo() %>
 						<td style="width: 36%;">
 						<% if("group".equals(lesson.getType())) { %>
@@ -97,7 +99,9 @@
 								<% } %>
 						</td>
 					</tr>
-<% } %>
+<% 
+	}
+%>
 				</tbody>
 			</table>
 <% if(totalRows != 0) { %>

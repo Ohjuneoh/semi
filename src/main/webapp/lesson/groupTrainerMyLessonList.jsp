@@ -15,7 +15,7 @@
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
 	GroupLessonDao groupLessonDao = GroupLessonDao.getinstance();
-	int totalRows = groupLessonDao.getTotalMyRows(loginId);
+	int totalRows = groupLessonDao.getTotalMyGroupRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
@@ -75,8 +75,6 @@
 				<tbody>
 				
 <% for (Lesson lesson : lessonList) { 
-	String lessonType = lesson.getType(); 
-		if("group".equals(lessonType)) { 
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
@@ -86,7 +84,6 @@
 						<td><%=lesson.getGym().getName() %></td>
 					</tr>
 <% 	
-		}
 	}
  %>
 				</tbody>
