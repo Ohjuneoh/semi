@@ -42,7 +42,7 @@ public class DaoHelper {
 	 */
 	public static <T> T selectOne(String key, RowMapper<T> rowMapper, Object...params) {
 		try (Connection conn = ConnUtils.getConnection();
-			     PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key))) {
+			    PreparedStatement pstmt = conn.prepareStatement(prop.getProperty(key))) {
 
 			    setParams(pstmt, params);
 			    ResultSet rs = pstmt.executeQuery();
@@ -50,6 +50,8 @@ public class DaoHelper {
 			    while (rs.next()) {
 			        t = rowMapper.mapRow(rs);
 			    }
+			    rs.close();
+			    
 			    return t;
 
 			} catch (SQLException ex) {
@@ -76,6 +78,7 @@ public class DaoHelper {
 				T t = rowMapper.mapRow(rs);
 				list.add(t);
 			}
+			rs.close();
 			
 			return list;
 		} catch (SQLException ex) {
