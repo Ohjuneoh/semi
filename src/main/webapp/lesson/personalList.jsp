@@ -65,6 +65,7 @@
 <%
 	for(Lesson lesson: lessonList){	
 %>		
+
 					<tr>
 						<td><%=lesson.getNo() %></td>
 						<td><a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
@@ -77,12 +78,16 @@
 %>					
 				</tbody>
 			</table>
-			
+<%
+	if(totalRows != 0){
+%>
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : ""%>">
 						<a href="personalList.jsp?page=<%=pageNo - 1 %>" class="page-link">이전</a>
 					</li>
+				
+				
 <%
 	for(int num = pagination.getBeginPage(); num<=pagination.getEndPage(); num++){
 %>					
@@ -93,13 +98,16 @@
 <%
 	}
 %>					
-				
-					
+		
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
 						<a href="personalList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
-			</nav>
+			</nav>			
+<%
+	}
+%>				
+					
 			
 			<div class="text-end">
 				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>

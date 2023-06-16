@@ -2,7 +2,7 @@
 <%@page import="vo.Gym"%>
 <%@page import="dao.UserDao"%>
 <%@page import="dao.TrainerDao"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Trainer"%>
 <%@page import="vo.User"%>
 <%@page import="vo.Lesson"%>
@@ -51,10 +51,9 @@
 	groupLesson.setGym(new Gym(gymNo));
 	
 	// 2. 로직수행()
-	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
+	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	groupDao.insertGroupLesson(groupLesson);
 	
 	// 3. 재요청 url
 	response.sendRedirect("groupList.jsp");
-
 %>
