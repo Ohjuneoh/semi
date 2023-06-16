@@ -20,7 +20,7 @@
 	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	Lesson groupLesson = groupDao.getGroupLessonByLessonNo(lessonNo);
 		// 똑같은 강의를 2번이상 등록하지 못하게 신청버튼 제한 ()
-	GroupReservationDao reservationDao = GroupReservationDao.getinstance();
+	GroupReservationDao reservationDao = GroupReservationDao.getInstance();
 	Reservation reservation = reservationDao.getGroupReservationsByIdAndLessonNo(loginId, lessonNo);
 
 %>
