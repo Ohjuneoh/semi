@@ -1,3 +1,7 @@
+<%@page import="util.StringUtils"%>
+<%@page import="vo.Reservation"%>
+<%@page import="dao.GroupReservationDao"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="dto.Pagination"%>
 <%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Lesson"%>
@@ -6,23 +10,30 @@
 // 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
-	// 에러 뽑아내기 
-	String err = request.getParameter("err");
-
-	// 오류상황 - html에서 구현 (등록버튼 표현)
+	
+	// 오류상황
 		// 로그인이 되지 않았을 경우
 		// 로그인 타입이 강사가 아닌경우 
+	if(loginId == null) {
+	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+		return;
+	}
+	if(!"user".equals(loginType)) {
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+		return;
+	}
 		
 	// 페이징처리 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupLessonDao groupLessonDao = GroupLessonDao.getinstance();
-	int totalRows = groupLessonDao.getTotalRows();
+	GroupReservationDao groupReservationDao = GroupReservationDao.getinstance();
+	int totalRows = groupReservationDao.getGroupTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 로직수행 (레슨 전체조회)
-	List<Lesson> lessonList = groupLessonDao.getGroupLessons(pagination.getBegin(), pagination.getEnd());
+	// 로직수행 (신청 조회)
+	GroupReservationDao reserveDao = GroupReservationDao.getinstance();
+	List<Reservation> reserveList = reserveDao.getGroupMyReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -41,27 +52,22 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="수업"/>
+	<jsp:param name="menu" value="마이페이지"/>
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">그룹레슨 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">내 그룹레슨 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>그룹레슨 목록을 확인할 수 있습니다.</p>
-<%
-	if("fail".equals(err)) {
-%>
-
-			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong> 본인이 등록한 레슨만 수정/삭제할 수 있습니다.
-			</div>
-<%
-	}
-%>		
+			<p>내 그룹레슨 목록을 확인할 수 있습니다.</p>
+			<ul class="nav nav-tabs mb-3">
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/groupUserMyLessonList.jsp">그룹</a></li>
+			</ul>
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
@@ -74,61 +80,54 @@
 					<tr>
 						<th>레슨번호</th>
 						<th>레슨명</th>
-						<th>레슨명</th>
+						<th>강사명</th>
 						<th>레슨시간</th>
 						<th>헬스장명</th>
 					</tr>
 				</thead>
 				<tbody>
 				
-<% for (Lesson lesson : lessonList) { 
-
+<% 
+	for (Reservation reserve : reserveList) { 
 %>
 					<tr>
-						<td><%=lesson.getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
-						<td><%=lesson.getUser().getName() %></td>
-						<td><%=lesson.getTime() %></td>
-						<td><%=lesson.getGym().getName() %></td>
+						<td><%=reserve.getLesson().getNo() %></td>
+						<td><a href="groupDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a></td>
+						<td><%=reserve.getUser().getName() %></td>
+						<td><%=reserve.getLesson().getTime() %></td>
+						<td><%=reserve.getLesson().getGym().getName() %></td>
 					</tr>
 <% 	
 	}
  %>
 				</tbody>
 			</table>
-<% if(totalRows != 0) { %>
+<% if (totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a href="groupList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+						<a href="groupUserMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
 					</li>
 <%
-	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 					<li class="page-item <%=pageNo == num ? "active" : "" %>">
-						<a href="groupList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+						<a href="groupUserMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
 					</li>
 <% 
 	}
 %>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a href="groupList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+						<a href="groupUserMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
-<% } %>
-	
-			<div class="text-end">
-<% if(loginId != null && "trainer".equals(loginType)) { %>			
-				<a href="groupForm.jsp" class="btn btn-primary btn-sm">새 레슨 등록</a>
-<% } %>
-
-			</div>
 		</div>
+<% } %>
 	</div>
 </div>
 </body>
