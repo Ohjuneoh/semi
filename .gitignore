@@ -1,3 +1,4 @@
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
 .project
@@ -14,6 +15,26 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+=======
+
+# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
+
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+>>>>>>> branch 'main' of https://github.com/Ohjuneoh/semi.git
 build/
 
 # External tool builders
@@ -96,4 +117,7 @@ hs_err_pid*
 replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
+>>>>>>> branch 'main' of https://github.com/Ohjuneoh/semi.git
 
+.classpath
+.project

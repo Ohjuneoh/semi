@@ -6,22 +6,9 @@
 <%@page import="util.StringUtils"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	String loginId = (String)session.getAttribute("loginId");
-	String cat = "chat";
-
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-	
 	BoardDao boardDao = BoardDao.getInstance();
-	int totalPage = boardDao.totalPageByCat(cat);
-	
-	Pagination pagination = new Pagination(pageNo, totalPage);
-	
-	int begin = pagination.getBegin();
-	int end = pagination.getEnd();
-	
-	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
-	List<Board> notices = boardDao.getNoticesByCat(cat);
 	CommentDao commentDao = CommentDao.getInstance();
+	String cat = "chat";
 %>
 <!doctype html>
 <html lang="ko">
@@ -42,14 +29,15 @@
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
-		<nav class="nav">
-  			<a class="nav-link" href="list.jsp">전체</a>
-  			<a class="nav-link" href="chatList.jsp">잡담</a>
-  			<a class="nav-link" href="infoList.jsp">정보</a>
-  			<a class="nav-link" href="dealList.jsp">거래</a>
-		</nav>
+		<p>잡담 게시판 </p>
+			<ul class="nav nav-tabs mb-3">
+           		<li class="nav-item"><a class="nav-link " href="list.jsp">전체</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="chatList.jsp">잡담</a></li>
+           		<li class="nav-item"><a class="nav-link" href="infoList.jsp">정보</a></li>
+           		<li class="nav-item"><a class="nav-link" href="dealList.jsp">거래</a></li>
+			</ul>
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">전체 게시글 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">게시글 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -73,6 +61,8 @@
 				</thead>
 				<tbody>
 <%
+	List<Board> notices = boardDao.getNoticesByCat(cat);
+
 	for(Board notice : notices) {
 		int commentCnt = commentDao.getCommentCnt(notice.getNo());
 %>
@@ -88,7 +78,14 @@
 					</tr>
 <%
 	}
-
+	
+	int totalPage = boardDao.totalPageByCat(cat);	
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	Pagination pagination = new Pagination(pageNo, totalPage);
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
+	
 	for(Board board : boards) {
 		int commentCnt = commentDao.getCommentCnt(board.getNo());
 %>
@@ -133,6 +130,8 @@
 <%
 	}
 
+	String loginId = (String)session.getAttribute("loginId");
+	
 	if (loginId != null) {
 %>	
 		<div class="text-end">

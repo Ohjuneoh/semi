@@ -6,14 +6,20 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	String content = request.getParameter("content");
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("댓글쓰기", "utf-8"));
 		return;
 	}
+
+	int boardNo = 0;
+	try {
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("reportList.jsp?err=invalid");
+		return;
+	}
 	
+	String content = request.getParameter("content");
 	if(content.isBlank()) {
 		response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo + "&err=commentNull");
 		return;

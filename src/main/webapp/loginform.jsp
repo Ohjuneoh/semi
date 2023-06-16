@@ -28,7 +28,7 @@
    	</div>
    	<div class="row mb-3">
    		<div class="col-12">
-   			<p>아이디와 비밀번호를 입력하세요</p>
+   			<p>아이디,비밀번호를 입력하세요</p>
  <%
 	if("fail".equals(err)){
 %>
@@ -76,6 +76,7 @@
 			alert("비밀번호는 필수 입력값입니다.")
 			return false;
 		}
+
 		return true;
 	}
 </script>

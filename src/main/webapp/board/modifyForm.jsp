@@ -4,15 +4,21 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	BoardDao boardDao = BoardDao.getInstance();
-	Board board = boardDao.getBoardByNo(boardNo);
-	
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("게시글 수정", "utf-8"));
 		return;
 	}
+
+	int boardNo = 0;
+	try {
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("list.jsp?err=invalid");
+		return;
+	}
 	
+	BoardDao boardDao = BoardDao.getInstance();
+	Board board = boardDao.getBoardByNo(boardNo);
 	if(!loginId.equals(board.getUser().getId())) {
 		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=delete&job=" + URLEncoder.encode("게시글 수정", "utf-8"));
 		return;
@@ -45,11 +51,11 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">	
-			<form class="border bg-light p-3" method="post" action="modify.jsp" >
+			<form class="border bg-light p-3" method="post" action="modify.jsp" onsubmit="return modify();">
 			<input type="hidden" name="boardNo" value="<%=boardNo%>" />
 				<div class="form-group mb-2" >
 					<label class="form-label" >게시판</label>
-					<select class="form-select" name="category" >
+					<select class="form-select" id="board-cat" name="category" >
 						<option disabled="disabled" >--- 게시판을 선택하세요 ---</option>
 						<option value="chat" <%="chat".equals(board.getCategory()) ? "selected" : "" %>>잡담</option>
 						<option value="info" <%="info".equals(board.getCategory()) ? "selected" : "" %>>정보</option>
@@ -58,19 +64,56 @@
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">제목</label>
-					<input type="text" class="form-control" name="title" value="<%=board.getTitle() %>" />
+					<input type="text" class="form-control" id="board-title" name="title" value="<%=board.getTitle() %>" />
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">내용</label>
-					<textarea rows="5" class="form-control" name="content"><%=board.getContent() %></textarea>
+					<textarea rows="5" class="form-control" id="board-content" name="content"><%=board.getContent() %></textarea>
 				</div>			
 				<div class="text-end">
-					<button type="reset" class="btn btn-secondary">취소</button>
 					<button type="submit" class="btn btn-primary">수정</button>
-				</div>				
+					<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modify">취소</button>
+				</div>
+				
+				<div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  					<div class="modal-dialog">
+    					<div class="modal-content">
+      						<div class="modal-header">
+        						<h1 class="modal-title fs-5" id="exampleModalLabel">수정 취소</h1>
+        						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      						</div>
+      						<div class="modal-body">
+      							<br />
+      							<p>수정을 취소하시겠습니까?</p>
+      						</div>
+      						<div class="modal-footer">
+        						<a href="detail.jsp?boardNo=<%=boardNo %>" class="btn btn-primary">확인</a>
+        						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      						</div>
+    					</div>
+  					</div>
+				</div>
+				
 			</form>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	function modify() {
+		let title = document.getElementById("board-title").value;
+		let content = document.getElementById("board-content").value;
+		
+		if(title === "") {
+			alert("제목은 비워둘 수 없습니다.");
+			return false;
+		}
+		if(content === "") {
+			alert("내용은 비워둘 수 없습니다.");
+			return false;
+		}
+		
+		return true;
+	}
+</script>
 </body>
 </html>

@@ -55,7 +55,7 @@
 	reservation.setUser(new User(loginId));
 	
 		// 예약테이블 db에 저장
-	GroupReservationDao groupReservationDao = GroupReservationDao.getinstance();
+	GroupReservationDao groupReservationDao = GroupReservationDao.getInstance();
 	groupReservationDao.insertGroupReservation(reservation);
 	
 		// 강좌테이블에 신청자수 +1 

@@ -80,4 +80,18 @@ public class PersonalLessonDao {
 		DaoHelper.update("personalLessonDao.deletePersonalLesson",lessonNo);
 	}
 	
+	public void updatePersonalLesson(Lesson lesson) {
+		DaoHelper.update("personalLessonDao.updateGroupLesson", 															 
+															 	lesson.getName(),
+															 	lesson.getType(),
+															 	lesson.getQuota(),
+															 	lesson.getReqCnt(),
+															 	lesson.getDescription(),
+															 	lesson.getUser().getId(),
+															 	lesson.getTime(),
+															 	lesson.getStatus(),
+															 	lesson.getGym().getNo(),
+															 	lesson.getNo());
+	}
+	
 }

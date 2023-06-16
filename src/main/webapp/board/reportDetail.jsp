@@ -7,22 +7,27 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String loginId = (String) session.getAttribute("loginId");
-	String loginType = (String) session.getAttribute("loginType");
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-	BoardDao boardDao = BoardDao.getInstance();
-	Board board = boardDao.getBoardByNo(boardNo);
-	List<ReportHistory> reps = boardDao.getReportHistoryByNo(boardNo);
-
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("신고 게시글 보기", "utf-8"));
 		return;
 	}
 	
+	String loginType = (String) session.getAttribute("loginType");
 	if(!"manager".equals(loginType)) {
 		response.sendRedirect("../home.jsp?err=managerdeny&job=" + URLEncoder.encode("신고 게시글 조회", "utf-8"));
 		return;
 	}
 
+	int boardNo = 0;
+	try {
+		boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	} catch(NumberFormatException num) {
+		response.sendRedirect("list.jsp?err=invalid");
+		return;
+	}
+	
+	BoardDao boardDao = BoardDao.getInstance();
+	Board board = boardDao.getBoardByNo(boardNo);
 %>
 <!doctype html>
 <html lang="ko">
@@ -71,6 +76,7 @@
 						<th class="table-dark" style="vertical-align: middle;">신고사유</thc>
 						<td colspan="3" style="height: 200px">
 <%
+	List<ReportHistory> reps = boardDao.getReportHistoryByNo(boardNo);
 	for(ReportHistory rep : reps) {
 %>						
 						<%=rep.getContent() %> (<%=rep.getReportDate()%>) <br />
