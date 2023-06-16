@@ -41,7 +41,7 @@
 	}
 	
 		// 오류사항3: 똑같은 회원이 같은 수업을 2번이상 등록하지 못하게 제한하기
-	GroupReservationDao reservationDao = GroupReservationDao.getinstance();
+	GroupReservationDao reservationDao = GroupReservationDao.getInstance();
 	Reservation reservation2 = reservationDao.getGroupReservationsByIdAndLessonNo(loginId, lessonNo);
 	if(reservation2 != null) {
 		response.sendRedirect("groupDetailLesson.jsp?no=" + lessonNo+ "&err=fail2");
