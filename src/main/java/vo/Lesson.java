@@ -15,6 +15,7 @@ public class Lesson {
 	private String time;
 	private String status;
 	private Gym gym;
+	private String deleted;
 	
 	public Lesson() {}
 	
@@ -74,17 +75,13 @@ public class Lesson {
 		this.creatDate = creatDate;
 	}
 	
-	
-	
 	public User getUser() {
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	public String getTime() {
 		return time;
@@ -105,7 +102,13 @@ public class Lesson {
 		this.gym = gym;
 	}
 	
+	public String getDeleted() {
+		return deleted;
+	}
 	
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
 	
 	
 }

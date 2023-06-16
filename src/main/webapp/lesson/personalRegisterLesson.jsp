@@ -4,7 +4,7 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page import="dao.PersonalLessonDao"%>
 <%@page import="vo.Lesson"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	// 로그인 정보 조회

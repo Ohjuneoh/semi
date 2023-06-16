@@ -1,5 +1,5 @@
 <%@page import="vo.Lesson"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
@@ -9,7 +9,7 @@
 	
 	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
 	
-	// 오류사항 : 로그인 상태가 아니거나, 강사가 아닌 다른 유형일때 삭제불가능
+	// 오류사항1 : 로그인 상태가 아니거나, 강사가 아닌 다른 유형일때 삭제불가능
 	if(loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("그룹레슨 삭제", "utf-8"));
 		return;
@@ -19,8 +19,8 @@
 		return;
 	}
 	
-	// 오류사항 : 본인이 올린 강좌가 아니면 삭제불가능
-	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
+	// 오류사항2 : 본인이 올린 강좌가 아니면 삭제불가능
+	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	Lesson groupLesson = groupDao.getGroupLessonByLessonNo(lessonNo);
 	
 	if(!loginId.equals(groupLesson.getUser().getId())) {
@@ -28,11 +28,16 @@
 		return;
 	}
 	
-	// 로직수행(삭제)
-	GroupeLessonDao groupDao2 = GroupeLessonDao.getinstance();
-	groupDao2.deleteGroupLesson(lessonNo);
+	// 로직수행
+		// 조회하기
+	GroupLessonDao groupDao2 = GroupLessonDao.getinstance();
+	Lesson lesson = groupDao2.getGroupLessonByLessonNo(lessonNo);
+	
+	lesson.setDeleted("Y");
+		// 업데이트하기
+	GroupLessonDao groupDao3 = GroupLessonDao.getinstance();
+	groupDao3.updateGroupLesson(lesson);
 	
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
-	
 %>
