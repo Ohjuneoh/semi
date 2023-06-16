@@ -6,22 +6,9 @@
 <%@page import="util.StringUtils"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	String loginId = (String)session.getAttribute("loginId");
-	String cat = "info";
-
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-	
 	BoardDao boardDao = BoardDao.getInstance();
-	int totalPage = boardDao.totalPageByCat(cat);
-	
-	Pagination pagination = new Pagination(pageNo, totalPage);
-	
-	int begin = pagination.getBegin();
-	int end = pagination.getEnd();
-	
-	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
-	List<Board> notices = boardDao.getNoticesByCat(cat);
 	CommentDao commentDao = CommentDao.getInstance();
+	String cat = "info";
 %>
 <!doctype html>
 <html lang="ko">
@@ -74,6 +61,7 @@
 				</thead>
 				<tbody>
 <%
+	List<Board> notices = boardDao.getNoticesByCat(cat);
 	for(Board notice : notices) {
 		int commentCnt = commentDao.getCommentCnt(notice.getNo());
 %>
@@ -87,6 +75,21 @@
 						<td><%=commentCnt %></td>
 						<td><%=notice.getCreateDate() %></td>
 					</tr>
+<%
+	}
+
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	int totalPage = boardDao.totalPageByCat(cat);
+	Pagination pagination = new Pagination(pageNo, totalPage);
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
+
+	if(totalPage == 0) {
+%>
+				<tr>
+					<td colspan="5" style="color: gray">게시글이 존재하지 않습니다.</td>
+				</tr>
 <%
 	}
 
@@ -133,6 +136,8 @@
 			</div>
 <%
 	}
+
+	String loginId = (String)session.getAttribute("loginId");
 	if (loginId != null) {
 %>	
 		<div class="text-end">

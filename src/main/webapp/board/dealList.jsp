@@ -85,6 +85,14 @@
 	int begin = pagination.getBegin();
 	int end = pagination.getEnd();
 	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
+	
+	if(totalPage == 0) {
+%>
+					<tr>
+						<td colspan="5" style="color: gray">게시글이 존재하지 않습니다.</td>
+					</tr>
+<%
+	}
 
 	for(Board board : boards) {
 		int commentCnt = commentDao.getCommentCnt(board.getNo());
