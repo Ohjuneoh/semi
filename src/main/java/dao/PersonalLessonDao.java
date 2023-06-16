@@ -50,7 +50,7 @@ public class PersonalLessonDao {
 		}, begin, end);
 		
 	}
-	public Lesson getPersoanlLessonByLessonNo(int lessonNo) {
+	public Lesson getPersonalLessonByLessonNo(int lessonNo) {
 		return DaoHelper.selectOne("personalLessonDao.getPersonalLessonByLessonNo", rs->{
 			Lesson groupLesson = new Lesson();
 			groupLesson.setNo(rs.getInt("lesson_no"));
@@ -81,7 +81,7 @@ public class PersonalLessonDao {
 	}
 	
 	public void updatePersonalLesson(Lesson lesson) {
-		DaoHelper.update("personalLessonDao.updateGroupLesson", 															 
+		DaoHelper.update("personalLessonDao.updatePersonalLesson", 															 
 															 	lesson.getName(),
 															 	lesson.getType(),
 															 	lesson.getQuota(),
@@ -91,6 +91,7 @@ public class PersonalLessonDao {
 															 	lesson.getTime(),
 															 	lesson.getStatus(),
 															 	lesson.getGym().getNo(),
+															 	lesson.getDeleted(),
 															 	lesson.getNo());
 	}
 	
