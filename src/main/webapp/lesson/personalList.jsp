@@ -110,7 +110,7 @@
 					
 			
 			<div class="text-end">
-				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
+				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 레슨 등록</a>
 			</div>
 		</div>
 	</div>
