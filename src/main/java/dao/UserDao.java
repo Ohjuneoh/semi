@@ -139,4 +139,30 @@ public class UserDao {
 		}, type);
 	}
 	
+	public List<User> getUserByUserType(String id,int begin, int end) {
+		return DaoHelper.selectList("userDao.getUserByUserType", rs -> {
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setType(rs.getString("user_type"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+			user.setGym(gym);
+			
+			return user;
+		}, id, begin, end);
+	}
+	
+	public int getTotalUserRows(String id) {
+		return DaoHelper.selectOne("userDao.getTotalUserRows", rs->{
+			return rs.getInt("cnt");
+		},id);
+	}
+	
 }
