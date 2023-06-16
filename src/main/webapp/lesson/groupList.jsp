@@ -57,7 +57,7 @@
 %>
 
 			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong> 본인이 등록한 레슨만 삭제할 수 있습니다.
+				<strong>잘못된 접근</strong> 본인이 등록한 레슨만 수정/삭제할 수 있습니다.
 			</div>
 <%
 	}
@@ -86,7 +86,7 @@
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
 						<td><%=lesson.getGym().getName() %></td>

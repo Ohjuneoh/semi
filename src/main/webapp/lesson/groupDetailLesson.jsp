@@ -10,7 +10,7 @@
 	String loginType = (String)session.getAttribute("loginType");
 	
 	// 레슨번호 뽑아내기
-	int lessonNo = Integer.parseInt(request.getParameter("no"));
+	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
 	// 에러 뽑아내기 
 	String err = request.getParameter("err");
 	
@@ -36,7 +36,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="그룹상세"/>
+	<jsp:param name="menu" value="수업"/>
 </jsp:include>
 <div class="container">
 	<div class="row mb-3">
@@ -119,6 +119,12 @@
 		}
 	}
 %>
+
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(groupLesson.getUser().getId())) { %>
+						
+						<a href="groupUpdateForm.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">수정</a>
+						
+<% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
 <% if(loginId != null && "trainer".equals(loginType) && loginId.equals(groupLesson.getUser().getId())) { %>
