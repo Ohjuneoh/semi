@@ -26,13 +26,13 @@
 	// 페이징처리 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupReservationDao groupReservationDao = GroupReservationDao.getinstance();
+	GroupReservationDao groupReservationDao = GroupReservationDao.getInstance();
 	int totalRows = groupReservationDao.getGroupTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
 	// 로직수행 (신청 조회)
-	GroupReservationDao reserveDao = GroupReservationDao.getinstance();
+	GroupReservationDao reserveDao = GroupReservationDao.getInstance();
 	List<Reservation> reserveList = reserveDao.getGroupMyReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>

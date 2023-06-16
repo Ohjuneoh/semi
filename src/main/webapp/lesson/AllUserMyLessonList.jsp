@@ -25,7 +25,7 @@
 	// 페이징처리 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupReservationDao reserveDao = GroupReservationDao.getinstance();
+	GroupReservationDao reserveDao = GroupReservationDao.getInstance();
 	int totalRows = reserveDao.getAllTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
