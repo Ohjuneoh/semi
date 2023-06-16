@@ -15,7 +15,7 @@
 	
 	// 로직수행
 	PersonalLessonDao lessonDao = PersonalLessonDao.getinstance();
-	Lesson personalLesson =lessonDao.getPersoanlLessonByLessonNo(lessonNo);
+	Lesson personalLesson =lessonDao.getPersonalLessonByLessonNo(lessonNo);
 	
 	
 %>
