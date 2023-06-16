@@ -78,7 +78,7 @@
 						<td  style="width: 25%">
 							<span class="badge text-bg-success p-2">모집중</span>
 						</td>
-<% } else if (personalLesson.getQuota() != personalLesson.getReqCnt()) { %>
+<% } else if (personalLesson.getQuota() == personalLesson.getReqCnt()) { %>
 						<td  style="width: 25%">
 							<span class="badge text-bg-secondary p-2">모집완료</span>
 						</td>
