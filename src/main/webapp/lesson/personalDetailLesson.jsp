@@ -93,7 +93,7 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "customer".equals(loginType)) { %>
+<% if(loginId != null && "user".equals(loginType)) { %>
 						<a href="personalRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
 <% } %>
 						<a href="personalList.jsp" class="btn btn-primary btn-sm">목록</a>
