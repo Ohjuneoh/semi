@@ -55,6 +55,8 @@
 <% for(MyMembership myMembership : myMembershipList){
 	Date startDate = myMembership.getStartDate();
 	LocalDate expirationDate = myMembership.getExpirationDate();
+	int orderNo = myMembership.getOrder().getNo();
+	
 %>
 
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
@@ -72,7 +74,10 @@
 <%
 	}
 %>
-						<td><a href="my-membership-detail.jsp?my-membershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a></td>
+						<td>
+  							<a href="my-membership-detail.jsp?my-membershipNo=<%=myMembership.getNo() %>&orderNo=<%=orderNo %>" class="btn btn-outline-dark btn-xs">상세정보</a>
+						</td>
+						
 					</tr>
 <%
 }

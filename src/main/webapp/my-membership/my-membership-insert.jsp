@@ -88,7 +88,7 @@
 	myMembershipDao.insertMyMembership(myMembership);
 	
 	// 5. 재요청 url 
-	response.sendRedirect("../home.jsp");
+	response.sendRedirect("../order/order-paymentComplete.jsp");
 	
 	
 	

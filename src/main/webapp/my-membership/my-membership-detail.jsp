@@ -12,6 +12,9 @@
 	MyMembership myMembership = myMembershipDao.getMyMembershipDetail(userId, myMembershipNo);
 	Date startDate = myMembership.getStartDate();
 	LocalDate expirationDate = myMembership.getExpirationDate();
+	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+	int totalDays = myMembershipDao.getTotalDays(orderNo);
+	int remainingDays = myMembershipDao.getRemainingDays(orderNo);
 
 %>
 
@@ -38,13 +41,12 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<h3>나의 이용권 상세정보를 확인하세요.</h3>
 			
 			<table class="table table-bordered ">
 				<colgroup>
-					<col width="10%">
-					<col width="40%">
-					<col width="10%">
+					<col width="20%">
+					<col width="30%">
+					<col width="20%">
 					<col width="40%">
 				</colgroup>
 				<tbody>
@@ -64,7 +66,7 @@
 						<th>이용권 기간</th>
 						<td><%=startDate%> ~ <%=expirationDate %></td>
 						<th>잔여일수/총일수</th>
-						<td> </td>
+					<td><%=remainingDays %>/<%=totalDays %></td>
 					</tr>
 					<tr>
 						<th>잔여횟수/총횟수</th>
@@ -79,11 +81,29 @@
 	}
 %>
 						<th>주간이용횟수</th>
-						<td><%=myMembership.getMembership().getNumOfUseWeek() %></td>
+<%
+	if(myMembership.getMembership().getNumOfUseWeek()== -1){
+%>
+						<td>무제한</td>
+<% 		
+	} else {
+%>						<td><%=myMembership.getMembership().getNumOfUseWeek()%></td>
+<%
+	}
+%>
 					</tr>
 					<tr>
 						<th>1일이용횟수</th>
-						<td><%=myMembership.getMembership().getNumOfUseDay() %></td>
+<%
+	if(myMembership.getMembership().getNumOfUseDay()== -1){
+%>
+						<td>무제한</td>
+<% 		
+	} else {
+%>						<td><%=myMembership.getMembership().getNumOfUseDay()%></td>
+<%
+	}
+%>
 						<th>이용권 중지 가능 횟수</th>
 						<td><%=myMembership.getMembership().getNumOfPause() %></td>
 					</tr>
