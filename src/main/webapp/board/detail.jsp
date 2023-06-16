@@ -409,8 +409,7 @@
 				}
 				
 			} 
-		}
-		
+		}		
 		xhr.open("GET", "comment-delete.jsp?cno=" + cno);
 		xhr.send(null);
 	}
