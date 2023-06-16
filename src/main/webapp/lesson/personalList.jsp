@@ -81,8 +81,6 @@
 <%
 	if(totalRows != 0){
 %>
-
-			
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : ""%>">

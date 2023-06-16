@@ -75,7 +75,7 @@
 	String job = request.getParameter("job");
 
 	
-	if("delete".equals(err)) {
+	if("notLoginUser".equals(err)) {
 %>
 		<div class="alert alert-danger">
 			<strong>잘못된 접근</strong> [<%=job %>]는 작성자만 사용가능한 서비스입니다.
@@ -179,7 +179,6 @@
 					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
 					싫어요<br /><%=totalDisLike %>
 				</a>
-
 <%		
 	}
 %>
@@ -189,42 +188,14 @@
 <%
 	if(loginId.equals(board.getUser().getId())) {
 %>
-					<a href="delete.jsp?boardNo=<%=boardNo %>" class="btn btn-danger btn-sm">삭제</a>
-					<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleted-board-modal">삭제</button>
+				<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
 <%
 	} else if(!"manager".equals(board.getType())) {
 %>
-			<div class="text-end">
-				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report">신고</button>			
-			</div>
-			
-			<div class="modal fade" id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-      					<div class="modal-header">
-        					<h1 class="modal-title fs-5" id="exampleModalLabel">게시글 신고</h1>
-        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      					</div>
-      					<div class="modal-body" style="text-align: left !important;">
-        					<form method="post" action="report.jsp">
-								<input type="hidden" name="boardNo" value="<%=boardNo %>">
-        						<p style="font-weight: bold;">신고사유 선택</p>
-          						<div class="mb-3 ">
-						        	<input type="radio" name="report" value="욕설, 비방, 차별, 혐오" /> 욕설, 비방, 차별, 혐오 <br />
-						        	<input type="radio" name="report" value="불법 정보" /> 불법 정보 <br />
-						        	<input type="radio" name="report" value="음란, 청소년 유해" /> 음란, 청소년 유해 <br />
-						        	<input type="radio" name="report" value="도배 스팸" /> 도배 스팸 <br />
-						        	<input type="radio" name="report" value="기타" /> 기타
-						    	</div>
-						    	<div class="modal-footer">
-									<button type="submit" class="btn btn-danger">신고</button>
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-								</div>
-							</form>
-						</div>
-					</div>
+				<div class="text-end">
+					<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report-modal">신고</button>			
 				</div>
-			</div>
 <%
 	}
 %>
@@ -233,7 +204,7 @@
 	</div>
 	<div class="row mb-3">
    		<div class="col-12">
-			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp">
+			<form class="border bg-light p-2" method="post" action="comment-insert.jsp">
 				<input type="hidden" name="boardNo" value="<%=boardNo %>" />
  				<div class="row">
 					<div class="col-11">
@@ -249,7 +220,7 @@
 <%
 	for(Comment comment : comments)  {
 %>
-   	<div class="row mb-3">
+   	<div class="row mb-3" id="out-row-<%=comment.getNo() %>">
    		<div class="col-12">
    			<div class="border p-2 mb-2">
 	   			<div class="d-flex justify-content-between mb-1">
@@ -257,34 +228,195 @@
 <%		
 		if(board.getUser().getId().equals(comment.getUser().getId())) {
 %>
-						<span class="badge bg-success" >작성자</span>
+					<span class="badge bg-success" >작성자</span>
 <%
 		}
 %>
 	   				</strong>
 				</div>
-				<div id="comment">
-					<%=comment.getContent() %>
+				<div>
+					<div class="row" id="row-<%=comment.getNo() %>">
+						<div class="col-10">
+							<span id="comment-content"><%=comment.getContent() %></span>
+						</div>
+						<div class="col-2 text-end">
 <%
-		if(loginId.equals(comment.getUser().getId())) {
+			if(loginId.equals(comment.getUser().getId())) {
 %>
-					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-danger text-decoration-none float-end">
-	   					<i class="bi bi-trash"></i>
-	   				</a>
-					<a class="btn btn-link text-decoration-none float-end" >
-						<i class="bi bi-brush-fill"></i>
-	   				</a>
+							<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" 
+							class="btn btn-link text-decoration-none" >
+								<i class="bi bi-pencil-fill"></i>
+		   					</button>
+							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" 
+							 onclick="openDeleteCommentConfirmModal(<%=comment.getNo() %>);">
+		   						<i class="bi bi-trash"></i>
+		   					</button>
 <%
 		}
 %>
+						</div>
+						
+					</div>
+					<div class="row d-none" id="row-field-<%=comment.getNo() %>">
+						<div class="col-10">
+							<textarea class="form-control" id="comment-field-<%=comment.getNo() %>"><%=comment.getContent() %></textarea>
+						</div>
+						<div class="col-2">
+							<button id="btn-modify-comment" onclick="modifyComment(<%=comment.getNo() %>)" class="btn btn-primary" >
+		   						수정
+		   					</button>
+		   					<button id="btn-modify-comment" onclick="modifyCancelComment(<%=comment.getNo() %>)" class="btn btn-danger" >
+		   						취소
+		   					</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 <%
 	}
+
+	if(commentCnt >= 1) {
+%>
+	<div class="text-center" id="comment-more">
+		<button type="button" class="btn btn-outline-secondary" onclick="commentMore(<%=boardNo%>)">더보기 <i class="bi bi-arrow-down"></i></button>
+	</div>
+<%
+	}
 %>
 </div>
+<div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+   					<div class="modal-header">
+     					<h1 class="modal-title fs-5" id="exampleModalLabel">게시글 신고</h1>
+     					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   					</div>
+   					<div class="modal-body" style="text-align: left !important;">
+     					<form method="post" action="report.jsp">
+					<input type="hidden" name="boardNo" value="<%=boardNo %>">
+     						<p style="font-weight: bold;">신고사유 선택</p>
+       						<div class="mb-3 ">
+			        	<input type="radio" name="report" value="욕설, 비방, 차별, 혐오" /> 욕설, 비방, 차별, 혐오 <br />
+			        	<input type="radio" name="report" value="불법 정보" /> 불법 정보 <br />
+			        	<input type="radio" name="report" value="음란, 청소년 유해" /> 음란, 청소년 유해 <br />
+			        	<input type="radio" name="report" value="도배 스팸" /> 도배 스팸 <br />
+			        	<input type="radio" name="report" value="기타" /> 기타
+			    	</div>
+			    	<div class="modal-footer">
+						<button type="submit" class="btn btn-danger">신고</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleted-board-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<h1 class="modal-title fs-5" id="exampleModalLabel">게시글 삭제</h1>
+	        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      	</div>
+	      	<div class="modal-body">
+	      		<br />
+	      		<p>게시글을 삭제하시겠습니까?</p>
+	      	</div>
+	      	<div class="modal-footer">
+	        	<a href="delete.jsp?boardNo=<%=boardNo %>" type="button" class="btn btn-primary">삭제</a>
+	        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>        						
+	      	</div>
+	    </div>
+	 </div>
+</div>
+<div class="modal fade" id="deleted-comment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<h1 class="modal-title fs-5" id="exampleModalLabel">댓글 삭제</h1>
+	        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      		</div>
+      		<div class="modal-body">
+      			<br />
+      			<p>댓글을 삭제하시겠습니까?</p>
+      			<input type="hidden" id="deletedCno"/>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-primary" onclick="deleteComment()">삭제</button>
+        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>        						
+      		</div>
+    	</div>
+  	</div>
+</div>
+<script type="text/javascript">
+	const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleted-comment-modal'));
+	
+	function openDeleteCommentConfirmModal(cno) {
+		deleteConfirmModal.show();
+		document.getElementById('deletedCno').value = cno;
+	}
+	
+	function modifyFieldComment(cno) {
+		document.getElementById("row-" + cno).classList.add('d-none');
+		document.getElementById("row-field-" + cno).classList.remove('d-none');
+	}
+	
+	function modifyCancelComment(cno) {
+		document.getElementById("row-" + cno).classList.remove('d-none');
+		document.getElementById("row-field-" + cno).classList.add('d-none');
+	}
+	
+	function modifyComment(cno) {
+		// 수정댓글 내용
+		let content = document.getElementById("comment-field-"+cno).value;
+		let xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function () {
+			let htmlContents = "";
+			if(xhr.readyState === 4 && xhr.state === 200) {
+				let newComment = xhr.responseText;
+				let arr = JSON.parse(newComment);
+				let newContent = arr.content;
+				htmlContents = newContent;
+			}
+			document.querySelector("#comment-content").textContent = htmlContents;
+		}
+		xhr.open("POST", "comment-modify.jsp");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("cno=" + cno + "&content=" + content);
+		
+		document.getElementById("row-" + cno).classList.remove('d-none');
+		document.getElementById("row-field-" + cno).classList.add('d-none');
+	}
+	
+	function deleteComment() {
+		deleteConfirmModal.hide();
+		let cno = document.getElementById('deletedCno').value;
+		let xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function () {		
+			if (xhr.readyState == 4 && xhr.status == 200) {				
+				let text = xhr.responseText;
+				let comment = JSON.parse(text);
+				
+				if (comment.deleted) {
+					document.getElementById("out-row-"+cno).remove();
+					alert("댓글이 삭제되었습니다."); 
+				} else {
+					alert("댓글을 삭제할 수 없습니다.");
+				}
+				
+			} 
+		}		
+		xhr.open("GET", "comment-delete.jsp?cno=" + cno);
+		xhr.send(null);
+	}
+	
+	function commentMore(boardNo) {
+		
+	}
+</script>
 </body>
 </html>

@@ -15,13 +15,13 @@
 	try {
 		boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	} catch(NumberFormatException num) {
-		response.sendRedirect("reportList.jsp?err=invalid");
+		response.sendRedirect("list.jsp?err=invalid");
 		return;
 	}
 	
 	String content = request.getParameter("content");
 	if(content.isBlank()) {
-		response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo + "&err=commentNull");
+		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=commentNull");
 		return;
 	}
 	
@@ -33,5 +33,5 @@
 	CommentDao commentDao = CommentDao.getInstance();
 	commentDao.insertComment(comment);
 	
-	response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo);
+	response.sendRedirect("detail.jsp?boardNo=" + boardNo);
 %>

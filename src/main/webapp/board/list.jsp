@@ -84,13 +84,13 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
 <%
 	List<Board> notices = boardDao.getNotices();
 	
 	for(Board notice : notices) {
 		int commentCnt = commentDao.getCommentCnt(notice.getNo());
 %>
-					<tr>
 						<td><%=notice.getNo() %></td>
 						<td><a href="detail.jsp?boardNo=<%=notice.getNo() %>"><%=notice.getTitle() %></a></td>
 						<td>
@@ -109,6 +109,15 @@
 	int begin = pagination.getBegin();
 	int end = pagination.getEnd();
 	List<Board> boards = boardDao.getBoards(begin, end);
+	
+	if(totalPage == 0) {
+
+%>
+					<tr>
+						<td colspan="5" style="color: gray">게시글이 존재하지 않습니다.</td>
+					</tr>
+<%
+	}
 
 	for(Board board : boards) {
 		int commentCnt = commentDao.getCommentCnt(board.getNo());

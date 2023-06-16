@@ -73,7 +73,7 @@
 						<td><%=board.getUpdateDate() %></td>
 					</tr>
 					<tr>
-						<th class="table-dark" style="vertical-align: middle;">신고사유</thc>
+						<th class="table-dark" style="vertical-align: middle;">신고사유</th>
 						<td colspan="3" style="height: 200px">
 <%
 	List<ReportHistory> reps = boardDao.getReportHistoryByNo(boardNo);
