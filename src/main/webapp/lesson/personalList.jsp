@@ -77,6 +77,7 @@
 %>					
 				</tbody>
 			</table>
+			
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : ""%>">

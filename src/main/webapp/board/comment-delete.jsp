@@ -20,9 +20,10 @@
 	CommentDao commentDao = CommentDao.getInstance();
 	Comment com = commentDao.getCommentByNo(comNo);
 	
-	commentDao.deleteCommentByNo(comNo);
-	
-	String alret = "댓글이 삭제되었습니다.";
-	
-	out.write(alret);
+	if(!loginId.equals(com.getUser().getId())) {
+		out.write("{\"deleted\":false}");
+	} else {		
+		commentDao.deleteCommentByNo(comNo);
+		out.write("{\"deleted\":true}");
+	}	
 %>
