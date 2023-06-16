@@ -10,6 +10,8 @@
 	
 	// 레슨번호 뽑아내기
 	int lessonNo = Integer.parseInt(request.getParameter("no"));
+	// 에러 뽑아내기
+	String err = request.getParameter("err");
 	
 	// 로직수행
 	PersonalLessonDao lessonDao = PersonalLessonDao.getinstance();
@@ -40,6 +42,16 @@
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>개인수업 상세정보를 확인할 수 있습니다.</p>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
+			</div>
+<%
+	}
+%>			
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -66,7 +78,7 @@
 						<td  style="width: 25%">
 							<span class="badge text-bg-success p-2">모집중</span>
 						</td>
-<% } else if (personalLesson.getQuota() != personalLesson.getReqCnt()) { %>
+<% } else if (personalLesson.getQuota() == personalLesson.getReqCnt()) { %>
 						<td  style="width: 25%">
 							<span class="badge text-bg-secondary p-2">모집완료</span>
 						</td>
@@ -81,10 +93,10 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "customer".equals(loginType)) { %>
-						<a href="groupRegisterLesson.jsp?id=<%=loginId %>" class="btn btn-warning btn-sm">신청</a>
+<% if(loginId != null && "user".equals(loginType)) { %>
+						<a href="personalRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
 <% } %>
-						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
+						<a href="personalList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
 <% if(loginId != null && "trainer".equals(loginType)) { %>
 						<a href="personalDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>

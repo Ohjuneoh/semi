@@ -9,7 +9,7 @@ public class GroupReservationDao {
 	private GroupReservationDao() {}
 	
 	public static GroupReservationDao instance = new GroupReservationDao();
-	public static GroupReservationDao getinstance() {
+	public static GroupReservationDao getInstance() {
 		return instance;
 	}
 	
