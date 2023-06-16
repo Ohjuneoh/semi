@@ -57,4 +57,10 @@ public class CommentDao {
 	public void deleteCommentByNo(int comNo) {
 		DaoHelper.update("commentDao.deleteCommentByNo", comNo);
 	}
+	
+	public void updateCommentByNo(Comment comment) {
+		DaoHelper.update("commentDao.updateCommentByNo", 
+				comment.getContent(),
+				comment.getNo());
+	}
 }

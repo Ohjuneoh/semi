@@ -9,24 +9,20 @@
 		return;
 	}
 	
-	int boardNo = 0;
 	int comNo = 0;
 	try {
-		boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		comNo = Integer.parseInt(request.getParameter("comNo"));
+		comNo = Integer.parseInt(request.getParameter("cno"));
 	} catch(NumberFormatException num) {
-		response.sendRedirect("reportList.jsp?err=invalid");
+		response.sendRedirect("list.jsp?err=invalid");
 		return;
 	}
 
 	CommentDao commentDao = CommentDao.getInstance();
 	Comment com = commentDao.getCommentByNo(comNo);
-	if(!loginId.equals(com.getUser().getId())) {
-		response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo + "&err=delete&job=" + URLEncoder.encode("댓글삭제", "utf-8"));
-		return;
-	}
 	
 	commentDao.deleteCommentByNo(comNo);
 	
-	response.sendRedirect("../board/detail.jsp?boardNo=" + boardNo);
+	String alret = "댓글이 삭제되었습니다.";
+	
+	out.write(alret);
 %>

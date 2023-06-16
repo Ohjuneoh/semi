@@ -75,7 +75,7 @@
 	String job = request.getParameter("job");
 
 	
-	if("delete".equals(err)) {
+	if("notLoginUser".equals(err)) {
 %>
 		<div class="alert alert-danger">
 			<strong>잘못된 접근</strong> [<%=job %>]는 작성자만 사용가능한 서비스입니다.
@@ -179,7 +179,6 @@
 					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
 					싫어요<br /><%=totalDisLike %>
 				</a>
-
 <%		
 	}
 %>
@@ -233,7 +232,7 @@
 	</div>
 	<div class="row mb-3">
    		<div class="col-12">
-			<form class="border bg-light p-2" method="post" action="../comment/insert.jsp">
+			<form class="border bg-light p-2" method="post" action="comment-insert.jsp">
 				<input type="hidden" name="boardNo" value="<%=boardNo %>" />
  				<div class="row">
 					<div class="col-11">
@@ -257,27 +256,50 @@
 <%		
 		if(board.getUser().getId().equals(comment.getUser().getId())) {
 %>
-						<span class="badge bg-success" >작성자</span>
+					<span class="badge bg-success" >작성자</span>
 <%
 		}
 %>
 	   				</strong>
 				</div>
-				<div id="comment">
-					<%=comment.getContent() %>
+				<div>
+					<div class="row" id="row-<%=comment.getNo() %>">
+						<div class="col-10">
+							<span id="comment-content"><%=comment.getContent() %></span>
+						</div>
+						<div class="col-2">
 <%
-		if(loginId.equals(comment.getUser().getId())) {
+			if(loginId.equals(comment.getUser().getId())) {
 %>
-					<a href="../comment/delete.jsp?boardNo=<%=boardNo %>&comNo=<%=comment.getNo() %>" 
-	   					class="btn btn-link text-danger text-decoration-none float-end">
-	   					<i class="bi bi-trash"></i>
-	   				</a>
-					<a class="btn btn-link text-decoration-none float-end" >
-						<i class="bi bi-brush-fill"></i>
-	   				</a>
+							<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" 
+							class="btn btn-link text-decoration-none" >
+								<i class="bi bi-brush-fill" ></i>
+		   					</button>
+							<button id="btn-delete-comment" onclick="deleteComment(<%=comment.getNo() %>)" 
+							class="btn btn-link text-danger text-decoration-none float-end">
+		   						<i class="bi bi-trash"></i>
+		   					</button>
 <%
 		}
 %>
+						</div>
+					</div>
+					<div class="row d-none" id="row-field-<%=comment.getNo() %>">
+						<div class="col-10">
+							<textarea class="form-control" id="comment-field-<%=comment.getNo() %>"> <%=comment.getContent() %>
+							</textarea>
+						</div>
+						<div class="col-2">
+							<button id="btn-modify-comment" onclick="modifyComment(<%=comment.getNo() %>)" 
+							class="btn btn-link" >
+								<i class="bi bi-brush-fill" ></i>
+		   					</button>
+		   					<button id="btn-modify-comment" onclick="modifyCancelComment(<%=comment.getNo() %>)" 
+		   					class="btn btn-link float-end" >
+								<i class="bi bi-x" ></i>
+		   					</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -286,5 +308,51 @@
 	}
 %>
 </div>
+<script type="text/javascript">
+	function modifyFieldComment(cno) {
+		document.getElementById("row-" + cno).classList.add('d-none');
+		document.getElementById("row-field-" + cno).classList.remove('d-none');
+	}
+	
+	function modifyCancelComment(cno) {
+		document.getElementById("row-" + cno).classList.remove('d-none');
+		document.getElementById("row-field-" + cno).classList.add('d-none');
+	}
+	
+	function modifyComment(cno) {
+		// 수정댓글 내용
+		let content = document.getElementById("comment-field-"+cno).value;
+		let xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function () {
+			let htmlContents = "";
+			if(xhr.readyState == 4) {
+				let newComment = xhr.responseText;
+				let arr = JSON.parse(newComment);
+				let newContent = arr.content;
+				htmlContents = newContent;
+			}
+			document.querySelector("#comment-content").textContent = htmlContents;
+		}
+		xhr.open("POST", "comment-modify.jsp");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("cno=" + cno + "&content=" + content);
+		
+		document.getElementById("row-" + cno).classList.remove('d-none');
+		document.getElementById("row-field-" + cno).classList.add('d-none');
+	}
+	
+	function deleteComment(cno) {
+		let xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function () {
+
+		}
+		
+		xhr.open("POST", "comment-delete.jsp");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("cno=" + cno + "&boardNo=" + <%=boardNo%>);
+	}
+</script>
 </body>
 </html>
