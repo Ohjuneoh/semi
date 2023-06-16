@@ -51,6 +51,9 @@
    					<label class="form-label">아이디</label>
    					<input id="user-id" type="text" class="form-control" name="id" />
    				</div>
+   				<button type = "button" onclick="idCheck()" class="btn btn-secondary btn-sm">중복 확인</button>
+   				<span id="msg-box" ></span>
+   			
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">비밀번호</label>
    					<input id= "user-password" type="text" class="form-control" name="password" onblur="passworderr()" />
@@ -64,6 +67,8 @@
    					<label class="form-label">이메일</label>
    					<input id="user-email" type="text" class="form-control" name="email" />
    				</div>
+   				<button type = "button" onclick="emailCheck()" class="btn btn-secondary btn-sm">중복 확인</button>
+   				<span id="email-msg-box" ></span>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">전화번호</label>
    					<input id="user-tel" type="text" class="form-control" name="tel" />
@@ -80,6 +85,69 @@
    	</div>
 </div>
 <script type="text/javascript">
+	function idCheck() {
+		let value = document.getElementById("user-id").value;
+		let el = document.getElementById("msg-box");
+		el.textContent="";
+		el.classList.remove("text-danger");
+		el.classList.remove("text-success");
+	
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4 && xhr.status === 200){
+					let text = xhr.responseText;
+					let obj = JSON.parse(text);
+					if(obj.exist){
+							el.classList.add("text-danger");
+							el.textContent = "사용할 수 없는 아이디입니다.";
+					} else{
+							el.classList.add("text-success");
+							el.textContent = "사용 가능한 아이디입니다.";
+						
+					}
+					
+				}
+			
+			}
+		xhr.open("GET", "../check.jsp?id=" + value);
+		xhr.send(null);
+		
+		document.getElementById("user-id").focus();
+		
+		
+	}
+	function emailCheck() {
+		let value = document.getElementById("user-email").value;
+		let el = document.getElementById("email-msg-box");
+		el.textContent="";
+		el.classList.remove("text-danger");
+		el.classList.remove("text-success");
+	
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4 && xhr.status === 200){
+					let text = xhr.responseText;
+					let obj = JSON.parse(text);
+					if(obj.exist){
+							el.classList.add("text-danger");
+							el.textContent = "사용할 수 없는 이메일입니다.";
+					} else{
+							el.classList.add("text-success");
+							el.textContent = "사용 가능한 이메일입니다.";
+						
+					}
+					
+				}
+			
+			}
+		xhr.open("GET", "../check.jsp?email=" + value);
+		xhr.send(null);
+		
+		document.getElementById("user-email").focus();
+		
+		
+	}
+
 	function fn1() {
 		let id = document.getElementById("user-id").value;
 		let password = document.getElementById("user-password").value;

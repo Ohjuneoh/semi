@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">신규 그룹강좌 등록</h1>
+			<h1 class="border bg-light fs-4 p-2">신규 그룹레슨 등록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 %>
 
 			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong> 그룹수업만 등록할 수 있습니다.
+				<strong>잘못된 접근</strong> 그룹레슨만 등록할 수 있습니다.
 			</div>
 <%
 	}
@@ -93,7 +93,6 @@ pageEncoding="UTF-8"%>
 				<div class="text-end">
 					<button type="reset" class="btn btn-secondary btn-sm">취소</button>
 					<button type="submit" class="btn btn-primary btn-sm">등록</button>
-					<a href="groupInsertLesson.jsp"></a>
 				</div>
 			</form>
 		</div>
