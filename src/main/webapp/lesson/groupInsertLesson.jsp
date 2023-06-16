@@ -8,7 +8,7 @@
 <%@page import="vo.Lesson"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-// 1. 파라미터 조회
+	// 1. 파라미터 조회
 		// 로그인 상태에서, 세션객체에 담긴 값들 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
