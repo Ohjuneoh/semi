@@ -225,7 +225,7 @@
 	   		<div class="col-12">
 	   			<div class="border p-2 mb-2">
 		   			<div class="d-flex justify-content-between mb-1" >
-		   				<strong id="comment-userId"><%=comment.getUser().getId() %>
+		   				<strong><%=comment.getUser().getId() %>
 <%		
 		if(board.getUser().getId().equals(comment.getUser().getId())) {
 %>
@@ -234,27 +234,27 @@
 <%
 		}
 %>
-						<span style="margin-left: 1150px; color:gray"><%=comment.getUpdateDate() %></span>
 					</div>
-					<div class="row" id="row-<%=comment.getNo() %>">
-						<div class="col-10">
-							<span id="comment-content"><%=comment.getContent() %></span>
-						</div>
-						<div class="col-2 text-end">
+						<div class="row" id="row-<%=comment.getNo() %>">
+							<div id="comment-updateDate" class="text-muted" style="font-size:smaller;"><%=comment.getUpdateDate() %></div><br/>
+							<div class="col-10">
+								<span id="comment-content"><%=comment.getContent() %></span>
+							</div>
+							<div class="col-2 text-end">
 <%
 			if(loginId.equals(comment.getUser().getId())) {
 %>
-							<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" class="btn btn-link text-decoration-none" >
-								<i class="bi bi-pencil-fill"></i>
-			   				</button>
-							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(<%=comment.getNo() %>);">
-			   					<i class="bi bi-trash"></i>
-			   				</button>
+								<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" class="btn btn-link text-decoration-none">
+									<i class="bi bi-pencil-fill"></i>
+			   					</button>
+								<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(<%=comment.getNo() %>);">
+			   						<i class="bi bi-trash"></i>
+			   					</button>
 <%
 		}
 %>
+							</div>
 						</div>
-					</div>
 					<div class="row d-none" id="row-field-<%=comment.getNo() %>">
 						<div class="col-10">
 							<textarea class="form-control" id="comment-field-<%=comment.getNo() %>"><%=comment.getContent() %></textarea>
@@ -373,17 +373,36 @@
 			if(xhr.readyState === 4 && xhr.state === 200) {
 				let newComment = xhr.responseText;
 				let arr = JSON.parse(newComment);
-				let newContent = arr.content;
-				htmlContents = newContent;
+				htmlContents += `
+					<div id="comment-updateDate" class="text-muted" style="font-size:smaller;">\${arr.updateDate}</div><br/>
+					<div class="row" id="row-\${arr.no}">
+						<div class="col-10">
+							<span id="comment-content">\${arr.content}</span>
+						</div>
+						<div class="col-2 text-end">`;
+
+				if(`<%=loginId%>` === arr.user.id) {
+					htmlContents +=
+							`<button id="btn-modify-comment" onclick="modifyFieldComment(\${arr.no})" class="btn btn-link text-decoration-none" >
+								<i class="bi bi-pencil-fill"></i>
+		   					</button>
+							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(\${arr.no});">
+		   						<i class="bi bi-trash"></i>
+		   					</button>`;
+				}
+
+				htmlContents += 
+						`</div>
+					</div>`;
+				document.querySelector("#row-" + cno).innerHTML = htmlContents;
 			}
-			document.querySelector("#comment-content").textContent = htmlContents;
 		}
 		xhr.open("POST", "comment-modify.jsp");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("cno=" + cno + "&content=" + content);
 		
-		document.getElementById("row-" + cno).classList.remove('d-none');
-		document.getElementById("row-field-" + cno).classList.add('d-none');
+		document.getElementById("row-field-" + cno).classList.add("d-none");
+		document.getElementById("row-" + cno).classList.remove("d-none");
 	}
 	
 	function deleteComment() {
@@ -437,14 +456,14 @@
 								
 						if(`<%=board.getUser().getId()%>` === comment.user.id) {
 							commentHTMLContents +=
-											`<span class="badge bg-success" >작성자</span>
+											` <span class="badge bg-success" >작성자</span>
 							   				</strong>`;
 						}
 							
 						commentHTMLContents +=
-											`<span style="margin-left: 1150px; color:gray">\${comment.updateDate}</span>
-										</div>
+										`</div>
 										<div class="row" id="row-\${comment.no}">
+											<div id="comment-updateDate" class="text-muted" style="font-size:smaller;">\${comment.updateDate}</div><br/>
 											<div class="col-10">
 												<span id="comment-content">\${comment.content}</span>
 											</div>
