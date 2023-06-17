@@ -172,4 +172,62 @@ public class GroupReservationDao {
 			
 		}, trianerId);
 	}
-}
+	
+	public List<Reservation> getGroupMyUserByTrainerId (String trianerId) {
+		return DaoHelper.selectList("reservationDao.getGroupMyUserByTrainerId", rs->{
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+		}, trianerId);
+	}
+	
+	public List<Reservation> getPersonalMyUserByTrainerId(String trianerId) {
+		return DaoHelper.selectList("reservationDao.getPersonalMyUserByTrainerId", rs->{
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+		}, trianerId);
+	}
+ }

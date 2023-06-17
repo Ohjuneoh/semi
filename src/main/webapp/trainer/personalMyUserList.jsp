@@ -23,7 +23,7 @@
 	
 	// 로직수행(강사의 그룹레슨 회원목록 조회)
 	GroupReservationDao reservDao = GroupReservationDao.getInstance();
-	List<Reservation> reservList = reservDao.getGroupMyUserByTrainerId(loginId);
+	List<Reservation> reservList = reservDao.getPersonalMyUserByTrainerId(loginId);
 %>
 <!doctype html>
 <html lang="ko">
@@ -45,16 +45,16 @@
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">내 그룹레슨 회원 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">내 개인레슨 회원 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>내 그룹레슨 회원 목록을 확인할 수 있습니다.</p>
+			<p>내 개인레슨 회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link" href="/semi/trainer/myUserList.jsp ">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<thead>

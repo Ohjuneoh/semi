@@ -21,8 +21,6 @@
 		return;
 	}
 	
-	
-	
 	// 로직수행(강사의 전체 회원목록 조회)
 	GroupReservationDao reservDao = GroupReservationDao.getInstance();
 	List<Reservation> reservList = reservDao.getAllMyUserByTrainerId(loginId);
@@ -54,9 +52,9 @@
 		<div class="col-12">
 			<p>내 전체회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/myUserList.jsp ">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyUserList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupMyUserList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/myUserList.jsp ">전체</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<thead>
@@ -74,7 +72,7 @@
 <% 
 	for(Reservation reserve : reservList) {
  %>
-						<td style="width: 10%;"><%=reserve.getUser().getName() %></td>
+						<td style="width: 10%;"><a href="../user/userDetail.jsp?userId=<%=reserve.getUser().getId() %>"><%=reserve.getUser().getName() %></a></td>
 						<td style="width: 36%;"><%=reserve.getUser().getEmail() %></td>
 						<td style="width: 12%;"><%=reserve.getUser().getTel() %></td>
 						<td style="width: 18%;"><%=reserve.getUser().getCreateDate() %></td>
