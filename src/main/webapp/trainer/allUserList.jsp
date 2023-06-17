@@ -12,16 +12,27 @@
 	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
-
-	// 페이징처리 
+	
+	// 오류사항: 로그인이 되지않았거나, 타입이 강사가아니면 조회불가능
+	if(loginId == null) {
+	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체 회원조회", "utf-8"));
+		return;
+	}
+	if(!"trainer".equals(loginType)) {
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체 회원조회", "utf-8"));
+		return;
+	}
+	
+	// 페이징처리
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
-		
+	
 	UserDao userDao = UserDao.getinstance();
-	int totalRows = userDao.getTotalUserRows(loginId);
-		
+	int totalRows = userDao.getTotalUserRows();
+	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 로직수행(전체 유저정보 조회)
+	// 로직수행 (User타입 전체조회)
+	List<User> userList = userDao.getAllUserByUserType(pagination.getBegin(), pagination.getEnd());
 	
 %>
 <%@page import="util.StringUtils"%>
@@ -54,11 +65,11 @@
 			<p>전체 회원목록을 확인할 수 있습니다.</p>
 			<table class="table table-sm">
 				<colgroup>
-					<col width="10%">
-					<col width="45%">
 					<col width="15%">
-					<col width="15%">
-					<col width="15%">
+					<col width="20%">
+					<col width="25%">
+					<col width="20%">
+					<col width="20%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -75,11 +86,15 @@
 	for (User user : userList) { 
 %>
 					<tr>
-						<td><%=user.getName() %></td>
-						<td><%=user.getEmail() %></a></td>
+						<td><a href="../user/userDetail.jsp?userId=<%=user.getId() %>"><%=user.getName() %></a></td>
+						<td><%=user.getEmail() %></td>
 						<td><%=user.getTel() %></td>
 						<td><%=user.getCreateDate() %></td>
-						<td><%=user.getStatus() %></td>
+<% if ("Y".equals(user.getStatus())) { %>
+						<td><a class="btn btn-primary btn-sm">가입중</a></td>
+<% } else if ("N".equals(user.getStatus())) { %>
+						<td><a class="btn btn-danger btn-sm">탈퇴</a></td>
+<% } %>
 					</tr>
 <% 	
 	}
