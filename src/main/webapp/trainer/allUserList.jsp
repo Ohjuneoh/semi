@@ -1,3 +1,5 @@
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Reservation"%>
 <%@page import="dao.GroupReservationDao"%>
@@ -7,34 +9,31 @@
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-	
 	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
-	// 오류상황
-		// 로그인이 되지 않았을 경우
-		// 로그인 타입이 강사가 아닌경우 
+	// 오류사항: 로그인이 되지않았거나, 타입이 강사가아니면 조회불가능
 	if(loginId == null) {
-	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체 회원조회", "utf-8"));
 		return;
 	}
-	if(!"user".equals(loginType)) {
-		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+	if(!"trainer".equals(loginType)) {
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체 회원조회", "utf-8"));
 		return;
 	}
-		
-	// 페이징처리 
+	
+	// 페이징처리
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupReservationDao groupReservationDao = GroupReservationDao.getInstance();
-	int totalRows = groupReservationDao.getGroupTotalMyRows(loginId);
+	UserDao userDao = UserDao.getinstance();
+	int totalRows = userDao.getTotalUserRows();
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 로직수행 (신청 조회)
-	GroupReservationDao reserveDao = GroupReservationDao.getInstance();
-	List<Reservation> reserveList = reserveDao.getGroupMyReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	// 로직수행 (User타입 전체조회)
+	List<User> userList = userDao.getAllUserByUserType(pagination.getBegin(), pagination.getEnd());
+	
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -53,50 +52,49 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="마이페이지"/>
+	<jsp:param name="menu" value="회원관리" />
 </jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">내 그룹레슨 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">전체 회원목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>내 그룹레슨 목록을 확인할 수 있습니다.</p>
-			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link active" href="/semi/groupUserMyLessonList.jsp">그룹</a></li>
-			</ul>
+			<p>전체 회원목록을 확인할 수 있습니다.</p>
 			<table class="table table-sm">
 				<colgroup>
-					<col width="10%">
-					<col width="45%">
 					<col width="15%">
-					<col width="15%">
-					<col width="15%">
+					<col width="20%">
+					<col width="25%">
+					<col width="20%">
+					<col width="20%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th>레슨번호</th>
-						<th>레슨명</th>
-						<th>강사명</th>
-						<th>레슨시간</th>
-						<th>헬스장명</th>
+						<th>회원 이름</th>
+						<th>회원 이메일</th>
+						<th>회원 전화번호</th>
+						<th>가입일</th>
+						<th>회원상태</th>
 					</tr>
 				</thead>
 				<tbody>
 				
 <% 
-	for (Reservation reserve : reserveList) { 
+	for (User user : userList) { 
 %>
 					<tr>
-						<td><%=reserve.getLesson().getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a></td>
-						<td><%=reserve.getUser().getName() %></td>
-						<td><%=reserve.getLesson().getTime() %></td>
-						<td><%=reserve.getLesson().getGym().getName() %></td>
+						<td><a href="../user/userDetail.jsp?userId=<%=user.getId() %>"><%=user.getName() %></a></td>
+						<td><%=user.getEmail() %></td>
+						<td><%=user.getTel() %></td>
+						<td><%=user.getCreateDate() %></td>
+<% if ("Y".equals(user.getStatus())) { %>
+						<td><a class="btn btn-primary btn-sm">가입중</a></td>
+<% } else if ("N".equals(user.getStatus())) { %>
+						<td><a class="btn btn-danger btn-sm">탈퇴</a></td>
+<% } %>
 					</tr>
 <% 	
 	}

@@ -4,7 +4,9 @@ import java.util.List;
 
 import util.DaoHelper;
 import vo.Gym;
+import vo.Lesson;
 import vo.Membership;
+import vo.Reservation;
 import vo.Trainer;
 import vo.User;
 
@@ -137,6 +139,60 @@ public class UserDao {
 			
 			return user;
 		}, type);
+	}
+	/*
+	 * 유저타입의 모든 회원정보를 조회한다.(페이징처리)
+	 */
+	public List<User> getAllUserByUserType(int begin, int end) {
+		return DaoHelper.selectList("userDao.getAllUserByUserType", rs->{
+		User user = new User();
+		user.setId(rs.getString("user_id"));
+		user.setPassword(rs.getString("user_password"));
+		user.setName(rs.getString("user_name"));
+		user.setEmail(rs.getString("user_email"));
+		user.setTel(rs.getString("user_tel"));
+		user.setCreateDate(rs.getDate("user_create_date"));
+		user.setUpdateDate(rs.getDate("user_update_date"));
+		user.setStatus(rs.getString("user_status"));
+		
+		Gym gym = new Gym();
+		gym.setNo(rs.getInt("gym_no"));
+		user.setGym(gym);
+		
+		return user;
+		
+		}, begin,end);
+	}
+	/*
+	 * 유저의 모든 행의갯수를 조회한다.
+	 */
+	public int getTotalUserRows() {
+		return DaoHelper.selectOne("userDao.getTotalUserRows", rs->{
+			return rs.getInt("cnt");
+		});
+	}
+	
+	/*
+	 * id를 전달받아서 그 회원의 정보를 조회한다.
+	 */
+	public User getUserByUserTypeAndId(String id) {
+		return DaoHelper.selectOne("userDao.getUserByUserTypeAndId", rs->{
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+			user.setGym(gym);
+			
+			return user;
+		}, id);
 	}
 	
 }

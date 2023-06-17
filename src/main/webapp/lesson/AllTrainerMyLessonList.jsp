@@ -4,7 +4,7 @@
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-// 로그인정보 조회
+	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
@@ -83,7 +83,7 @@
 						<td style="width: 10%;"><%=lesson.getNo() %>
 						<td style="width: 36%;">
 						<% if("group".equals(lesson.getType())) { %>
-								<a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
+								<a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
 							<% } else if ("personal".equals(lesson.getType())) { %>
 								<a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
 								<% } %>

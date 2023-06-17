@@ -78,7 +78,7 @@
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
 						<td><%=lesson.getGym().getName() %></td>

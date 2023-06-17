@@ -85,7 +85,7 @@
 						<td style="width: 10%;"><%=reserve.getLesson().getNo() %>
 						<td style="width: 36%;">
 						<% if("group".equals(reserve.getLesson().getType())) { %>
-								<a href="groupDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
+								<a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 							<% } else if ("personal".equals(reserve.getLesson().getType())) { %>
 								<a href="personalDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 								<% } %>
