@@ -1,5 +1,6 @@
   
-  Zx3 <%@page import="vo.Membership"%>
+  Zx3 <%@page import="dao.MyMembershipDao"%>
+<%@page import="vo.Membership"%>
 <%@page import="java.lang.reflect.Member"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.MembershipDao"%>
@@ -65,6 +66,8 @@
 	groupLessonDao.updateGroupLesson(lesson);
 
 		// 내 멤버쉽 테이블에 cnt -1
+		// 
+	MyMembershipDao mymemDao = MyMembershipDao.getInstance();
 	
 	
 	// 재요청 url
