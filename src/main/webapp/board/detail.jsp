@@ -369,40 +369,17 @@
 		let xhr = new XMLHttpRequest();
 		
 		xhr.onreadystatechange = function () {
-			let htmlContents = "";
 			if(xhr.readyState === 4 && xhr.state === 200) {
 				let newComment = xhr.responseText;
 				let arr = JSON.parse(newComment);
-				htmlContents += `
-					<div id="comment-updateDate" class="text-muted" style="font-size:smaller;">\${arr.updateDate}</div><br/>
-					<div class="row" id="row-\${arr.no}">
-						<div class="col-10">
-							<span id="comment-content">\${arr.content}</span>
-						</div>
-						<div class="col-2 text-end">`;
-
-				if(`<%=loginId%>` === arr.user.id) {
-					htmlContents +=
-							`<button id="btn-modify-comment" onclick="modifyFieldComment(\${arr.no})" class="btn btn-link text-decoration-none" >
-								<i class="bi bi-pencil-fill"></i>
-		   					</button>
-							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(\${arr.no});">
-		   						<i class="bi bi-trash"></i>
-		   					</button>`;
-				}
-
-				htmlContents += 
-						`</div>
-					</div>`;
-				document.querySelector("#row-" + cno).innerHTML = htmlContents;
+				document.querySelector("#comment-content").textContent  = arr.content;
 			}
+				document.getElementById("row-" + cno).classList.remove("d-none");
+				document.getElementById("row-field-" + cno).classList.add("d-none");
 		}
 		xhr.open("POST", "comment-modify.jsp");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("cno=" + cno + "&content=" + content);
-		
-		document.getElementById("row-field-" + cno).classList.add("d-none");
-		document.getElementById("row-" + cno).classList.remove("d-none");
 	}
 	
 	function deleteComment() {
@@ -441,8 +418,7 @@
 					
 					if(nextComs.length === 0) {
 						more = false;
-					} 
-					if (nextComs.length < 10) {
+					} else if (nextComs.length < 10) {
 						document.getElementById("comment-more-button").classList.add("d-none");
 					}
 		
