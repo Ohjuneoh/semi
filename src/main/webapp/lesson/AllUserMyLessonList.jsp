@@ -1,10 +1,12 @@
+<%@page import="vo.Reservation"%>
+<%@page import="dao.GroupReservationDao"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="dto.Pagination"%>
 <%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-// 로그인정보 조회
+	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
@@ -15,7 +17,7 @@
 	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
 		return;
 	}
-	if(!"trainer".equals(loginType)) {
+	if(!"user".equals(loginType)) {
 		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
 		return;
 	}
@@ -23,13 +25,13 @@
 	// 페이징처리 
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
 	
-	GroupLessonDao groupLessonDao = GroupLessonDao.getinstance();
-	int totalRows = groupLessonDao.getTotalMyAllRows(loginId);
+	GroupReservationDao reserveDao = GroupReservationDao.getInstance();
+	int totalRows = reserveDao.getAllTotalMyRows(loginId);
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 로직수행 (레슨 전체조회)
-	List<Lesson> lessonList = groupLessonDao.getAllMyLessonsById(loginId, pagination.getBegin(), pagination.getEnd());
+	// 로직수행 (예약 조회)
+	List<Reservation> reserveList = reserveDao.getAllReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -60,9 +62,9 @@
 		<div class="col-12">
 			<p>내 전체레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/AllTrainerMyLessonList.jsp">전체</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupTrainerMyLessonList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupUserMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<thead>
@@ -76,53 +78,53 @@
 					</tr>
 				</thead>
 				<tbody>
+<%
+	for (Reservation reserve : reserveList) { 
+%>
 					<tr>
-<% 
-	for(Lesson lesson : lessonList) {
- %>
-						<td style="width: 10%;"><%=lesson.getNo() %>
+						<td style="width: 10%;"><%=reserve.getLesson().getNo() %>
 						<td style="width: 36%;">
-						<% if("group".equals(lesson.getType())) { %>
-								<a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
-							<% } else if ("personal".equals(lesson.getType())) { %>
-								<a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
+						<% if("group".equals(reserve.getLesson().getType())) { %>
+								<a href="groupDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
+							<% } else if ("personal".equals(reserve.getLesson().getType())) { %>
+								<a href="personalDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 								<% } %>
 						</td>
-						<td style="width: 12%;"><%=lesson.getUser().getName() %></td>
-						<td style="width: 18%;"><%=lesson.getTime() %></td>
-						<td style="width: 12%;"><%=lesson.getGym().getName() %></td>
+						<td style="width: 12%;"><%=reserve.getUser().getName() %></td>
+						<td style="width: 18%;"><%=reserve.getLesson().getTime() %></td>
+						<td style="width: 12%;"><%=reserve.getLesson().getGym().getName()%></td>
 						<td style="width: 12%;">
-							<% if("group".equals(lesson.getType())) { %>
+							<% if("group".equals(reserve.getLesson().getType())) { %>
 								그룹레슨
-							<% } else if ("personal".equals(lesson.getType())) { %>
+							<% } else if ("personal".equals(reserve.getLesson().getType())) { %>
 								개인레슨
 								<% } %>
 						</td>
-					</tr>
 <% 
-	}
+	} 
 %>
+					</tr>
 				</tbody>
 			</table>
-<% if(totalRows != 0) { %>
+<% if (totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a href="AllTrainerMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+						<a href="AllUserMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
 					</li>
 <%
 	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 					<li class="page-item <%=pageNo == num ? "active" : "" %>">
-						<a href="AllTrainerMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+						<a href="AllUserMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
 					</li>
 <% 
 	}
 %>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a href="AllTrainerMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+						<a href="AllUserMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
 			</nav>

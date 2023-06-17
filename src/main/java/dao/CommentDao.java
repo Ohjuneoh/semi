@@ -22,16 +22,18 @@ public class CommentDao {
 				}, boardNo);
 	}
 	
-	public List<Comment> getComments(int boardNo) {
+	public List<Comment> getComments(int boardNo, int begin, int end) {
 		return DaoHelper.selectList("commentDao.getComments", rs -> {
 			Comment comment = new Comment();
 			comment.setNo(rs.getInt("com_no"));
 			comment.setBoard(new Board(rs.getInt("board_no")));
 			comment.setContent(rs.getString("com_content"));
 			comment.setUser(new User(rs.getString("user_id")));
+			comment.setCreateDate(rs.getDate("com_create_date"));
+			comment.setUpdateDate(rs.getDate("com_update_date"));
 			
 			return comment;
-		}, boardNo);
+		}, boardNo, begin, end);
 	}
 	
 	public void insertComment(Comment comment) {

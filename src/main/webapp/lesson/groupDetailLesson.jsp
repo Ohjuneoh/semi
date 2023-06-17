@@ -1,23 +1,28 @@
+<%@page import="vo.Reservation"%>
+<%@page import="dao.GroupReservationDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.GroupeLessonDao"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 로그인 정보 조회
+// 로그인 정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
 	// 레슨번호 뽑아내기
-	int lessonNo = Integer.parseInt(request.getParameter("no"));
+	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
 	// 에러 뽑아내기 
 	String err = request.getParameter("err");
 	
 	
 	// 로직수행
-	GroupeLessonDao groupDao = GroupeLessonDao.getinstance();
+		// 상세정보 조회
+	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	Lesson groupLesson = groupDao.getGroupLessonByLessonNo(lessonNo);
-	
-	
+		// 똑같은 강의를 2번이상 등록하지 못하게 신청버튼 제한 ()
+	GroupReservationDao reservationDao = GroupReservationDao.getInstance();
+	Reservation reservation = reservationDao.getGroupReservationsByIdAndLessonNo(loginId, lessonNo);
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -31,7 +36,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="그룹상세"/>
+	<jsp:param name="menu" value="수업"/>
 </jsp:include>
 <div class="container">
 	<div class="row mb-3">
@@ -47,7 +52,18 @@
 %>
 
 			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
+				<strong>잘못된 접근</strong> 정원수가 초과하여 신청할 수 없습니다.
+			</div>
+<%
+	}
+%>
+
+<%
+	if("fail2".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 똑같은 강의를 2번이상 등록할 수 없습니다.
 			</div>
 <%
 	}
@@ -93,11 +109,21 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "user".equals(loginType)) { %>
-<%  if(groupLesson.getQuota() != groupLesson.getReqCnt()) { %>
+<% 
+	if(loginId != null && "user".equals(loginType)) { 
+		if(groupLesson.getQuota() != groupLesson.getReqCnt() && reservation == null) { 
+%>
 
 						<a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
-<% 	 } %>
+<% 
+		}
+	}
+%>
+
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(groupLesson.getUser().getId())) { %>
+						
+						<a href="groupUpdateForm.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">수정</a>
+						
 <% } %>
 						<a href="groupList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
