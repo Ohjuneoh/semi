@@ -25,6 +25,7 @@
 	
 	Gson gson = new Gson();
 	String newComment = gson.toJson(comm);
+	System.out.println(newComment);
 	
 	out.write(newComment);
 %>

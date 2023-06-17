@@ -51,6 +51,8 @@ public class CommentDao {
 					comment.setContent(rs.getString("com_content"));
 					comment.setBoard(new Board(rs.getInt("board_no")));
 					comment.setUser(new User(rs.getString("user_id")));
+					comment.setCreateDate(rs.getDate("com_create_date"));
+					comment.setUpdateDate(rs.getDate("com_update_date"));
 					
 					return comment;
 				}, comNo);
