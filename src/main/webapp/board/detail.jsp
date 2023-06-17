@@ -36,8 +36,8 @@
 	}
 	
 	CommentDao commentDao = CommentDao.getInstance();
-	int commentCnt = commentDao.getCommentCnt(boardNo);
-	List<Comment> comments = commentDao.getComments(boardNo);
+	int commentCnt = commentDao.getCommentCnt(boardNo);	
+	List<Comment> comments = commentDao.getComments(boardNo, 1, 10);
 	
 	LikeDisLikeDao likeDislikeDao = LikeDisLikeDao.getInstance();
 	int totalLike = likeDislikeDao.totalLike(boardNo);
@@ -217,24 +217,25 @@
 			</form>
    		</div>
    	</div>
+	<div id="comment-more">
 <%
 	for(Comment comment : comments)  {
 %>
-   	<div class="row mb-3" id="out-row-<%=comment.getNo() %>">
-   		<div class="col-12">
-   			<div class="border p-2 mb-2">
-	   			<div class="d-flex justify-content-between mb-1">
-	   				<strong><%=comment.getUser().getId() %>
+	   	<div class="row mb-3" id="out-row-<%=comment.getNo() %>">
+	   		<div class="col-12">
+	   			<div class="border p-2 mb-2">
+		   			<div class="d-flex justify-content-between mb-1" >
+		   				<strong id="comment-userId"><%=comment.getUser().getId() %>
 <%		
 		if(board.getUser().getId().equals(comment.getUser().getId())) {
 %>
-					<span class="badge bg-success" >작성자</span>
+						<span class="badge bg-success" >작성자</span>
+		   				</strong>
 <%
 		}
 %>
-	   				</strong>
-				</div>
-				<div>
+						<span style="margin-left: 1150px; color:gray"><%=comment.getUpdateDate() %></span>
+					</div>
 					<div class="row" id="row-<%=comment.getNo() %>">
 						<div class="col-10">
 							<span id="comment-content"><%=comment.getContent() %></span>
@@ -243,45 +244,39 @@
 <%
 			if(loginId.equals(comment.getUser().getId())) {
 %>
-							<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" 
-							class="btn btn-link text-decoration-none" >
+							<button id="btn-modify-comment" onclick="modifyFieldComment(<%=comment.getNo() %>)" class="btn btn-link text-decoration-none" >
 								<i class="bi bi-pencil-fill"></i>
-		   					</button>
-							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" 
-							 onclick="openDeleteCommentConfirmModal(<%=comment.getNo() %>);">
-		   						<i class="bi bi-trash"></i>
-		   					</button>
+			   				</button>
+							<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(<%=comment.getNo() %>);">
+			   					<i class="bi bi-trash"></i>
+			   				</button>
 <%
 		}
 %>
 						</div>
-						
 					</div>
 					<div class="row d-none" id="row-field-<%=comment.getNo() %>">
 						<div class="col-10">
 							<textarea class="form-control" id="comment-field-<%=comment.getNo() %>"><%=comment.getContent() %></textarea>
-						</div>
+					</div>
 						<div class="col-2">
-							<button id="btn-modify-comment" onclick="modifyComment(<%=comment.getNo() %>)" class="btn btn-primary" >
-		   						수정
-		   					</button>
-		   					<button id="btn-modify-comment" onclick="modifyCancelComment(<%=comment.getNo() %>)" class="btn btn-danger" >
-		   						취소
-		   					</button>
+							<button id="btn-modify-comment" onclick="modifyComment(<%=comment.getNo() %>)" class="btn btn-primary" >수정</button>
+			   				<button id="btn-modify-comment" onclick="modifyCancelComment(<%=comment.getNo() %>)" class="btn btn-danger" >취소</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 <%
 	}
-
-	if(commentCnt >= 1) {
 %>
-	<div class="text-center" id="comment-more">
-		<button type="button" class="btn btn-outline-secondary" onclick="commentMore(<%=boardNo%>)">더보기 <i class="bi bi-arrow-down"></i></button>
 	</div>
+<%
+	if(commentCnt > 10) {
+%>
+		<div class="text-center" id="comment-more-button">
+			<button type="button" class="btn btn-outline-secondary" onclick="commentMore()">더보기 <i class="bi bi-arrow-down"></i></button>
+		</div>
 <%
 	}
 %>
@@ -408,14 +403,86 @@
 					alert("댓글을 삭제할 수 없습니다.");
 				}
 				
-			} 
+			}
 		}		
 		xhr.open("GET", "comment-delete.jsp?cno=" + cno);
 		xhr.send(null);
 	}
 	
-	function commentMore(boardNo) {
+	let page = 2;
+	let more = true;
+	function commentMore() {
+		if(more) {
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if(xhr.readyState === 4 && xhr.status === 200) {
+					let text = xhr.responseText;
+					let nextComs = JSON.parse(text);
+					let commentHTMLContents = "";
+					
+					if(nextComs.length === 0) {
+						more = false;
+					} 
+					if (nextComs.length < 10) {
+						document.getElementById("comment-more-button").classList.add("d-none");
+					}
 		
+					nextComs.forEach(function (comment, index) {
+						commentHTMLContents += `
+								<div class="row mb-3" id="out-row-\${comment.no}">
+						   		<div class="col-12">
+						   			<div class="border p-2 mb-2">
+							   			<div class="d-flex justify-content-between mb-1">
+							   				<strong id="comment-userId">\${comment.user.id}`;
+								
+						if(`<%=board.getUser().getId()%>` === comment.user.id) {
+							commentHTMLContents +=
+											`<span class="badge bg-success" >작성자</span>
+							   				</strong>`;
+						}
+							
+						commentHTMLContents +=
+											`<span style="margin-left: 1150px; color:gray">\${comment.updateDate}</span>
+										</div>
+										<div class="row" id="row-\${comment.no}">
+											<div class="col-10">
+												<span id="comment-content">\${comment.content}</span>
+											</div>
+											<div class="col-2 text-end">`;
+						
+						if(`<%=loginId %>` === comment.user.id) {
+							commentHTMLContents += `
+												<button id="btn-modify-comment" onclick="modifyFieldComment(\${comment.no})" class="btn btn-link text-decoration-none" >
+													<i class="bi bi-pencil-fill"></i>
+								   				</button>
+												<button id="btn-delete-comment" class="btn btn-link text-danger text-decoration-none" onclick="openDeleteCommentConfirmModal(\${comment.no});">
+								   					<i class="bi bi-trash"></i>
+								   				</button>`;
+						
+						}
+						commentHTMLContents += `
+											</div>
+										</div>
+										<div class="row d-none" id="row-field-\${comment.no}">
+											<div class="col-10">
+												<textarea class="form-control" id="comment-field-\${comment.no}">\${comment.content}</textarea>
+										</div>
+											<div class="col-2">
+												<button id="btn-modify-comment" onclick="modifyComment(\${comment.no})" class="btn btn-primary" >수정</button>
+								   				<button id="btn-modify-comment" onclick="modifyCancelComment(\${comment.no})" class="btn btn-danger" >취소</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>`;
+					});
+					document.querySelector("#comment-more").innerHTML += commentHTMLContents;
+				}
+			}
+			xhr.open("GET", "comment-more.jsp?boardNo=<%=boardNo%>&comPage=" + page);
+			xhr.send(null);
+			page++;
+		}
 	}
 </script>
 </body>
