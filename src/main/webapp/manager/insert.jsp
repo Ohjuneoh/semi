@@ -1,3 +1,5 @@
+<%@page import="dao.AddressDao"%>
+<%@page import="vo.Address"%>
 <%@page import="vo.Trainer"%>
 <%@page import="dao.UserDao"%>
 <%@page import="vo.Gym"%>
@@ -10,6 +12,9 @@
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
 	String tel = request.getParameter("tel");
+	int post= Integer.parseInt(request.getParameter("post"));
+	String streetName = request.getParameter("streetName");
+	String detailAdd= request.getParameter("detailAdd");
 	//유저 객체 생성 후 입력값 객체 저장
 	User user = new User();
 	user.setType(type);
@@ -19,7 +24,14 @@
 	user.setEmail(email);
 	user.setTel(tel);
 	
+	Address address = new Address();
+	address.setUser(new User(id));
+	address.setPostNo(post);
+	address.setStreetName(streetName);
+	address.setDetailAddress(detailAdd);
+	
 	UserDao userDao = UserDao.getinstance();
+	AddressDao addressDao = AddressDao.getInstance();
 	
 	//똑같은 아이디가 있는지 비교
 		if(userDao.getUserById(id) != null){
@@ -33,6 +45,7 @@
 		}
 	//유저 테이블 insert
 	userDao.insertManager(user);
+	addressDao.insertAddress(address);
 
 	
 	
