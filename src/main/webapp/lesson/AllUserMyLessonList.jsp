@@ -63,7 +63,7 @@
 			<p>내 전체레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalUserMyLessonList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupUserMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
@@ -87,7 +87,7 @@
 						<% if("group".equals(reserve.getLesson().getType())) { %>
 								<a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 							<% } else if ("personal".equals(reserve.getLesson().getType())) { %>
-								<a href="personalDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
+								<a href="personalDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 								<% } %>
 						</td>
 						<td style="width: 12%;"><%=reserve.getUser().getName() %></td>
