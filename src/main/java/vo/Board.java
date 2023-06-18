@@ -13,8 +13,6 @@ public class Board {
 	private User user;
 	private Date updateDate;
 	private Date createDate;
-	private int like;
-	private int dislike;
 	private String type;
 	
 	public Board() {}
@@ -93,22 +91,6 @@ public class Board {
 	
 	public Date getCreateDate() {
 		return createDate;
-	}
-	
-	public int getLike() {
-		return like;
-	}
-	
-	public void setLike(int like) {
-		this.like = like;
-	}
-	
-	public int getDislike() {
-		return dislike;
-	}
-	
-	public void setDislike(int dislike) {
-		this.dislike = dislike;
 	}
 	
 	public void setCreateDate(Date createDate) {
