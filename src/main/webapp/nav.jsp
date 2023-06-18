@@ -81,8 +81,8 @@
 	            	회원관리
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">전체 회원조회</a></li>
-	            		<li><a class="dropdown-item" href="/semi/board/list.jsp">나의 회원조회 </a></li>
+	            		<li><a class="dropdown-item" href="/semi/trainer/allUserList.jsp">전체 회원조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/trainer/myUserList.jsp">나의 회원조회 </a></li>
 <%
 	}
 %>

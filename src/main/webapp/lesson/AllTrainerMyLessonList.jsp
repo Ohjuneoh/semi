@@ -4,7 +4,7 @@
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-// 로그인정보 조회
+	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
