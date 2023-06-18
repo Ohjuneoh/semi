@@ -397,8 +397,7 @@
 					alert("댓글이 삭제되었습니다."); 
 				} else {
 					alert("댓글을 삭제할 수 없습니다.");
-				}
-				
+				}			
 			}
 		}		
 		xhr.open("GET", "comment-delete.jsp?cno=" + cno);
