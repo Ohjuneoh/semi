@@ -46,12 +46,12 @@
 						<label class="form-label">이용권 종류</label>
 						<div>
 							<div class="form-check form-check-inline">
-		  						<input class="form-check-input" type="radio" name="type"  value="개인레슨" checked="checked">
+		  						<input class="form-check-input" type="radio" name="type"  value="PL" checked="checked">
 		  						<label class="form-check-label" >개인레슨</label>
 							</div>
 							<div class="form-check form-check-inline">
-		  						<input class="form-check-input" type="radio" name="type" value="그룹수업">
-		  						<label class="form-check-label" >그룹수업</label>
+		  						<input class="form-check-input" type="radio" name="type" value="GL">
+		  						<label class="form-check-label" >그룹레슨</label>
 							</div>
 							<div class="form-check form-check-inline">
 		  						<input class="form-check-input" type="radio" name="type" value="시설이용">

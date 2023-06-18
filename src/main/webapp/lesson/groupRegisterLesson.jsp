@@ -1,5 +1,6 @@
   
-  Zx3 <%@page import="dao.MyMembershipDao"%>
+  Zx3 <%@page import="vo.MyMembership"%>
+<%@page import="dao.MyMembershipDao"%>
 <%@page import="vo.Membership"%>
 <%@page import="java.lang.reflect.Member"%>
 <%@page import="java.util.List"%>
@@ -13,11 +14,12 @@
 <%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 로그인 정보,레슨번호 조회
+	// 로그인 정보,레슨번호,멤버쉽번호 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
 	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
+	int membershipNo = Integer.parseInt(request.getParameter("membershipNo"));
 	
 
 		// 오류사항1 : 로그인 안된 상태이거나, 회원타입이 아닐때 신청불가능
@@ -50,6 +52,11 @@
 		return;
 	}
 	
+		// 오류사항4: 만약 이용권이 없으면 구매불가능 
+			
+		// 오류사항5: 이용권 횟수를 모두 썼을 때 
+		
+		
 	// 로직수행
 		// 예약 객체에 담기 
 	Reservation reservation = new Reservation();
@@ -66,10 +73,17 @@
 	groupLessonDao.updateGroupLesson(lesson);
 
 		// 내 멤버쉽 테이블에 cnt -1
-		// 
-	MyMembershipDao mymemDao = MyMembershipDao.getInstance();
-	
-	
+			// 내 멤버쉽의 no 전달받아서 이용권을 조회 
+		MyMembershipDao mymem = MyMembershipDao.getInstance();
+		MyMembership mymembership = mymem.getMyMembershipByIdAndNo(loginId, membershipNo);
+			// 객체 생성해서 전달받은값넣고, cnt-1 하기
+		mymembership.setUser(new User(loginId));
+		mymembership.setMembership(new Membership(membershipNo));
+		mymembership.setCount(mymembership.getCount()-1);
+			// 변경내역 업데이트 하기
+		mymem.updateMymembershipByIdAndNo(mymembership);
+
+			
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
 %>
