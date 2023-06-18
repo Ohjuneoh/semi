@@ -188,6 +188,7 @@ function emailCheck() {
 		let gymNo = document.getElementById("user-gymNo").value;
 		let tel = document.getElementById("user-tel").value;
 		let post = document.getElementById("member_post").value;
+		let detailAdd = document.getElementById("user-detailedAddress").value;
 		var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 		if(id ===""){
 			alert("아이디는 필수 입력값입니다.")
@@ -211,6 +212,10 @@ function emailCheck() {
 		}
 		if(post ===""){
 			alert("주소는 필수 입력값입니다.")
+			return false;
+		}
+		if(detailAdd ===""){
+			alert("상세주소는 필수 입력값입니다.")
 			return false;
 		}
 		if(gymNo ===""){

@@ -1,3 +1,9 @@
+<%@page import="vo.User"%>
+<%@page import="util.StringUtils"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="dto.Pagination"%>
 <%@page import="dao.GroupReservationDao"%>
 <%@page import="vo.Reservation"%>
 <%@page import="java.util.List"%>
@@ -20,10 +26,21 @@
 		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("나의 전체 회원목록 조회", "utf-8"));
 		return;
 	}
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
 	
 	// 로직수행(강사의 전체 회원목록 조회)
 	GroupReservationDao reservDao = GroupReservationDao.getInstance();
-	List<Reservation> reservList = reservDao.getAllMyUserByTrainerId(loginId);
+	UserDao userDao = UserDao.getinstance();
+	int totalRows = userDao.getMyUserListByIdTotalRows(loginId);
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	
+	List<Reservation> reservList = userDao.getMyUserByTrainerId(loginId, pagination.getBegin(), pagination.getEnd());
+	
+
+
+
+	
+	
 %>
 <!doctype html>
 <html lang="ko">
@@ -52,7 +69,7 @@
 		<div class="col-12">
 			<p>내 전체회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/myUserList.jsp ">전체</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/allMyUserList.jsp ">전체</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
 			</ul>
@@ -105,7 +122,32 @@
 %>
 				</tbody>
 			</table>
+			<% if (totalRows != 0) { %>
+			<div class="row mb-3">
+		<div class="col-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+						<a href="allMyUserList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+					</li>
+<%
+	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=pageNo == num ? "active" : "" %>">
+						<a href="allMyUserList.jsp?page=<%=num%>" class="page-link"><%=num %></a>
+					</li>
+<% 
+	}
+%>
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+						<a href="allMyUserList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
+	</div>
+		</div>
+<% } %>
 	</div>
 </div>
 </body>
