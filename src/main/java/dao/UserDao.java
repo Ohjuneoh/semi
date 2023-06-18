@@ -195,4 +195,78 @@ public class UserDao {
 		}, id);
 	}
 	
+	public int getMyUserListTotalRows(String id, String type) {
+		return DaoHelper.selectOne("userDao.getMyUserListTotalRows", rs ->{
+			return rs.getInt("cnt");
+		}, id, type);
+		
+	}
+	public int getMyUserListByIdTotalRows(String id) {
+		return DaoHelper.selectOne("userDao.getMyUserListByIdTotalRows", rs ->{
+			return rs.getInt("cnt");
+		}, id);
+		
+	}
+	
+	public List<Reservation> getMyUserByTrainerIdLessonType(String trianerId, String lessonType, int begin, int end) {
+		return DaoHelper.selectList("userDao.getMyUserByTrainerIdLessonType", rs->{
+			
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+			
+		}, trianerId, lessonType, begin, end);
+	}
+	public List<Reservation> getMyUserByTrainerId(String id, int begin, int end) {
+		return DaoHelper.selectList("userDao.getMyUserByTrainerId", rs->{
+			
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+			
+		}, id, begin, end);
+	}
+	
 }
