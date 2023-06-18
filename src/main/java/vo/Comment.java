@@ -8,7 +8,6 @@ public class Comment {
 	private Board board;
 	private String content;
 	private User user;
-	private Date createDate;
 	private Date updateDate;
 	
 	public Comment() {}
@@ -43,14 +42,6 @@ public class Comment {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 
 	public Date getUpdateDate() {
