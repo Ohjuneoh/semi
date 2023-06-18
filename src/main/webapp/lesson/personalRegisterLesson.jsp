@@ -11,13 +11,13 @@
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 
-	int lessonNo = Integer.parseInt(request.getParameter("no"));
+	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
 	
 	
 	// 로직수행
 		// 정원수 <= 신청자수면 신청불가능  
 	PersonalLessonDao lessonDao = PersonalLessonDao.getinstance();
-	Lesson lesson = lessonDao.getPersoanlLessonByLessonNo(lessonNo);
+	Lesson lesson = lessonDao.getPersonalLessonByLessonNo(lessonNo);
 	
 	if(lesson.getQuota() == lesson.getReqCnt()){
 		response.sendRedirect("personalDetailLesson.jsp?no=" + lessonNo + "&err=fail");
@@ -43,10 +43,15 @@
 	lesson.setReqCnt(lesson.getReqCnt() +1);
 	personalLessonDao.updatePersonalLesson(lesson);
 	
+	
+	
 	//신청자 수 = 정원수, db에 'N'반영
 	if(lesson.getQuota() == lesson.getReqCnt()) {
 		lesson.setStatus("N");
+	} else if (lesson.getQuota() != lesson.getReqCnt()){
+		lesson.setStatus("Y");
 	}
+	
 	personalLessonDao.updatePersonalLesson(lesson);
 		
 	// 재요청 URL

@@ -4,7 +4,9 @@ import java.util.List;
 
 import util.DaoHelper;
 import vo.Gym;
+import vo.Lesson;
 import vo.Membership;
+import vo.Reservation;
 import vo.Trainer;
 import vo.User;
 
@@ -137,6 +139,134 @@ public class UserDao {
 			
 			return user;
 		}, type);
+	}
+	/*
+	 * 유저타입의 모든 회원정보를 조회한다.(페이징처리)
+	 */
+	public List<User> getAllUserByUserType(int begin, int end) {
+		return DaoHelper.selectList("userDao.getAllUserByUserType", rs->{
+		User user = new User();
+		user.setId(rs.getString("user_id"));
+		user.setPassword(rs.getString("user_password"));
+		user.setName(rs.getString("user_name"));
+		user.setEmail(rs.getString("user_email"));
+		user.setTel(rs.getString("user_tel"));
+		user.setCreateDate(rs.getDate("user_create_date"));
+		user.setUpdateDate(rs.getDate("user_update_date"));
+		user.setStatus(rs.getString("user_status"));
+		
+		Gym gym = new Gym();
+		gym.setNo(rs.getInt("gym_no"));
+		user.setGym(gym);
+		
+		return user;
+		
+		}, begin,end);
+	}
+	/*
+	 * 유저의 모든 행의갯수를 조회한다.
+	 */
+	public int getTotalUserRows() {
+		return DaoHelper.selectOne("userDao.getTotalUserRows", rs->{
+			return rs.getInt("cnt");
+		});
+	}
+	
+	/*
+	 * id를 전달받아서 그 회원의 정보를 조회한다.
+	 */
+	public User getUserByUserTypeAndId(String id) {
+		return DaoHelper.selectOne("userDao.getUserByUserTypeAndId", rs->{
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+			user.setGym(gym);
+			
+			return user;
+		}, id);
+	}
+	
+	public int getMyUserListTotalRows(String id, String type) {
+		return DaoHelper.selectOne("userDao.getMyUserListTotalRows", rs ->{
+			return rs.getInt("cnt");
+		}, id, type);
+		
+	}
+	public int getMyUserListByIdTotalRows(String id) {
+		return DaoHelper.selectOne("userDao.getMyUserListByIdTotalRows", rs ->{
+			return rs.getInt("cnt");
+		}, id);
+		
+	}
+	
+	public List<Reservation> getMyUserByTrainerIdLessonType(String trianerId, String lessonType, int begin, int end) {
+		return DaoHelper.selectList("userDao.getMyUserByTrainerIdLessonType", rs->{
+			
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+			
+		}, trianerId, lessonType, begin, end);
+	}
+	public List<Reservation> getMyUserByTrainerId(String id, int begin, int end) {
+		return DaoHelper.selectList("userDao.getMyUserByTrainerId", rs->{
+			
+			Lesson lesson = new Lesson();
+			lesson.setNo(rs.getInt("lesson_no"));
+			lesson.setName(rs.getString("lesson_name"));
+			lesson.setType(rs.getString("lesson_type"));
+			lesson.setTime(rs.getString("lesson_time"));
+			lesson.setStatus(rs.getString("lesson_status"));
+			
+			
+			User user =new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setStatus(rs.getString("user_status"));
+			
+			Reservation reserv = new Reservation();
+			reserv.setNo(rs.getInt("reserve_no"));
+			reserv.setLesson(lesson);
+			reserv.setUser(user);
+			
+			return reserv; 
+			
+		}, id, begin, end);
 	}
 	
 }
