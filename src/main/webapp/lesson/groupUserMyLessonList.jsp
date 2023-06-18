@@ -65,8 +65,8 @@
 			<p>내 그룹레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link active" href="/semi/groupUserMyLessonList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalUserMyLessonList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/groupUserMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<colgroup>
@@ -92,7 +92,7 @@
 %>
 					<tr>
 						<td><%=reserve.getLesson().getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a></td>
+						<td><a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a></td>
 						<td><%=reserve.getUser().getName() %></td>
 						<td><%=reserve.getLesson().getTime() %></td>
 						<td><%=reserve.getLesson().getGym().getName() %></td>

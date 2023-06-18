@@ -91,8 +91,46 @@ public class PersonalLessonDao {
 															 	lesson.getTime(),
 															 	lesson.getStatus(),
 															 	lesson.getGym().getNo(),
-															 	lesson.getDeleted(),
 															 	lesson.getNo());
 	}
-	
+	/*
+	 * My page에서 나의 개인수업들의 갯수를 알 수 있다.
+	 */
+	public int getTotalMyPersonalRows(String id) {
+		return DaoHelper.selectOne("personalLessonDao.getTotalMyPersonalRows", rs->{
+			return rs.getInt("cnt");
+		}, id);
+	}
+	/*
+	 * My page에서 나의 모든 개인수업을 조회한다.
+	 * 
+	 */
+	public List<Lesson> getPersonalMyLessonsById(String id, int begin, int end) {
+		return DaoHelper.selectList("personalLessonDao.getPersonalMyLessonsById", rs->{
+			Lesson personalLesson = new Lesson();
+			personalLesson.setNo(rs.getInt("lesson_no"));
+			personalLesson.setName(rs.getString("lesson_name"));
+			personalLesson.setType(rs.getString("lesson_type"));
+			personalLesson.setQuota(rs.getInt("lesson_quota"));
+			personalLesson.setReqCnt(rs.getInt("lesson_req_cnt"));
+			personalLesson.setDescription(rs.getString("lesson_description"));
+			personalLesson.setCreatDate(rs.getDate("lesson_create_date"));
+			personalLesson.setTime(rs.getString("lesson_time"));
+			personalLesson.setStatus(rs.getString("lesson_status"));
+			personalLesson.setDeleted(rs.getString("lesson_deleted"));
+
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setName(rs.getString("user_name"));
+			
+			Gym gym = new Gym();
+			gym.setNo(rs.getInt("gym_no"));
+			gym.setName(rs.getString("gym_name"));
+		
+			personalLesson.setUser(user);
+			personalLesson.setGym(gym);
+			
+			return personalLesson;
+		}, id,begin,end);
+	}
 }

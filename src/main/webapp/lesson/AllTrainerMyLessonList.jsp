@@ -61,7 +61,7 @@
 			<p>내 전체레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/AllTrainerMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalTrainerMyLessonList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupTrainerMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
@@ -83,9 +83,9 @@
 						<td style="width: 10%;"><%=lesson.getNo() %>
 						<td style="width: 36%;">
 						<% if("group".equals(lesson.getType())) { %>
-								<a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
+								<a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
 							<% } else if ("personal".equals(lesson.getType())) { %>
-								<a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
+								<a href="personalDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a>
 								<% } %>
 						</td>
 						<td style="width: 12%;"><%=lesson.getUser().getName() %></td>
