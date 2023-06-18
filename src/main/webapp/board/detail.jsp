@@ -374,8 +374,8 @@
 				let arr = JSON.parse(newComment);
 				document.querySelector("#comment-content").textContent  = arr.content;
 			}
-				document.getElementById("row-" + cno).classList.remove("d-none");
-				document.getElementById("row-field-" + cno).classList.add("d-none");
+			document.getElementById("row-" + cno).classList.remove("d-none");
+			document.getElementById("row-field-" + cno).classList.add("d-none");
 		}
 		xhr.open("POST", "comment-modify.jsp");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
