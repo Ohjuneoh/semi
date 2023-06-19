@@ -1,3 +1,5 @@
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@page import="vo.Reservation"%>
 <%@page import="dao.GroupReservationDao"%>
 <%@page import="java.net.URLEncoder"%>
@@ -32,6 +34,10 @@
 	
 	// 로직수행 (예약 조회)
 	List<Reservation> reserveList = reserveDao.getAllReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	// 강사명을 얻기위한 로직수행
+  	UserDao userDao = UserDao.getinstance();
+	String type = "trainer";
+	List<User> trainerList = userDao.getUserByType(type);
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -81,6 +87,10 @@
 <%
 	for (Reservation reserve : reserveList) { 
 %>
+
+<%
+	for (User user : trainerList) {
+%>
 					<tr>
 						<td style="width: 10%;"><%=reserve.getLesson().getNo() %>
 						<td style="width: 36%;">
@@ -90,7 +100,7 @@
 								<a href="personalDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 								<% } %>
 						</td>
-						<td style="width: 12%;"><%=reserve.getUser().getName() %></td>
+						<td style="width: 12%;"><%=user.getName() %></td>
 						<td style="width: 18%;"><%=reserve.getLesson().getTime() %></td>
 						<td style="width: 12%;"><%=reserve.getLesson().getGym().getName()%></td>
 						<td style="width: 12%;">
@@ -102,6 +112,7 @@
 						</td>
 <% 
 	} 
+}
 %>
 					</tr>
 				</tbody>

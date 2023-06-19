@@ -1,3 +1,6 @@
+<%@page import="com.google.gson.GsonBuilder"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="vo.Comment"%>
 <%@page import="com.google.gson.Gson"%>
@@ -21,10 +24,10 @@
 	
 	String content = request.getParameter("content");
 	comm.setContent(content);
-	commentDao.updateCommentByNo(comm);
-	
-	Gson gson = new Gson();
+	comm.setUpdateDate(new Date());
+	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	String newComment = gson.toJson(comm);
+	System.out.println(newComment);
 	
 	out.write(newComment);
 %>

@@ -8,16 +8,27 @@
 <%@page import="dao.MyMembershipDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
+	// 로그인정보 조회
 	String userId = (String) session.getAttribute("loginId");
 	MyMembershipDao myMembershipDao = MyMembershipDao.getInstance();
 	
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-	int totalRows = myMembershipDao.getTotalRows();
-	Pagination pagination = new Pagination(pageNo, totalRows);
-	int begin = pagination.getBegin();
-	int end = pagination.getEnd();
-	List<MyMembership> myMembershipList = myMembershipDao.getAllMyMembership(userId, begin, end);
+	// 에러 뽑아내기
+	String err = request.getParameter("err");
+	
+	// 레슨번호 뽑아내기
+	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
 
+	// 페이징처리 
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
+		
+	MyMembershipDao mymemDao = MyMembershipDao.getInstance();
+	int totalRows = mymemDao.getTotalGroupMyMembershipRows(userId);
+		
+	Pagination pagination = new Pagination(pageNo, totalRows);
+		
+	// 로직수행 
+	List<MyMembership> myMembershipList = mymemDao.getGroupMyMembershipById(userId, pagination.getBegin(), pagination.getEnd());
+	
 %>
 <!doctype html>
 <html lang="ko">
@@ -42,6 +53,27 @@
 			<h1 class="border bg-light fs-4 p-2">나의 이용권 목록</h1>
 		</div>
 	</div>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 이용권이 존재하지 않으므로 그룹수업 신청을 할 수 없습니다.
+			</div>
+<%
+	}
+%>
+
+<%
+	if("fail2".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 이용권을 모두 사용하였으므로 그룹수업 신청을 할 수 없습니다.
+			</div>
+<%
+	}
+%>
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>내가 구매한 이용권 목록을 확인하세요</p>
@@ -63,17 +95,25 @@
 <% for(MyMembership myMembership : myMembershipList){
 	Date startDate = myMembership.getStartDate();
 	LocalDate expirationDate = myMembership.getExpirationDate();
-	int orderNo = myMembership.getOrder().getNo();
-	
 %>
 
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
-						<td><%=myMembership.getMembership().getType()%></td>
+						<td>그룹수업</td>
 						<td><%=myMembership.getMembership().getName()%></td>
-						<td><%=myMembership.getStatus()%></td>
+<% if("Y".equals(myMembership.getStatus())) { %>
+						<td><a class="btn btn-primary btn-sm">사용가능</a></td>
+<% } %>
+
+<% if("P".equals(myMembership.getStatus())) { %>
+						<td><a class="btn btn-danger btn-sm">일시정지</a></td>
+<% } %>
+
+<% if("E".equals(myMembership.getStatus())) { %>
+						<td><a class="btn btn-waring btn-sm">만료</a></td>
+<% } %>
 						<td><%=startDate%> ~ <%=expirationDate %></td>
 <%
-	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount()== -1){
+	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount() == -1){
 %>
 						<td>무제한/무제한</td>
 <% 		
@@ -82,39 +122,43 @@
 <%
 	}
 %>
-						<td>
-  							<a href="my-membership-detail.jsp?my-membershipNo=<%=myMembership.getNo() %>&orderNo=<%=myMembership.getOrder().getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a>
-						</td>
-						
+
+<% if("Y".equals(myMembership.getStatus())&& myMembership.getCount() > 0) { %>
+						<td><a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>&myMembershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">사용하기</a></td>
 					</tr>
+<% } %>
+
 <%
 }
 %>
 					
-				</tbody>
+					</tbody>
 			</table>
+<% if(totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-				<li class="page-item <%=pageNo <=1 ? "disabled" : "" %>">
-					<a href="my-membership-list.jsp?page=<%=pageNo -1 %>" class="page-link">이전</a>
-				</li>
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+						<a href="AllTrainerMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+					</li>
 <%
-	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++){
-%>				<li class="page-item <%=pageNo == num ? "active" : ""%>">   <%--disabled/enabled/selected/active 등등 이와 같은 종류는 모두 삼항연산자 --%>
-					<a href="my-membership-list.jsp?page=<%=num %>" class="page-link"><%=num %></a>
-				</li>
-<%
+	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=pageNo == num ? "active" : "" %>">
+						<a href="AllTrainerMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+					</li>
+<% 
 	}
-%>						
-				<li class="page-item "<%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-					<a href="my-membership-list.jsp?page=<%=pageNo + 1 %>" class="page-link">다음</a>
-				</li>
-			</ul>
+%>
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+						<a href="AllTrainerMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+					</li>
+				</ul>
 			</nav>
 		</div>
 	</div>
+<% } %>
 		</div>
 	</div>
 </div>

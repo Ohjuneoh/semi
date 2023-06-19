@@ -1,11 +1,14 @@
 package vo;
 
+import java.util.Date;
+
 public class Comment {
 
 	private int no;
 	private Board board;
 	private String content;
 	private User user;
+	private Date updateDate;
 	
 	public Comment() {}
 
@@ -41,14 +44,12 @@ public class Comment {
 		this.user = user;
 	}
 
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-
-	
-
-	
-	
-	
-	
-	
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }
 	

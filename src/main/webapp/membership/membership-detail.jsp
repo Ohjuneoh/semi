@@ -19,6 +19,36 @@
 <html lang="ko">
 <head>
 <title></title>
+<style type="text/css">
+.pretty-button {
+    background-color: rgba(0, 0, 255, 0.5); /* Green */
+    border: none;
+    color: white;
+    padding: 7px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.pretty-button:hover {
+    background-color: white; 
+    color: black; 
+    border: 2px solid rgba(0, 0, 255, 0.5);
+ 
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+}
+
+</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,11 +108,11 @@
 			</table>
 
 			<div class="text-end">
-				<a href="membershipList.jsp" class="btn btn-primary btn-sm">목록</a>
+				<a href="membershipList.jsp" class="pretty-button" class="button-container">목록</a>
 <%
 	if("user".equals(logintType)){
 %>
-				<a href="../order/order-form.jsp?membershipNo=<%=membershipNo%>" class="btn btn-primary btn-sm">구매하기</a>
+				<a href="../order/order-form.jsp?membershipNo=<%=membershipNo%>"  class="pretty-button" class="button-container">구매하기</a>
 <%
 	}
 %>

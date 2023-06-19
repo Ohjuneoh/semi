@@ -28,14 +28,14 @@ public class Pagination {
 	public int getTotalBlocks() {								  	// 페이지 블럭 개수
 		return (int) Math.ceil((double) getTotalPages()/pages);	  	// 전체 페이지 수/한 화면에 표시할 페이지 번호 개수
 	}
-	
+	// 요청
 	public int getCurrentBlock() {							// 요청한 페이지가 속한 블럭의 번호
 		if (totalRows == 0) {
 			return 0;
 		}
 		return (int) Math.ceil((double) page/pages);		// 요청한 페이지 번호/한 화면에 표시할 페이지 번호 개수
 	}
-
+    
 	public int getBeginPage() {						// 현재 속한 블럭의 첫 페이지 번호
 		if (getCurrentBlock() == 0) {
 			return 0;

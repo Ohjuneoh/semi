@@ -230,4 +230,6 @@ public class GroupReservationDao {
 			return reserv; 
 		}, trianerId);
 	}
+	
+	
  }

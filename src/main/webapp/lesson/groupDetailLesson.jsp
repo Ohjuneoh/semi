@@ -114,7 +114,7 @@
 		if(groupLesson.getQuota() != groupLesson.getReqCnt() && reservation == null) { 
 %>
 
-						<a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
+						<a href="groupRegisterForm.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
 <% 
 		}
 	}

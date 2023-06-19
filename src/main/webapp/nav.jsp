@@ -82,7 +82,7 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/trainer/allUserList.jsp">전체 회원조회</a></li>
-	            		<li><a class="dropdown-item" href="/semi/trainer/myUserList.jsp">나의 회원조회 </a></li>
+	            		<li><a class="dropdown-item" href="/semi/trainer/allMyUserList.jsp">나의 회원조회 </a></li>
 <%
 	}
 %>
@@ -102,6 +102,7 @@
 	            		<li><a class="dropdown-item" href="/semi/board/reportList.jsp">신고내역</a></li>
 	            		<li><a class="dropdown-item" href="">수업조회</a></li>
 	            		<li><a class="dropdown-item" href="">예약조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/manager/all-list.jsp">회원&강사조회</a></li>
 	          		</ul>
 	        	</li>
 	<%
@@ -112,7 +113,7 @@
 		if (loginType != null) {
 	%>
 			<span class="navbar-text me-5">
-				<strong class="text-white bolder"><%=loginId %></strong>님 환영합니다.
+				<strong class="text-white bolder"><%=loginId%>[<%=loginType%>]</strong>님 환영합니다.
 			</span>
 	<%	
 		}

@@ -52,8 +52,8 @@
 			<p>내 그룹레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/AllTrainerMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalTrainerMyLessonList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/groupTrainerMyLessonList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/groupTrainerMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<colgroup>
@@ -67,7 +67,7 @@
 					<tr>
 						<th>레슨번호</th>
 						<th>레슨명</th>
-						<th>레슨명</th>
+						<th>강사명</th>
 						<th>레슨시간</th>
 						<th>헬스장명</th>
 					</tr>
@@ -94,19 +94,19 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a href="groupList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
 					</li>
 <%
 	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 					<li class="page-item <%=pageNo == num ? "active" : "" %>">
-						<a href="groupList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
 					</li>
 <% 
 	}
 %>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a href="groupList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
 			</nav>

@@ -10,6 +10,7 @@ pageEncoding="UTF-8"%>
 	
 	// 에러 뽑아내기 
 	String err = request.getParameter("err");
+	String job = request.getParameter("job");
 	
 	// 로직 수행
 	UserDao userDao = UserDao.getinstance();
@@ -44,6 +45,29 @@ pageEncoding="UTF-8"%>
 
 			<div class="alert alert-danger">
 				<strong>잘못된 접근</strong> 그룹레슨만 등록할 수 있습니다.
+			</div>
+<%
+	}
+%>
+
+
+<%
+	if("blankLeName".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> [<%=job %>]을 입력해주세요.
+			</div>
+<%
+	}
+%>
+
+<%
+	if("blankLeDescription".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> [<%=job %>]을 입력해주세요.
 			</div>
 <%
 	}
@@ -90,13 +114,39 @@ pageEncoding="UTF-8"%>
 					<label class="form-label">PT설명</label>
 					<textarea class="form-control" rows="5" name="description"></textarea>
 				</div>
-				<div class="text-end">
-					<button type="reset" class="btn btn-secondary btn-sm">취소</button>
-					<button type="submit" class="btn btn-primary btn-sm">등록</button>
+				
+					<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">작성 취소</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <br />
+				        <p>신규 그룹수업 등록을 취소하시겠습니까?</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">아니오</button>
+				        <button type="button" class="btn btn-primary btn-sm" onclick="cancel()">예</button>
+				      </div>
+				    </div>
+				  </div>
 				</div>
+				<div class="text-end">
+				  <button type="reset" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#insert">취소</button>
+				  <button type="submit" class="btn btn-primary btn-sm">등록</button>
+				</div>
+							
 			</form>
 		</div>
 	</div>
 </div>
+</body>
+<script type="text/javascript">
+	function cancel() {
+		window.location.href = "groupList.jsp";
+	}
+</script>
 </body>
 </html>
