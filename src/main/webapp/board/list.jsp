@@ -124,24 +124,25 @@
 %>
 					<tr>
 						<td><%=board.getNo() %></td>
-						<td><a href="detail.jsp?boardNo=<%=board.getNo()%>" class="text-black text-decoration-none" ><%=board.getTitle() %></a></td>
-						<td><%=board.getUser().getId() %>
+						<td>
 <%
 	if("info".equals(board.getCategory())){
 %>
-						<span class="badge rounded-pill text-bg-info">정보</span>
+							<span class="badge rounded-pill text-bg-info">정보</span>
 <%
 	}else if("deal".equals(board.getCategory())){
 %>
-						<span class="badge rounded-pill text-bg-success">거래</span>
+							<span class="badge rounded-pill text-bg-success">거래</span>
 <%
 	}else if("chat".equals(board.getCategory())){
 %>
-						<span class="badge rounded-pill text-bg-primary">잡담</span>
+							<span class="badge rounded-pill text-bg-primary">잡담</span>
 <%
 	}
 %>
+							<a href="detail.jsp?boardNo=<%=board.getNo()%>" class="text-black text-decoration-none" ><%=board.getTitle() %></a>
 						</td>
+						<td><%=board.getUser().getId() %></td>
 
 						<td><%=commentCnt %></td>
 						<td><%=board.getCreateDate() %></td>
