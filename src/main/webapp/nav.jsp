@@ -102,6 +102,7 @@
 	            		<li><a class="dropdown-item" href="/semi/board/reportList.jsp">신고내역</a></li>
 	            		<li><a class="dropdown-item" href="">수업조회</a></li>
 	            		<li><a class="dropdown-item" href="">예약조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/manager/all-list.jsp">회원&강사조회</a></li>
 	          		</ul>
 	        	</li>
 	<%
