@@ -64,9 +64,9 @@
 				<div class="form-group mb-2">
 			  <label class="form-label">정원수</label>
 				  <select class="form-select" name="quota">
-				    <% for (int i=1; i<=20; i++) { %>
+<% for (int i=1; i<=20; i++) { %>
 				      <option value="<%=i %>" <% if (lesson.getQuota() == i) { %>selected<% } %>><%=i %></option>
-				    <% } %>
+<% } %>
 				  </select>
 			  </div>
 				<div class="form-group mb-2">
@@ -92,13 +92,43 @@
 					<label class="form-label">PT설명</label>
 					<textarea class="form-control" rows="5" name="description"><%=lesson.getDescription() %></textarea>
 				</div>
-				<div class="text-end">
-					<button type="reset" class="btn btn-secondary btn-sm">취소</button>
-					<button type="submit" class="btn btn-primary btn-sm">수정</button>
-				</div>
 			</form>
 		</div>
 	</div>
+	
+	
+			<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				    
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">작성 취소</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      
+				      <div class="modal-body">
+				        <br />
+				        <p>그룹수업 수정을 취소하시겠습니까?</p>
+				      </div>
+				      
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">아니오</button>
+				        <button type="button" class="btn btn-primary btn-sm" onclick="cancel()">예</button>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+				
+				<div class="text-end">
+				  <button type="reset" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#insert">취소</button>
+				  <button type="submit" class="btn btn-primary btn-sm">등록</button>
+				</div>
+	
 </div>
 </body>
+<script type="text/javascript">
+	function cancel() {
+		window.location.href = "groupList.jsp";
+	}
+</script>
 </html>

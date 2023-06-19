@@ -75,29 +75,28 @@
 					<label class="form-label">내용</label>
 					<textarea rows="5" class="form-control" name="content"></textarea>
 				</div>			
-				<div class="text-end">
-					<button type="submit" class="btn btn-primary">등록</button>
-					<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#insert">취소</button>
-				</div>
 				
 				<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  					<div class="modal-dialog">
-    					<div class="modal-content">
-      						<div class="modal-header">
-        						<h1 class="modal-title fs-5" id="exampleModalLabel">작성 취소</h1>
-        						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      						</div>
-      						<div class="modal-body">
-      							<br />
-      							<p>게시글 작성을 취소하시겠습니까?</p>
-      						</div>
-      						<div class="modal-footer">
-        						<a href="list.jsp" class="btn btn-primary">확인</a>
-        						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        						
-      						</div>
-    					</div>
-  					</div>
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">작성 취소</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <br />
+				        <p>게시글 작성을 취소하시겠습니까?</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">아니오</button>
+				        <button type="button" class="btn btn-primary btn-sm" onclick="cancel()">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<div class="text-end">
+				  <button type="submit" class="btn btn-primary btn-sm">등록</button>
+				  <button type="reset" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#insert">취소</button>
 				</div>
 							
 			</form>
@@ -105,4 +104,9 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+	function cancel() {
+		window.location.href = "groupList.jsp";
+	}
+</script>
 </html>

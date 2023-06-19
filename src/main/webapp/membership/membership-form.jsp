@@ -51,7 +51,8 @@
 							</div>
 							<div class="form-check form-check-inline">
 		  						<input class="form-check-input" type="radio" name="type" value="GL">
-		  						<label class="form-check-label" >그룹수업</label>
+		  						<label class="form-check-label" >그룹레슨</label>
+
 							</div>
 							<div class="form-check form-check-inline">
 		  						<input class="form-check-input" type="radio" name="type" value="Health">

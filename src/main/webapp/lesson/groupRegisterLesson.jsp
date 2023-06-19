@@ -1,5 +1,6 @@
-  
-  Zx3 <%@page import="vo.Membership"%>
+<%@page import="vo.MyMembership"%>
+<%@page import="dao.MyMembershipDao"%>
+<%@page import="vo.Membership"%>
 <%@page import="java.lang.reflect.Member"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.MembershipDao"%>
@@ -12,11 +13,12 @@
 <%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 로그인 정보,레슨번호 조회
+	// 로그인 정보,레슨번호,멤버쉽번호 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
 	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
+	int myMembershipNo = Integer.parseInt(request.getParameter("myMembershipNo"));
 	
 
 		// 오류사항1 : 로그인 안된 상태이거나, 회원타입이 아닐때 신청불가능
@@ -49,6 +51,24 @@
 		return;
 	}
 	
+		// 오류사항4: 만약 이용권이 없으면 구매불가능 
+	MyMembershipDao mymemDao = MyMembershipDao.getInstance();
+	MyMembership mymembership = mymemDao.getMyMembershipDetail(loginId, myMembershipNo);
+	
+	if(mymembership.getNo() == 0) { 
+		response.sendRedirect("groupRegisterForm.jsp?lessonNo=" + lessonNo+ "&err=fail");
+		return;
+	}
+		// 오류사항5: 이용권 횟수를 모두 썼을 때 
+	if(mymembership.getCount() <= 0) {
+		response.sendRedirect("groupRegisterForm.jsp?lessonNo=" + lessonNo+ "&err=fail2");
+		return;
+	}
+			// 상태를 변경(만료)
+	if(lesson.getQuota() == lesson.getReqCnt()) {
+		lesson.setStatus("E");
+	}
+		
 	// 로직수행
 		// 예약 객체에 담기 
 	Reservation reservation = new Reservation();
@@ -66,7 +86,11 @@
 
 		// 내 멤버쉽 테이블에 cnt -1
 	
-	
+		mymembership.setCount(mymembership.getCount()-1);
+			// 변경내역 업데이트 하기
+		mymemDao.updateMymembershipByIdAndNo(mymembership);
+
+			
 	// 재요청 url
 	response.sendRedirect("groupList.jsp");
 %>
