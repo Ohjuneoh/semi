@@ -33,7 +33,7 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 조회</a></li>
-	            		<li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>
+	            		<!-- <li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>  -->
 
 <%
 	if("manager".equals(loginType)){
@@ -62,8 +62,8 @@
 <%
 	if("user".equals(loginType)){
 %>
-	            		<li><a class="dropdown-item" href="/semi/lesson/AllUserMyLessonList.jsp">내 수업 조회</a></li>
-	            		<li><a class="dropdown-item" href="">내 스케줄 조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/lesson/AllUserMyLessonList.jsp">내 수업 조회</a></li>  
+	            		<!-- <li><a class="dropdown-item" href="">내 스케줄 조회</a></li>  -->
 	            		<li><a class="dropdown-item" href="/semi/my-membership/my-membership-list.jsp">내 이용권 조회</a></li>
 <%
 	}
@@ -72,8 +72,8 @@
 	if("trainer".equals(loginType)){
 %>
 						<li><a class="dropdown-item" href="/semi/lesson/AllTrainerMyLessonList.jsp">내 수업 조회</a></li>
-						<li><a class="dropdown-item" href="">출결조회</a></li>
-						<li><a class="dropdown-item" href="">출결등록</a></li>
+						<!-- <li><a class="dropdown-item" href="">출결조회</a></li>  -->
+						<!-- <li><a class="dropdown-item" href="">출결등록</a></li>  -->
 	          	</ul>
 	       		</li>
 	        	<li class="nav-item dropdown" style="margin-top: 3px;">
@@ -100,8 +100,8 @@
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/gym/list.jsp">헬스장 조회</a></li>
 	            		<li><a class="dropdown-item" href="/semi/board/reportList.jsp">신고내역</a></li>
-	            		<li><a class="dropdown-item" href="">수업조회</a></li>
-	            		<li><a class="dropdown-item" href="">예약조회</a></li>
+	            		<!-- <li><a class="dropdown-item" href="">수업조회</a></li> -->
+	            		<!-- <li><a class="dropdown-item" href="">예약조회</a></li>  -->
 	            		<li><a class="dropdown-item" href="/semi/manager/all-list.jsp">회원&강사조회</a></li>
 	          		</ul>
 	        	</li>
