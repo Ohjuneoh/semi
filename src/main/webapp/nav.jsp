@@ -33,7 +33,7 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 조회</a></li>
-	            		<li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>
+	            		<!-- <li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li> -->
 
 <%
 	if("manager".equals(loginType)){
