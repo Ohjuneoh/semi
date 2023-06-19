@@ -124,7 +124,7 @@
 %>
 
 <% if("Y".equals(myMembership.getStatus())&& myMembership.getCount() > 0) { %>
-                  <td><a href="personalRegisterForm.jsp?lessonNo=<%=lessonNo %>&myMembershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">사용하기</a></td>
+                  <td><a href="personalRegisterLesson.jsp?lessonNo=<%=lessonNo %>&myMembershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">사용하기</a></td>
                </tr>
 <% } %>
 
