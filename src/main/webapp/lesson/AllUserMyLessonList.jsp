@@ -1,7 +1,7 @@
 <%@page import="vo.Reservation"%>
 <%@page import="dao.GroupReservationDao"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="util.Pagination"%>
+<%@page import="dto.Pagination"%>
 <%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>

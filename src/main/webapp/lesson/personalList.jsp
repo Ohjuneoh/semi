@@ -1,5 +1,5 @@
 <%@page import="dao.PersonalLessonDao"%>
-<%@page import="util.Pagination"%>
+<%@page import="dto.Pagination"%>
 <%@page import="dao.GroupLessonDao"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
