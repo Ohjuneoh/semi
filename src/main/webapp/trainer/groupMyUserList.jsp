@@ -67,7 +67,7 @@
 		<div class="col-12">
 			<p>내 그룹레슨 회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/myUserList.jsp ">전체</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/allMyUserList.jsp ">전체</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
 			</ul>

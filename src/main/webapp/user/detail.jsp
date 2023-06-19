@@ -64,11 +64,16 @@
 					<col width="40%">
 				</colgroup>
 				<tbody>
+					
+					<tr>
+						<th rowspan = '2' style="vertical-align: middle;" class="table-dark">프로필 사진</th>
+						<td rowspan ='2'><img src="resources/images/<%=user.getFileName()%>" class="img-thumbnail"> </td>
+						<th class="table-dark">이름</th>
+						<td><%=user.getName()%></td>
+					</tr>
 					<tr>
 						<th class="table-dark">아이디</th>
 						<td><%=user.getId()%></td>
-						<th class="table-dark">이름</th>
-						<td><%=user.getName()%></td>
 					</tr>
 					<tr>
 						<th class="table-dark">전화번호</th>

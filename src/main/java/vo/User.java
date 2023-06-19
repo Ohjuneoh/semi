@@ -14,8 +14,19 @@ public class User {
 	private Date updateDate;
 	private String status;
 	private Gym gym;
+	private String fileName;
 	
 	public User() {}
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
 	
 
 	public User(String id) {
