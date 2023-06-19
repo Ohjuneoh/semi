@@ -369,17 +369,19 @@
 		let xhr = new XMLHttpRequest();
 		
 		xhr.onreadystatechange = function () {
-			if(xhr.readyState === 4 && xhr.state === 200) {
+			if(xhr.readyState === 4 && xhr.status === 200) {
 				let newComment = xhr.responseText;
 				let arr = JSON.parse(newComment);
-				document.querySelector("#comment-content").textContent  = arr.content;
+				document.querySelector(`#row-\${cno} #comment-content`).textContent  = arr.content;
+				document.querySelector(`#row-\${cno} #comment-updateDate`).textContent  = arr.updateDate;
 			}
-			document.getElementById("row-" + cno).classList.remove("d-none");
-			document.getElementById("row-field-" + cno).classList.add("d-none");
 		}
 		xhr.open("POST", "comment-modify.jsp");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("cno=" + cno + "&content=" + content);
+		
+		document.getElementById("row-" + cno).classList.remove("d-none");
+		document.getElementById("row-field-" + cno).classList.add("d-none");
 	}
 	
 	function deleteComment() {
@@ -417,7 +419,6 @@
 					
 					if(nextComs.length === 0) {
 						more = false;
-					} else if (nextComs.length < 10) {
 						document.getElementById("comment-more-button").classList.add("d-none");
 					}
 		
