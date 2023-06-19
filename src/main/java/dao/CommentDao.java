@@ -22,16 +22,17 @@ public class CommentDao {
 				}, boardNo);
 	}
 	
-	public List<Comment> getComments(int boardNo) {
+	public List<Comment> getComments(int boardNo, int begin, int end) {
 		return DaoHelper.selectList("commentDao.getComments", rs -> {
 			Comment comment = new Comment();
 			comment.setNo(rs.getInt("com_no"));
 			comment.setBoard(new Board(rs.getInt("board_no")));
 			comment.setContent(rs.getString("com_content"));
 			comment.setUser(new User(rs.getString("user_id")));
+			comment.setUpdateDate(rs.getDate("com_update_date"));
 			
 			return comment;
-		}, boardNo);
+		}, boardNo, begin, end);
 	}
 	
 	public void insertComment(Comment comment) {
@@ -49,6 +50,7 @@ public class CommentDao {
 					comment.setContent(rs.getString("com_content"));
 					comment.setBoard(new Board(rs.getInt("board_no")));
 					comment.setUser(new User(rs.getString("user_id")));
+					comment.setUpdateDate(rs.getDate("com_update_date"));
 					
 					return comment;
 				}, comNo);
@@ -56,5 +58,11 @@ public class CommentDao {
 	
 	public void deleteCommentByNo(int comNo) {
 		DaoHelper.update("commentDao.deleteCommentByNo", comNo);
+	}
+	
+	public void updateCommentByNo(Comment comment) {
+		DaoHelper.update("commentDao.updateCommentByNo", 
+				comment.getContent(),
+				comment.getNo());
 	}
 }

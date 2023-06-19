@@ -5,7 +5,7 @@
 <%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-// 로그인 정보 조회
+	// 로그인 정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
@@ -20,7 +20,7 @@
 	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 	Lesson groupLesson = groupDao.getGroupLessonByLessonNo(lessonNo);
 		// 똑같은 강의를 2번이상 등록하지 못하게 신청버튼 제한 ()
-	GroupReservationDao reservationDao = GroupReservationDao.getinstance();
+	GroupReservationDao reservationDao = GroupReservationDao.getInstance();
 	Reservation reservation = reservationDao.getGroupReservationsByIdAndLessonNo(loginId, lessonNo);
 
 %>

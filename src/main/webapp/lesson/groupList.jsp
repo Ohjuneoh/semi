@@ -3,7 +3,7 @@
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
 <%
-// 로그인정보 조회
+	// 로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	// 에러 뽑아내기 
@@ -65,10 +65,10 @@
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
-					<col width="45%">
 					<col width="15%">
 					<col width="15%">
-					<col width="15%">
+					<col width="35%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>

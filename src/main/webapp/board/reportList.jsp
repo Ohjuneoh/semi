@@ -80,7 +80,16 @@
 	int begin = pagination.getBegin();
 	int end = pagination.getEnd();	
 	List<Board> reports = boardDao.getReportBoards(begin, end);
+	
+	if(totalReportPage == 0) {
 
+%>
+					<tr>
+						<td colspan="4" style="color: gray">신고내역이 존재하지 않습니다.</td>
+					</tr>
+<%
+	}
+	
 	for(Board report : reports) {
 %>
 					<tr>

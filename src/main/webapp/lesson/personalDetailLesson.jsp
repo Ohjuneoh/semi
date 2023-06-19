@@ -1,23 +1,28 @@
+<%@page import="dao.PersonalReservationDao"%>
 <%@page import="dao.PersonalLessonDao"%>
+<%@page import="vo.Reservation"%>
 <%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 로그인 정보 조회
+// 로그인 정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
 	// 레슨번호 뽑아내기
-	int lessonNo = Integer.parseInt(request.getParameter("no"));
-	// 에러 뽑아내기
+	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
+	// 에러 뽑아내기 
 	String err = request.getParameter("err");
 	
+	
 	// 로직수행
-	PersonalLessonDao lessonDao = PersonalLessonDao.getinstance();
-	Lesson personalLesson =lessonDao.getPersoanlLessonByLessonNo(lessonNo);
-	
-	
+		// 상세정보 조회
+	PersonalLessonDao personalDao = PersonalLessonDao.getinstance();
+	Lesson personalLesson = personalDao.getPersonalLessonByLessonNo(lessonNo);
+		// 똑같은 강의를 2번이상 등록하지 못하게 신청버튼 제한 ()
+	PersonalReservationDao reservationDao = PersonalReservationDao.getInstance();
+	Reservation reservation = reservationDao.getPersonalReservationsByIdAndLessonNo(loginId, lessonNo);
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -31,27 +36,38 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="개인수업상세"/>
+	<jsp:param name="menu" value="수업"/>
 </jsp:include>
 <div class="container">
 	<div class="row mb-3">
     	<div class="col-12">
-        	<h1 class="border bg-light fs-4 p-2">개인수업 상세 정보</h1>
+        	<h1 class="border bg-light fs-4 p-2">개인레슨 상세 정보</h1>
       	</div>
    	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>개인수업 상세정보를 확인할 수 있습니다.</p>
+			<p>개인레슨 상세정보를 확인할 수 있습니다.</p>
 <%
 	if("fail".equals(err)) {
 %>
 
 			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong>정원수가 초과하여 신청할 수 없습니다.
+				<strong>잘못된 접근</strong> 정원수가 초과하여 신청할 수 없습니다.
 			</div>
 <%
 	}
-%>			
+%>
+
+<%
+	if("fail2".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 똑같은 강의를 2번이상 등록할 수 없습니다.
+			</div>
+<%
+	}
+%>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -69,7 +85,7 @@
 					<tr>
 						<th class="table-dark" style="width: 15%;">등록일</th>
 						<td style="width: 35%;"><%=personalLesson.getCreatDate() %></td>
-						<th class="table-dark" style="width: 15%;">강좌시간</th>
+						<th class="table-dark" style="width: 15%;">레슨시간</th>
 						<td style="width: 35%;"><%=personalLesson.getTime() %></td>
 					</tr>
 					<tr>
@@ -93,18 +109,30 @@
 				</tbody>
 			</table>
 					<div class="text-end">
-<% if(loginId != null && "user".equals(loginType)) { %>
+<% 
+	if(loginId != null && "user".equals(loginType)) { 
+		if(personalLesson.getQuota() != personalLesson.getReqCnt() && reservation == null) { 
+%>
+
 						<a href="personalRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
+<% 
+		}
+	}
+%>
+
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(personalLesson.getUser().getId())) { %>
+						
+						<a href="personalUpdateForm.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">수정</a>
+						
 <% } %>
 						<a href="personalList.jsp" class="btn btn-primary btn-sm">목록</a>
 						
-<% if(loginId != null && "trainer".equals(loginType)) { %>
+<% if(loginId != null && "trainer".equals(loginType) && loginId.equals(personalLesson.getUser().getId())) { %>
 						<a href="personalDelete.jsp?lessonNo=<%=lessonNo %>" class="btn btn-danger btn-sm">삭제</a>
-<% }  %>
-
+<% } %>
 					</div>
 		</div>
 	</div>
 </div>
 </body>
-</html> 
+</html>

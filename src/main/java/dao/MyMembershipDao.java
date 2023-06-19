@@ -11,7 +11,6 @@ import vo.Gym;
 import java.util.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 
 public class MyMembershipDao {

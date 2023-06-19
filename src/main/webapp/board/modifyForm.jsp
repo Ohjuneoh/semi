@@ -20,7 +20,7 @@
 	BoardDao boardDao = BoardDao.getInstance();
 	Board board = boardDao.getBoardByNo(boardNo);
 	if(!loginId.equals(board.getUser().getId())) {
-		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=delete&job=" + URLEncoder.encode("게시글 수정", "utf-8"));
+		response.sendRedirect("detail.jsp?boardNo=" + boardNo + "&err=notLoginUser&job=" + URLEncoder.encode("게시글 수정", "utf-8"));
 		return;
 	}
 	
