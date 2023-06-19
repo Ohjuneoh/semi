@@ -64,7 +64,7 @@
 					</tr>
 					<tr>
 						<th>이용권 기간</th>
-						<td><%=startDate%> ~ <%=expirationDate %></td>
+						<td><%=startDate %> ~ <%=expirationDate %></td>
 						<th>잔여일수/총일수</th>
 					<td><%=remainingDays %>/<%=totalDays %></td>
 					</tr>
