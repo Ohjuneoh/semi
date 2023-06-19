@@ -56,7 +56,7 @@ public class UserDao {
 			gym.setNo(rs.getInt("gym_no"));
 			user.setGym(gym);
 			
-			user.setFileName(rs.getString("user_file_name"));
+			user.setFileName(rs.getString("file_name"));
 			return user;
 			
 			
