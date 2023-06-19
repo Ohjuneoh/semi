@@ -53,6 +53,7 @@ public class UserDao {
 			user.setStatus(rs.getString("user_status"));
 			user.setFileName(rs.getString("file_name"));
 			
+			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
 			user.setGym(gym);
