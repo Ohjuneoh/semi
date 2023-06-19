@@ -79,7 +79,7 @@
 	order.setNo(orderNo);
 	myMembership.setOrder(order);
 	myMembership.setCount(myMembershipCnt);
-	myMembership.setStatus("이용중");
+	myMembership.setStatus("Y");
 	
 	myMembership.setStartDate(membershipStartDate);
 	myMembership.setExpirationDate(MymembershipExpirationDate);

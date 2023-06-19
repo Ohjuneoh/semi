@@ -75,7 +75,7 @@ public class MyMembershipDao {
 	}
 
 	public MyMembership getMyMembershipDetail(String userId, int myMembershipNo) {
-		return DaoHelper.selectOne("MyMembershipDao.getAllMyMembership", rs -> {
+		return DaoHelper.selectOne("MyMembershipDao.getMyMembershipDetail", rs -> {
 			MyMembership myMembership = new MyMembership();
 			myMembership.setNo(rs.getInt("my_membership_no"));
 
@@ -142,16 +142,9 @@ public class MyMembershipDao {
 	}
 	
 	public void updateMymembershipByIdAndNo(MyMembership mymembership) {
-		DaoHelper.update("MyMembershipDao.updateMymembershipByIdAndNo", mymembership.getUser().getId(),
-																		mymembership.getMembership().getNo(),
-																		mymembership.getOrder().getNo(),
-																		mymembership.getStatus(),
-																		mymembership.getStartDate(),
-																		mymembership.getExpirationDate(),
-																		mymembership.getRestartDate(),
-																		mymembership.getPauseDate(),
-																		mymembership.getNo(),
-																		mymembership.getCount()
+		DaoHelper.update("MyMembershipDao.updateMymembershipByIdAndNo", mymembership.getCount(),
+																		mymembership.getUser().getId(),
+																		mymembership.getMembership().getNo()
 																		);
 	}
 

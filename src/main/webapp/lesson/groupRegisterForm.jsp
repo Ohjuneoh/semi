@@ -8,9 +8,12 @@
 <%@page import="dao.MyMembershipDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
+	// 로그인정보 조회
 	String userId = (String) session.getAttribute("loginId");
 	MyMembershipDao myMembershipDao = MyMembershipDao.getInstance();
-	//List<MyMembership> myMembershipList = myMembershipDao.getAllMyMembership(userId);
+	
+	// 에러 뽑아내기
+	String err = request.getParameter("err");
 	
 	// 레슨번호 뽑아내기
 	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
@@ -50,7 +53,27 @@
 			<h1 class="border bg-light fs-4 p-2">나의 이용권 목록</h1>
 		</div>
 	</div>
-	
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 이용권이 존재하지 않으므로 그룹수업 신청을 할 수 없습니다.
+			</div>
+<%
+	}
+%>
+
+<%
+	if("fail2".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 이용권을 모두 사용하였으므로 그룹수업 신청을 할 수 없습니다.
+			</div>
+<%
+	}
+%>
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>내가 구매한 이용권 목록을 확인하세요</p>
@@ -100,8 +123,8 @@
 	}
 %>
 
-<% if("Y".equals(myMembership.getStatus())) { %>
-						<td><a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>&membershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">사용하기</a></td>
+<% if("Y".equals(myMembership.getStatus())&& myMembership.getCount() > 0) { %>
+						<td><a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>&myMembershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">사용하기</a></td>
 					</tr>
 <% } %>
 

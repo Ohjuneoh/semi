@@ -1,5 +1,4 @@
-  
-  Zx3 <%@page import="vo.MyMembership"%>
+<%@page import="vo.MyMembership"%>
 <%@page import="dao.MyMembershipDao"%>
 <%@page import="vo.Membership"%>
 <%@page import="java.lang.reflect.Member"%>
@@ -19,7 +18,7 @@
 	String loginType = (String)session.getAttribute("loginType");
 	
 	int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
-	int membershipNo = Integer.parseInt(request.getParameter("membershipNo"));
+	int myMembershipNo = Integer.parseInt(request.getParameter("myMembershipNo"));
 	
 
 		// 오류사항1 : 로그인 안된 상태이거나, 회원타입이 아닐때 신청불가능
@@ -53,9 +52,22 @@
 	}
 	
 		// 오류사항4: 만약 이용권이 없으면 구매불가능 
-			
+	MyMembershipDao mymemDao = MyMembershipDao.getInstance();
+	MyMembership mymembership = mymemDao.getMyMembershipDetail(loginId, myMembershipNo);
+	
+	if(mymembership.getNo() == 0) { 
+		response.sendRedirect("groupRegisterForm.jsp?lessonNo=" + lessonNo+ "&err=fail");
+		return;
+	}
 		// 오류사항5: 이용권 횟수를 모두 썼을 때 
-		
+	if(mymembership.getCount() <= 0) {
+		response.sendRedirect("groupRegisterForm.jsp?lessonNo=" + lessonNo+ "&err=fail2");
+		return;
+	}
+			// 상태를 변경(만료)
+	if(lesson.getQuota() == lesson.getReqCnt()) {
+		lesson.setStatus("E");
+	}
 		
 	// 로직수행
 		// 예약 객체에 담기 
@@ -75,13 +87,13 @@
 		// 내 멤버쉽 테이블에 cnt -1
 			// 내 멤버쉽의 no 전달받아서 이용권을 조회 
 		MyMembershipDao mymem = MyMembershipDao.getInstance();
-		MyMembership mymembership = mymem.getMyMembershipByIdAndNo(loginId, membershipNo);
+		MyMembership mymembership2 = mymem.getMyMembershipByIdAndNo(loginId, myMembershipNo);
 			// 객체 생성해서 전달받은값넣고, cnt-1 하기
-		mymembership.setUser(new User(loginId));
-		mymembership.setMembership(new Membership(membershipNo));
-		mymembership.setCount(mymembership.getCount()-1);
+		mymembership2.setCount(mymembership.getCount()-1);
+		mymembership2.setUser(new User(loginId));
+		mymembership2.setMembership(new Membership(myMembershipNo));
 			// 변경내역 업데이트 하기
-		mymem.updateMymembershipByIdAndNo(mymembership);
+		mymem.updateMymembershipByIdAndNo(mymembership2);
 
 			
 	// 재요청 url
