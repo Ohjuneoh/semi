@@ -87,14 +87,21 @@
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link disabled" href="membershipList.jsp?page=1">이전</a></li>
-					<li class="page-item"><a class="page-link active" href="membershipList.jsp?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="membershipList.jsp?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="membershipList.jsp?page=3">3</a></li>
-					<li class="page-item"><a class="page-link" href="membershipList.jsp?page=4">4</a></li>
-					<li class="page-item"><a class="page-link" href="membershipList.jsp?page=5">5</a></li>
-					<li class="page-item"><a class="page-link" href="membershipList.jsp?page=2">다음</a></li>
-				</ul>
+				<li class="page-item <%=pageNo <=1 ? "disabled" : "" %>">
+					<a href="membershipList.jsp?page=<%=pageNo -1 %>" class="page-link">이전</a>
+				</li>
+<%
+	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++){
+%>				<li class="page-item <%=pageNo == num ? "active" : ""%>">   <%--disabled/enabled/selected/active 등등 이와 같은 종류는 모두 삼항연산자 --%>
+					<a href="membershipList.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+				</li>
+<%
+	}
+%>						
+				<li class="page-item "<%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+					<a href="membershipList.jsp?page=<%=pageNo + 1 %>" class="page-link">다음</a>
+				</li>
+			</ul>
 			</nav>
 		</div>
 	</div>
