@@ -5,7 +5,7 @@
 <%@page import="dao.GroupLessonDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-// 로그인 정보 조회
+	// 로그인 정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
 	
@@ -114,7 +114,7 @@
 		if(groupLesson.getQuota() != groupLesson.getReqCnt() && reservation == null) { 
 %>
 
-						<a href="groupRegisterLesson.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
+						<a href="groupRegisterForm.jsp?lessonNo=<%=lessonNo %>" class="btn btn-warning btn-sm">신청</a>
 <% 
 		}
 	}

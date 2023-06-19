@@ -79,7 +79,7 @@
 	order.setNo(orderNo);
 	myMembership.setOrder(order);
 	myMembership.setCount(myMembershipCnt);
-	myMembership.setStatus("이용중");
+	myMembership.setStatus("Y");
 	
 	myMembership.setStartDate(membershipStartDate);
 	myMembership.setExpirationDate(MymembershipExpirationDate);
@@ -88,7 +88,7 @@
 	myMembershipDao.insertMyMembership(myMembership);
 	
 	// 5. 재요청 url 
-	response.sendRedirect("../home.jsp");
+	response.sendRedirect("../order/order-paymentComplete.jsp");
 	
 	
 	

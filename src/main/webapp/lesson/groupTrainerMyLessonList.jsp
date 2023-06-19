@@ -67,7 +67,7 @@
 					<tr>
 						<th>레슨번호</th>
 						<th>레슨명</th>
-						<th>레슨명</th>
+						<th>강사명</th>
 						<th>레슨시간</th>
 						<th>헬스장명</th>
 					</tr>
@@ -78,7 +78,7 @@
 %>
 					<tr>
 						<td><%=lesson.getNo() %></td>
-						<td><a href="groupDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><a href="groupDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
 						<td><%=lesson.getGym().getName() %></td>
@@ -94,19 +94,19 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
-						<a href="groupMyList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
 					</li>
 <%
 	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
 					<li class="page-item <%=pageNo == num ? "active" : "" %>">
-						<a href="groupMyList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
 					</li>
 <% 
 	}
 %>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
-						<a href="groupMyList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+						<a href="groupTrainerMyLessonList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
 			</nav>

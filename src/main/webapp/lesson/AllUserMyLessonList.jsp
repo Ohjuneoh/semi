@@ -1,3 +1,5 @@
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@page import="vo.Reservation"%>
 <%@page import="dao.GroupReservationDao"%>
 <%@page import="java.net.URLEncoder"%>
@@ -32,6 +34,10 @@
 	
 	// 로직수행 (예약 조회)
 	List<Reservation> reserveList = reserveDao.getAllReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	// 강사명을 얻기위한 로직수행
+  	UserDao userDao = UserDao.getinstance();
+	String type = "trainer";
+	List<User> trainerList = userDao.getUserByType(type);
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -63,7 +69,7 @@
 			<p>내 전체레슨 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
            		<li class="nav-item"><a class="nav-link active" href="/semi/lesson/AllUserMyLessonList.jsp">전체</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalMyList.jsp">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/lesson/personalUserMyLessonList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/lesson/groupUserMyLessonList.jsp">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
@@ -81,16 +87,20 @@
 <%
 	for (Reservation reserve : reserveList) { 
 %>
+
+<%
+	for (User user : trainerList) {
+%>
 					<tr>
 						<td style="width: 10%;"><%=reserve.getLesson().getNo() %>
 						<td style="width: 36%;">
 						<% if("group".equals(reserve.getLesson().getType())) { %>
-								<a href="groupDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
+								<a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 							<% } else if ("personal".equals(reserve.getLesson().getType())) { %>
-								<a href="personalDetailLesson.jsp?no=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
+								<a href="personalDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a>
 								<% } %>
 						</td>
-						<td style="width: 12%;"><%=reserve.getUser().getName() %></td>
+						<td style="width: 12%;"><%=user.getName() %></td>
 						<td style="width: 18%;"><%=reserve.getLesson().getTime() %></td>
 						<td style="width: 12%;"><%=reserve.getLesson().getGym().getName()%></td>
 						<td style="width: 12%;">
@@ -102,6 +112,7 @@
 						</td>
 <% 
 	} 
+}
 %>
 					</tr>
 				</tbody>

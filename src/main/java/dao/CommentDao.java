@@ -63,6 +63,7 @@ public class CommentDao {
 	public void updateCommentByNo(Comment comment) {
 		DaoHelper.update("commentDao.updateCommentByNo", 
 				comment.getContent(),
+				comment.getUpdateDate(),
 				comment.getNo());
 	}
 }

@@ -65,12 +65,12 @@
 	for(Board notice : notices) {
 		int commentCnt = commentDao.getCommentCnt(notice.getNo());
 %>
-					<tr>
+					<tr style="background-color:LightGray; font-weight: bold; color: white">
 						<td><%=notice.getNo() %></td>
-						<td><a href="detail.jsp?boardNo=<%=notice.getNo()%>"><%=notice.getTitle() %></a></td>
+						<td><a href="detail.jsp?boardNo=<%=notice.getNo()%>" class="text-white text-decoration-none"><%=notice.getTitle() %></a></td>
 						<td>
 							<%=notice.getUser().getId() %>
-							<span class="badge rounded-pill text-bg-secondary">관리자</span>
+							<span class="badge rounded-pill text-bg-warning">관리자</span>
 						</td>
 						<td><%=commentCnt %></td>
 						<td><%=notice.getCreateDate() %></td>
@@ -85,10 +85,10 @@
 	int end = pagination.getEnd();
 	List<Board> boards = boardDao.getBoardsByCat(cat, begin, end);
 
-	if(totalPage == 0) {
+	if(totalPage == 0 && notices.isEmpty()) {
 %>
 				<tr>
-					<td colspan="5" style="color: gray">게시글이 존재하지 않습니다.</td>
+					<td colspan="5" style="color: gray; text-align: center;">게시글이 존재하지 않습니다.</td>
 				</tr>
 <%
 	}
@@ -98,7 +98,7 @@
 %>
 					<tr>
 						<td><%=board.getNo() %></td>
-						<td><a href="detail.jsp?boardNo=<%=board.getNo()%>"><%=board.getTitle() %></a></td>
+						<td><a href="detail.jsp?boardNo=<%=board.getNo()%>" class="text-black text-decoration-none"><%=board.getTitle() %></a></td>
 						<td><%=board.getUser().getId() %></td>
 						<td><%=commentCnt %></td>
 						<td><%=board.getCreateDate() %></td>

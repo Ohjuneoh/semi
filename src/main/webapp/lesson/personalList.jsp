@@ -1,22 +1,32 @@
-<%@page import="vo.Lesson"%>
-<%@page import="dto.Pagination"%>
 <%@page import="dao.PersonalLessonDao"%>
+<%@page import="dto.Pagination"%>
+<%@page import="dao.GroupLessonDao"%>
+<%@page import="vo.Lesson"%>
 <%@page import="java.util.List"%>
-<%@page import="util.StringUtils"%>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	// 요청 URL- http://localhost/semi/personalList.jsp
-	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+// 로그인정보 조회
+	String loginId = (String)session.getAttribute("loginId");
+	String loginType = (String)session.getAttribute("loginType");
+	// 에러 뽑아내기 
+	String err = request.getParameter("err");
 
-	PersonalLessonDao lessonDao =PersonalLessonDao.getinstance();
-	// 전체 데이터 갯수 조회하기
-	int totalRows =lessonDao.getTotalRows();
+	// 오류상황 - html에서 구현 (등록버튼 표현)
+		// 로그인이 되지 않았을 경우
+		// 로그인 타입이 강사가 아닌경우 
+		
+	// 페이징처리 
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"),1);
+	
+	PersonalLessonDao personalLessonDao = PersonalLessonDao.getinstance();
+	int totalRows = personalLessonDao.getTotalRows();
 	
 	Pagination pagination = new Pagination(pageNo, totalRows);
 	
-	// 데이터 조회하기
-	List<Lesson> lessonList =lessonDao.getPersonalLesson(pagination.getBegin(), pagination.getEnd());
+	// 로직수행 (레슨 전체조회)
+	List<Lesson> lessonList = personalLessonDao.getPersonalLesson(pagination.getBegin(), pagination.getEnd());
 %>
+<%@page import="util.StringUtils"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -37,13 +47,22 @@
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">개인수업 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">개인레슨 목록</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>개인수업 목록을 확인하세요</p>
-			
+			<p>개인레슨 목록을 확인할 수 있습니다.</p>
+<%
+	if("fail".equals(err)) {
+%>
+
+			<div class="alert alert-danger">
+				<strong>잘못된 접근</strong> 본인이 등록한 레슨만 수정/삭제할 수 있습니다.
+			</div>
+<%
+	}
+%>		
 			<table class="table table-sm">
 				<colgroup>
 					<col width="10%">
@@ -62,55 +81,53 @@
 					</tr>
 				</thead>
 				<tbody>
-<%
-	for(Lesson lesson: lessonList){	
-%>		
+				
+<% for (Lesson lesson : lessonList) { 
 
+%>
 					<tr>
 						<td><%=lesson.getNo() %></td>
-						<td><a href="personalDetailLesson.jsp?no=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
+						<td><a href="personalDetailLesson.jsp?lessonNo=<%=lesson.getNo() %>"><%=lesson.getName() %></a></td>
 						<td><%=lesson.getUser().getName() %></td>
 						<td><%=lesson.getTime() %></td>
 						<td><%=lesson.getGym().getName() %></td>
 					</tr>
-<%
+<% 	
 	}
-%>					
+ %>
 				</tbody>
 			</table>
-<%
-	if(totalRows != 0){
-%>
+<% if(totalRows != 0) { %>
+			<div class="row mb-3">
+		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item <%=pageNo <= 1 ? "disabled" : ""%>">
-						<a href="personalList.jsp?page=<%=pageNo - 1 %>" class="page-link">이전</a>
-					</li>
-				
-				
-<%
-	for(int num = pagination.getBeginPage(); num<=pagination.getEndPage(); num++){
-%>					
-					
-					<li class="page-item <%=pageNo == num ? "active" : ""%>">
-						<a href="personalList.jsp?page=<%=num %>"class="page-link"><%=num %></a>
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+						<a href="personalList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
 					</li>
 <%
+	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=pageNo == num ? "active" : "" %>">
+						<a href="personalList.jsp?page=<%=num%>"class="page-link"><%=num %></a>
+					</li>
+<% 
 	}
-%>					
-		
+%>
 					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
 						<a href="personalList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
-			</nav>			
-<%
-	}
-%>				
-					
-			
+			</nav>
+		</div>
+	</div>
+<% } %>
+	
 			<div class="text-end">
-				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 수업 등록</a>
+<% if(loginId != null && "trainer".equals(loginType)) { %>			
+				<a href="personalForm.jsp" class="btn btn-primary btn-sm">새 레슨 등록</a>
+<% } %>
+
 			</div>
 		</div>
 	</div>
