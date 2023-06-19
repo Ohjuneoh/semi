@@ -39,7 +39,17 @@
 		response.sendRedirect("groupForm.jsp?err=fail") ;
 		return;
 	}
-	
+		// 오류사항: 아무것도 입력하지 않았을때 오류 
+	if(lessonName.isBlank()) {
+		response.sendRedirect("groupForm.jsp?err=blankLeName&job=" + URLEncoder.encode("PT명", "utf-8"));
+		return;
+	}
+
+	if(description.isBlank()) {
+		response.sendRedirect("groupForm.jsp?err=blankLeDescription&job=" + URLEncoder.encode("PT 설명", "utf-8"));
+		return;
+	}
+		
 		// 객체에 담기
 	Lesson groupLesson = new Lesson();
 	groupLesson.setName(lessonName);

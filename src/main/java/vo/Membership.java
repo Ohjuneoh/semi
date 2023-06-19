@@ -18,6 +18,10 @@ public class Membership {
 	
 	public Membership() {}
 
+	public Membership(int no) {
+		this.no = no;
+	}
+	
 	public int getNo() {
 		return no;
 	}
