@@ -1,3 +1,5 @@
+<%@page import="util.StringUtils"%>
+<%@page import="dto.Pagination"%>
 <%@page import="dao.GroupReservationDao"%>
 <%@page import="vo.Reservation"%>
 <%@page import="java.util.List"%>
@@ -8,22 +10,35 @@
 	//로그인정보 조회
 	String loginId = (String)session.getAttribute("loginId");
 	String loginType = (String)session.getAttribute("loginType");
-	
+	String lessonType = "personal";
 	// 오류상황
 		// 로그인이 되지 않았을 경우
 		// 로그인 타입이 강사가 아닌경우 
 	if(loginId == null) {
-	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("나의 그룹레슨 회원목록 조회", "utf-8"));
+	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("나의 전체 회원목록 조회", "utf-8"));
 		return;
 	}
 	if(!"trainer".equals(loginType)) {
-		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("나의 그룹레슨 회원목록 조회", "utf-8"));
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("나의 전체 회원목록 조회", "utf-8"));
 		return;
 	}
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
 	
-	// 로직수행(강사의 그룹레슨 회원목록 조회)
+	
+	
+	// 로직수행(강사의 전체 회원목록 조회)
 	GroupReservationDao reservDao = GroupReservationDao.getInstance();
-	List<Reservation> reservList = reservDao.getPersonalMyUserByTrainerId(loginId);
+	UserDao userDao = UserDao.getinstance();
+	int totalRows = userDao.getMyUserListTotalRows(loginId, lessonType);
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	
+	List<Reservation> reservList = userDao.getMyUserByTrainerIdLessonType(loginId, lessonType, pagination.getBegin(), pagination.getEnd());
+	
+
+
+
+
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -52,9 +67,9 @@
 		<div class="col-12">
 			<p>내 개인레슨 회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/myUserList.jsp ">전체</a></li>
-           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
-           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/allMyUserList.jsp ">전체</a></li>
+           		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/personalMyUserList.jsp?type=personal">개인</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/groupMyUserList.jsp?type=group">그룹</a></li>
 			</ul>
 			<table class="table table-sm">
 				<thead>
@@ -92,7 +107,32 @@
 %>
 				</tbody>
 			</table>
+					<% if (totalRows != 0) { %>
+			<div class="row mb-3">
+		<div class="col-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
+						<a href="personalMyUserList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
+					</li>
+<%
+	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+					<li class="page-item <%=pageNo == num ? "active" : "" %>">
+						<a href="personalMyUserList.jsp?page=<%=num%>" onclick="goPage(event, <%=num %>);" class="page-link"><%=num %></a>
+					</li>
+<% 
+	}
+%>
+					<li class="page-item <%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+						<a href="personalMyUserList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
+	</div>
+		</div>
+<% } %>
 	</div>
 </div>
 </body>

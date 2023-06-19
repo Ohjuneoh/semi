@@ -12,6 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <jsp:include page="../nav.jsp">
@@ -48,33 +49,41 @@
 
    			<input type="hidden" name="type" value="user">
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">아이디</label>
+   					<label class="form-label" style="font-weight: bold;">아이디</label>
    					<input id="user-id" type="text" class="form-control" name="id" />
    				</div>
    				<button type = "button" onclick="idCheck()" class="btn btn-secondary btn-sm">중복 확인</button>
    				<span id="msg-box" ></span>
    			
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">비밀번호</label>
+   					<label class="form-label" style="font-weight: bold;">비밀번호</label>
    					<input id= "user-password" type="text" class="form-control" name="password" onblur="passworderr()" />
    					<small id="password-error" class="text-danger"></small>
    				</div>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">이름</label>
+   					<label class="form-label" style="font-weight: bold;">이름</label>
    					<input id ="user-name" type="text" class="form-control" name="name" />
    				</div>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">이메일</label>
+   					<label class="form-label" style="font-weight: bold;">이메일</label>
    					<input id="user-email" type="text" class="form-control" name="email" />
    				</div>
    				<button type = "button" onclick="emailCheck()" class="btn btn-secondary btn-sm">중복 확인</button>
    				<span id="email-msg-box" ></span>
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">전화번호</label>
+   					<label class="form-label" style="font-weight: bold;">전화번호</label>
    					<input id="user-tel" type="text" class="form-control" name="tel" />
    				</div>
+   				
    				<div class="form-group mb-2 w-75">
-   					<label class="form-label">헬스장 번호</label>
+   				<label class="form-label" style="font-weight: bold;">주소</label>
+   				<input style = "width:150px;"id="member_post" type="text" class="form-control" name="post" readonly  placeholder="우편번호" />
+   				<input style = "width:400px;" id="member_addr" type="text" class="form-control" name="streetName"  readonly placeholder="도로명 주소" />
+   				<input style = "width:600px;" id="user-detailedAddress" type="text" class="form-control" name="detailAdd"  placeholder="상세주소" />
+   				</div>
+   				<button type="button" class="btn btn-primary btn-sm" onclick="findAddr()">주소찾기</button>
+   				<div class="form-group mb-2 w-75">
+   					<label class="form-label" style="font-weight: bold;">헬스장 번호</label>
    					<input id="user-gymNo" type="text" class="form-control" name="gymNo" />
    				</div>
    				<div class="text-end w-75">
@@ -91,6 +100,12 @@
 		el.textContent="";
 		el.classList.remove("text-danger");
 		el.classList.remove("text-success");
+		
+		if(value.trim() === ""){
+			el.classList.add("text-danger");
+            el.textContent = "아이디를 입력해주세요.";
+            return;
+		}
 	
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function(){
@@ -122,6 +137,12 @@
 		el.textContent="";
 		el.classList.remove("text-danger");
 		el.classList.remove("text-success");
+		
+		if(value.trim() === ""){
+			el.classList.add("text-danger");
+            el.textContent = "이메일을 입력해주세요.";
+            return;
+		}
 	
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function(){
@@ -155,6 +176,12 @@
 		let email = document.getElementById("user-email").value;
 		let gymNo = document.getElementById("user-gymNo").value;
 		let tel = document.getElementById("user-tel").value;
+		let post = document.getElementById("member_post").value;
+		let detailAdd = document.getElementById("user-detailedAddress").value;
+		
+		
+		
+		
 		var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 		if(id ===""){
 			alert("아이디는 필수 입력값입니다.")
@@ -167,6 +194,14 @@
 		}
 		if(email ===""){
 			alert("이메일은 필수 입력값입니다.")
+			return false;
+		}
+		if(post ===""){
+			alert("주소는 필수 입력값입니다.")
+			return false;
+		}
+		if(detailAdd ===""){
+			alert("상세주소는 필수 입력값입니다.")
 			return false;
 		}
 		if(tel ===""){
@@ -190,6 +225,30 @@
 	    } else {
 	        document.getElementById("password-error").textContent = "";
 	    }
+	}
+	
+	function findAddr(){
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	
+	        	console.log(data);
+	        	
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	            var roadAddr = data.roadAddress; // 도로명 주소 변수
+	            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            document.getElementById('member_post').value = data.zonecode;
+	            if(roadAddr !== ''){
+	                document.getElementById("member_addr").value = roadAddr;
+	            } 
+	            else if(jibunAddr !== ''){
+	                document.getElementById("member_addr").value = jibunAddr;
+	            }
+	        }
+					
+	    }).open();
 	}
 </script>
 
