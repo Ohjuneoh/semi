@@ -120,26 +120,6 @@ public class MyMembershipDao {
 		}, userId, myMembershipNo);
 	}
 
-	public MyMembership getMyMembershipByIdAndNo(String userId, int memNo) {
-		return DaoHelper.selectOne("MyMembershipDao.getMyMembershipByIdAndNo", rs->{
-			MyMembership mymem = new MyMembership();
-			
-			Order order = new Order();
-			order.setNo(rs.getInt("order_no"));
-			
-			mymem.setOrder(order);
-			
-			mymem.setStatus(rs.getString("my_membership_status"));
-			mymem.setStartDate(rs.getDate("my_membership_start_date"));
-			mymem.setExpirationDate(rs.getDate("my_membership_expiration_date").toLocalDate());
-			mymem.setRestartDate(rs.getDate("my_membership_restart_date"));
-			mymem.setPauseDate(rs.getDate("my_membership_pause_date"));
-			mymem.setNo(rs.getInt("my_membership_no"));
-			mymem.setCount(rs.getInt("my_membership_cnt"));
-			
-			return mymem;
-		}, userId, memNo);
-	}
 	
 	public void updateMymembershipByIdAndNo(MyMembership mymembership) {
 		DaoHelper.update("MyMembershipDao.updateMymembershipByIdAndNo", mymembership.getCount(),

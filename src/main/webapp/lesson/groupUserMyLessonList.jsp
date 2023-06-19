@@ -1,3 +1,5 @@
+<%@page import="vo.User"%>
+<%@page import="dao.UserDao"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Reservation"%>
 <%@page import="dao.GroupReservationDao"%>
@@ -35,6 +37,12 @@
 	// 로직수행 (신청 조회)
 	GroupReservationDao reserveDao = GroupReservationDao.getInstance();
 	List<Reservation> reserveList = reserveDao.getGroupMyReservationsById(loginId, pagination.getBegin(), pagination.getEnd());
+	
+	// 강사명을 얻기위한 로직수행
+	UserDao userDao = UserDao.getinstance();
+	String type = "trainer";
+	List<User> trainerList = userDao.getUserByType(type);
+	
 %>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -91,15 +99,18 @@
 <% 
 	for (Reservation reserve : reserveList) { 
 %>
+
+<% for (User user : trainerList) { %>
 					<tr>
 						<td><%=reserve.getLesson().getNo() %></td>
 						<td><a href="groupDetailLesson.jsp?lessonNo=<%=reserve.getLesson().getNo() %>"><%=reserve.getLesson().getName() %></a></td>
-						<td><%=reserve.getUser().getName() %></td>
+						<td><%=user.getName() %></td>
 						<td><%=reserve.getLesson().getTime() %></td>
 						<td><%=reserve.getLesson().getGym().getName() %></td>
 					</tr>
 <% 	
 	}
+}
  %>
 				</tbody>
 			</table>

@@ -85,15 +85,10 @@
 	groupLessonDao.updateGroupLesson(lesson);
 
 		// 내 멤버쉽 테이블에 cnt -1
-			// 내 멤버쉽의 no 전달받아서 이용권을 조회 
-		MyMembershipDao mymem = MyMembershipDao.getInstance();
-		MyMembership mymembership2 = mymem.getMyMembershipByIdAndNo(loginId, myMembershipNo);
-			// 객체 생성해서 전달받은값넣고, cnt-1 하기
-		mymembership2.setCount(mymembership.getCount()-1);
-		mymembership2.setUser(new User(loginId));
-		mymembership2.setMembership(new Membership(myMembershipNo));
+	
+		mymembership.setCount(mymembership.getCount()-1);
 			// 변경내역 업데이트 하기
-		mymem.updateMymembershipByIdAndNo(mymembership2);
+		mymemDao.updateMymembershipByIdAndNo(mymembership);
 
 			
 	// 재요청 url

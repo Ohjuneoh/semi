@@ -113,7 +113,7 @@
 <% } %>
 						<td><%=startDate%> ~ <%=expirationDate %></td>
 <%
-	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount()== -1){
+	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount() == -1){
 %>
 						<td>무제한/무제한</td>
 <% 		
