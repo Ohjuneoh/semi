@@ -1,4 +1,4 @@
-<%@page import="dto.Pagination"%>
+<%@page import="util.Pagination"%>
 <%@page import="util.StringUtils"%>
 <%@page import="java.util.List"%>
 <%@page import="vo.User"%>
