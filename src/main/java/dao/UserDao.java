@@ -51,11 +51,12 @@ public class UserDao {
 			user.setCreateDate(rs.getDate("user_create_date"));
 			user.setUpdateDate(rs.getDate("user_update_date"));
 			user.setStatus(rs.getString("user_status"));
-			user.setFileName(rs.getString("file_name"));
 			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
 			user.setGym(gym);
+			
+			user.setFileName(rs.getString("file_name"));
 			return user;
 			
 			
