@@ -85,7 +85,7 @@
 
 %>
 					<tr>
-						<td colspan="4" style="color: gray">신고내역이 존재하지 않습니다.</td>
+						<td colspan="4" style="color: gray; text-align: center;">신고내역이 존재하지 않습니다.</td>
 					</tr>
 <%
 	}

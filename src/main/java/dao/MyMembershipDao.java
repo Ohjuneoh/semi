@@ -326,6 +326,4 @@ public class MyMembershipDao {
 			return rs.getInt("cnt");
 		},userId);
 	}
-
-
 }
