@@ -10,16 +10,16 @@
 	String password = request.getParameter("password");
 	String email = request.getParameter("email");
 	String tel = request.getParameter("tel");
-	
+	String picture = request.getParameter("picture");
 	// 요청파라미터로 전달받은 상품번호로 상품정보 조회
 	UserDao userDao = UserDao.getinstance();
 	User user = userDao.getUserById(loginId);
-	
 	// 요청파라미터로 전달받은 수정된 회원정보를 User 객체에 저장해서 값을 덮어쓰기
 	user.setName(name);
 	user.setPassword(password);
 	user.setEmail(email);
 	user.setTel(tel);
+	user.setFileName(picture);
 	
 	// 수정된 정보가 포함된 Product 객체를 전달해서 데이터베스에 반영시키기
 	userDao.updateUser(user);

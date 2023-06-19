@@ -51,6 +51,7 @@ public class UserDao {
 			user.setCreateDate(rs.getDate("user_create_date"));
 			user.setUpdateDate(rs.getDate("user_update_date"));
 			user.setStatus(rs.getString("user_status"));
+			user.setFileName(rs.getString("file_name"));
 			
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
@@ -116,7 +117,8 @@ public class UserDao {
 														user.getEmail(),
 														user.getStatus(),
 														user.getGym().getNo(),
-														user.getId());
+														user.getId(),
+														user.getFileName());
 		
 	}
 	
