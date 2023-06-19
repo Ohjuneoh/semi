@@ -186,12 +186,13 @@
 			</div>
 			<div class="text-end">
 <%
+	String loginType = (String) session.getAttribute("loginType");
 	if(loginId.equals(board.getUser().getId())) {
 %>
 				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleted-board-modal">삭제</button>
 				<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
 <%
-	} else if(!"manager".equals(board.getType())) {
+	} else if(!"manager".equals(board.getType()) && !"manager".equals(loginType)) {
 %>
 				<div class="text-end">
 					<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report-modal">신고</button>			
