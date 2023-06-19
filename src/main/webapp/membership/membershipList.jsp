@@ -1,4 +1,4 @@
-<%@page import="dto.Pagination"%>
+<%@page import="util.Pagination"%>
 <%@page import="vo.Membership"%>
 <%@page import="dao.MembershipDao"%>
 <%@page import="java.util.List"%>

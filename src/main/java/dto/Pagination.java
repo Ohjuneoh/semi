@@ -1,4 +1,4 @@
-package util;
+package dto;
 
 public class Pagination {
 
