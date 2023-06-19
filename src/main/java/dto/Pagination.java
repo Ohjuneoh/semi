@@ -29,6 +29,9 @@ public class Pagination {
 	}
 	
 	public int getCurrentBlock() {
+    if(totalRows == 0){
+        return 0;
+    }
 		return (int) Math.ceil((double) pageNo/pages);
 	}
 	
@@ -41,6 +44,9 @@ public class Pagination {
 	}
 	
 	public int getBeginPage() {
+		if (getCurrentBlock() == 0) {
+			return 0;
+		}
 		return (getCurrentBlock() - 1)*pages + 1;
 	}
 	
