@@ -373,14 +373,15 @@
 				let newComment = xhr.responseText;
 				let arr = JSON.parse(newComment);
 				document.querySelector(`#row-\${cno} #comment-content`).textContent  = arr.content;
-				document.querySelector(`comment-field-\${cno}`).value  = arr.content;
+				document.querySelector(`#row-\${cno} #comment-updateDate`).textContent  = arr.updateDate;
 			}
-			document.getElementById("row-" + cno).classList.remove("d-none");
-			document.getElementById("row-field-" + cno).classList.add("d-none");
 		}
 		xhr.open("POST", "comment-modify.jsp");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("cno=" + cno + "&content=" + content);
+		
+		document.getElementById("row-" + cno).classList.remove("d-none");
+		document.getElementById("row-field-" + cno).classList.add("d-none");
 	}
 	
 	function deleteComment() {

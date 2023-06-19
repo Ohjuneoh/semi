@@ -1,3 +1,4 @@
+<%@page import="com.google.gson.GsonBuilder"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="vo.Comment"%>
@@ -31,7 +32,7 @@
 	int end = pagination.getEnd();
 	List<Comment> comments = commentDao.getComments(boardNo, begin, end);
 	
-	Gson gson = new Gson();
+	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	String text = gson.toJson(comments);
 	out.write(text);
 %>
