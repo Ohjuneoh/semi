@@ -1,3 +1,5 @@
+<%@page import="dto.Pagination"%>
+<%@page import="util.StringUtils"%>
 <%@page import="vo.Membership"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.Date"%>
@@ -8,7 +10,13 @@
 <%
 	String userId = (String) session.getAttribute("loginId");
 	MyMembershipDao myMembershipDao = MyMembershipDao.getInstance();
-	List<MyMembership> myMembershipList = myMembershipDao.getAllMyMembership(userId);
+	
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	int totalRows = myMembershipDao.getTotalRows();
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	int begin = pagination.getBegin();
+	int end = pagination.getEnd();
+	List<MyMembership> myMembershipList = myMembershipDao.getAllMyMembership(userId, begin, end);
 
 %>
 <!doctype html>
@@ -55,6 +63,8 @@
 <% for(MyMembership myMembership : myMembershipList){
 	Date startDate = myMembership.getStartDate();
 	LocalDate expirationDate = myMembership.getExpirationDate();
+	int orderNo = myMembership.getOrder().getNo();
+	
 %>
 
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
@@ -72,7 +82,10 @@
 <%
 	}
 %>
-						<td><a href="my-membership-detail.jsp?my-membershipNo=<%=myMembership.getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a></td>
+						<td>
+  							<a href="my-membership-detail.jsp?my-membershipNo=<%=myMembership.getNo() %>&orderNo=<%=myMembership.getOrder().getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a>
+						</td>
+						
 					</tr>
 <%
 }
@@ -84,14 +97,21 @@
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link disabled" href="my-membership-list.jsp?page=1">이전</a></li>
-					<li class="page-item"><a class="page-link active" href="my-membership-list.jsp?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="my-membership-list.jsp?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="my-membership-list.jsp?page=3">3</a></li>
-					<li class="page-item"><a class="page-link" href="my-membership-list.jsp?page=4">4</a></li>
-					<li class="page-item"><a class="page-link" href="my-membership-list.jsp?page=5">5</a></li>
-					<li class="page-item"><a class="page-link" href="my-membership-list.jsp?page=2">다음</a></li>
-				</ul>
+				<li class="page-item <%=pageNo <=1 ? "disabled" : "" %>">
+					<a href="my-membership-list.jsp?page=<%=pageNo -1 %>" class="page-link">이전</a>
+				</li>
+<%
+	for(int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++){
+%>				<li class="page-item <%=pageNo == num ? "active" : ""%>">   <%--disabled/enabled/selected/active 등등 이와 같은 종류는 모두 삼항연산자 --%>
+					<a href="my-membership-list.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+				</li>
+<%
+	}
+%>						
+				<li class="page-item "<%=pageNo >= pagination.getTotalPages() ? "disabled" : "" %>">
+					<a href="my-membership-list.jsp?page=<%=pageNo + 1 %>" class="page-link">다음</a>
+				</li>
+			</ul>
 			</nav>
 		</div>
 	</div>

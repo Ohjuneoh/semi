@@ -48,7 +48,7 @@
 	session.setAttribute("membershipNo", membershipNo);
 	
 	// 5. 재요청 url 전달
-	response.sendRedirect("../my-membership/my-membership-insert.jsp?");
+	response.sendRedirect("../my-membership/my-membership-insert.jsp");
 	
 	
 	
