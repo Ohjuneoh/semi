@@ -16,12 +16,11 @@ public class MyMembershipDao {
 
 	private static MyMembershipDao instance = new MyMembershipDao();
 
-	private MyMembershipDao() {
-	}
-
+	private MyMembershipDao() {}
 	public static MyMembershipDao getInstance() {
 		return instance;
 	}
+
 
 	public void insertMyMembership(MyMembership myMembership) {
 		DaoHelper.update("MyMembershipDao.insertMyMembership", myMembership.getUser().getId(),
@@ -166,6 +165,12 @@ public class MyMembershipDao {
 			membership.setCat(rs.getString("membership_cat"));
 			membership.setDescription(rs.getString("membership_description"));
 			membership.setPrice(rs.getInt("membership_price"));
+			
+			myMembership.setMembership(membership);
+			return myMembership;
+		});
+	}
+			
 
 	public int getTotalDays(int orderNo) {
 	    return DaoHelper.selectOne("MyMembershipDao.getTotalDays", rs -> { 
@@ -293,6 +298,8 @@ public class MyMembershipDao {
 	         return myMembership;
 	      }, userId, begin, end);
 	   }
+	
+	
 	public int getTotalPersonalMyMembershipRows(String id) {
 		return DaoHelper.selectOne("MyMembershipDao.getTotalPersonalMyMembershipRows", rs->{
 			return rs.getInt("cnt");
