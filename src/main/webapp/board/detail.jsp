@@ -163,9 +163,11 @@
 	if (likeDislike == null) {
 %>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
+				<i class="bi bi-hand-thumbs-up"></i>
 					좋아요<br /><%=totalLike%>
 				</a>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger">
+				<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
 <%
@@ -173,10 +175,12 @@
 %>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary 
 					<%="like".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					<i class="bi bi-hand-thumbs-up"></i>
 					좋아요<br /><%=totalLike%>
 				</a>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger
 					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
 <%		

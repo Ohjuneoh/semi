@@ -91,6 +91,7 @@ public class PersonalLessonDao {
 															 	lesson.getTime(),
 															 	lesson.getStatus(),
 															 	lesson.getGym().getNo(),
+															 	lesson.getDeleted(),
 															 	lesson.getNo());
 	}
 	/*
