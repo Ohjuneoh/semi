@@ -129,7 +129,7 @@
 }
 %>
 					
-<% if(totalRows != 0) { %>
+<% if(totalRows == 0) { %>
 				<tr>
 					<td colspan="5" style="color: gray">그룹수업 이용권이 존재하지 않습니다.</td>
 				</tr>
