@@ -425,9 +425,10 @@
 					
 					if(nextComs.length === 0) {
 						more = false;
+					} else if (nextComs.length < 10) {
 						document.getElementById("comment-more-button").classList.add("d-none");
 					}
-		
+				
 					nextComs.forEach(function (comment, index) {
 						commentHTMLContents += `
 								<div class="row mb-3" id="out-row-\${comment.no}">
