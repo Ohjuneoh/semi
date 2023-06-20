@@ -74,7 +74,21 @@
 						<th class="table-dark" style="width: 15%;">이용권 속성</th>
 						<td style="width: 35%;"><%=membership.getCat()%></td>
 						<th class="table-dark" style="width: 15%;">이용권 종류</th>
-						<td style="width: 35%;"><%=membership.getType() %></td>
+<%
+	if("PL".equals(membership.getType())){
+%>
+						<td style="width: 35%;">개인레슨</td>
+ <%
+	} else if("GL".equals(membership.getType())){
+ %> 					<td style="width: 35%;">그룹레슨</td>
+ <%
+	} else if("Health".equals(membership.getType())){
+ %>						<td style="width: 35%;">시설이용</td>
+ <%
+	} else if("Option".equals(membership.getType())){
+ %>						<td style="width: 35%;">옵션이용</td>
+ <% }
+ %>
 					</tr>
 					<tr>
 						<th class="table-dark" style="width: 15%;">일일 이용 횟수</th>
