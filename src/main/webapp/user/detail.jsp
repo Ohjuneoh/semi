@@ -120,13 +120,8 @@
 				</tbody>
 			</table>
 			<div class="text-end">
-<% 
-	if("N".equals(user.getStatus())){
-%>
-				<a href="delete.jsp?id=<%=user.getId()%>" class="btn btn-danger btn-sm">회원탈퇴</a>
-<% 
-	}
-%>
+
+
 				<a href="../certificationForm.jsp" class="btn btn-warning btn-sm">수정</a>
 <%
 	if("Y".equals(user.getStatus())){
