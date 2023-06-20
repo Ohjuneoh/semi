@@ -103,6 +103,7 @@
 	List<MyMembership> myMembershipList = myMembershipDao.getUsersMemberships(userId);
 
 %>
+		<br>
 		<div class="col-12">
 			<h1 class="border bg-light fs-4 p-2">이용권 내역</h1>
 		</div>
@@ -173,8 +174,10 @@
 	OrderDao orderDao = OrderDao.getinstance();
 	List<Order> orderList = orderDao.getAllOfMyOrders(userId);
 %>
+	<br>
+	<br>
 	<div class="col-12">
-	<h1 class="border bg-light fs-4 p-2">결제 내역</h1>
+		<h1 class="border bg-light fs-4 p-2">결제 내역</h1>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">		

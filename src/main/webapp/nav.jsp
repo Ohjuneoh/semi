@@ -32,7 +32,7 @@
 	            	이용권
 	          		</a>
 	          		<ul class="dropdown-menu">
-	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 조회</a></li>
+	            		<li><a class="dropdown-item" href="/semi/membership/membershipList.jsp">이용권 구매하기</a></li>
 	            		<!-- <li><a class="dropdown-item" href="/semi/membership/trainerList.jsp">강사 조회</a></li>  -->
 
 <%

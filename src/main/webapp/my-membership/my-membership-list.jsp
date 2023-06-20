@@ -70,7 +70,14 @@
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
 						<td><%=myMembership.getMembership().getType()%></td>
 						<td><%=myMembership.getMembership().getName()%></td>
-						<td><%=myMembership.getStatus()%></td>
+<%
+	if("Y".equals(myMembership.getStatus())){
+%>						<td>이용가능</td>
+<% } else if("N".equals(myMembership.getStatus())){
+%>						<td>만료</td>
+<%						
+	}
+%>			
 						<td><%=startDate%> ~ <%=expirationDate %></td>
 <%
 	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount()== -1){

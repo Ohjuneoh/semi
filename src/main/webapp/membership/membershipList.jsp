@@ -46,12 +46,12 @@
 <div class="container">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">이용권 목록</h1>
+			<h1 class="border bg-light fs-4 p-2">이용권 구매하기</h1>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>이용권을 확인하세요</p>
+			<p>다양한 이용권을 확인해보세요.</p>
 			<table class="table">
 				<thead>
 					<tr class="table-dark">
@@ -71,10 +71,24 @@
 %>
 						<td><%=membership.getNo()%></td>
 						<td><%=membership.getCat()%></td>
-						<td><%=membership.getType()%></td>
+<%
+	if("PL".equals(membership.getType())){
+%>
+						<td>개인레슨</td>
+ <%
+	} else if("GL".equals(membership.getType())){
+ %> 					<td>그룹레슨</td>
+ <%
+	} else if("Health".equals(membership.getType())){
+ %>						<td>시설이용</td>
+ <%
+	} else if("Option".equals(membership.getType())){
+ %>						<td>옵션이용</td>
+ <% }
+ %>
 						<td><%=membership.getName()%></td>
 						<td><%=membership.getPrice()%>원</td>
-						<td><%=membership.getDiscountedPrice() %>원</td>
+						<td style="font-weight: bold; color:#B22222;"><%=membership.getDiscountedPrice() %>원</td>
 						<td><a href="membership-detail.jsp?membershipNo=<%=membership.getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a></td>
 					</tr>
 <%

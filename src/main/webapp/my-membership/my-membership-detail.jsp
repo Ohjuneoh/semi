@@ -41,7 +41,6 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			
 			<table class="table table-bordered ">
 				<colgroup>
 					<col width="20%">
@@ -51,25 +50,32 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>헬스장명</th>
+						<th class="table-dark">헬스장명</th>
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
-						<th>이용권 종류</th>
+						<th class="table-dark">이용권 종류</th>
 						<td><%=myMembership.getMembership().getType() %></td>
 					</tr>
 					<tr>
-						<th>이용권 이름</th>
+						<th class="table-dark">이용권 이름</th>
 						<td><%=myMembership.getMembership().getName() %></td>
-						<th>이용권 상태</th>
-						<td><%=myMembership.getStatus()%></td>
+						<th class="table-dark">이용권 상태</th>
+<%
+	if("Y".equals(myMembership.getStatus())){
+%>						<td>이용가능</td>
+<%
+	} else if("N".equals(myMembership.getStatus())){
+%>						<td>만료</td>
+<% }
+%>	
 					</tr>
 					<tr>
-						<th>이용권 기간</th>
+						<th class="table-dark">이용권 기간</th>
 						<td><%=startDate %> ~ <%=expirationDate %></td>
-						<th>잔여일수/총일수</th>
+						<th class="table-dark">잔여일수/총일수</th>
 					<td><%=remainingDays %>/<%=totalDays %></td>
 					</tr>
 					<tr>
-						<th>잔여횟수/총횟수</th>
+						<th class="table-dark">잔여횟수/총횟수</th>
 <%
 	if(myMembership.getCount()== -1 && myMembership.getMembership().getCount()== -1){
 %>
@@ -80,7 +86,7 @@
 <%
 	}
 %>
-						<th>주간이용횟수</th>
+						<th class="table-dark">주간이용횟수</th>
 <%
 	if(myMembership.getMembership().getNumOfUseWeek()== -1){
 %>
@@ -93,7 +99,7 @@
 %>
 					</tr>
 					<tr>
-						<th>1일이용횟수</th>
+						<th class="table-dark">1일이용횟수</th>
 <%
 	if(myMembership.getMembership().getNumOfUseDay()== -1){
 %>
@@ -104,8 +110,8 @@
 <%
 	}
 %>
-						<th>이용권 중지 가능 횟수</th>
-						<td><%=myMembership.getMembership().getNumOfPause() %></td>
+						<th class="table-dark">이용권 중지 가능기간</th>
+						<td><%=myMembership.getMembership().getNumOfPause() %>일</td>
 					</tr>
 				</tbody>
 			</table>
