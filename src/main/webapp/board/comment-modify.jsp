@@ -27,7 +27,6 @@
 	comm.setUpdateDate(new Date());
 	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	String newComment = gson.toJson(comm);
-	System.out.println(newComment);
 	
 	out.write(newComment);
 %>
