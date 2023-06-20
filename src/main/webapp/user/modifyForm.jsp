@@ -35,8 +35,8 @@
 	<div class="row mb-3">
 		<div class="col-12">
 			<p>개인정보를 확인하고, 수정하세요</p>
-			<form class="border bg-light p-3" method="post" action="modify.jsp" onsubmit="return fn1();">
-				<input type = "hidden" name="id" value="">		
+			<form class="border bg-light p-3" method="post" action="modify2.jsp" onsubmit="return fn1();">
+				<input type = "hidden" name="id" value="<%=loginId%>">		
 				<div class="form-group mb-2">
 					<label class="form-label">이름</label>
 					<input type="text" class="form-control" name="name" value="<%=user.getName()%>" />
@@ -56,6 +56,10 @@
 				<div class="form-group mb-2">
 					<label class="form-label">전화번호</label>
 					<input type="text" class="form-control" name="tel" value="<%=user.getTel()%>"/>
+				</div>
+				<div class="form-group mb-2">
+					<label class="form-label">상품사진</label>
+					<input type="file" class="form-control" name="picture" />
 				</div>
 				<div class="text-end">
 					<button type="reset" class="btn btn-secondary btn-sm">취소</button>

@@ -33,7 +33,7 @@
 	UserDao userDao = UserDao.getinstance();
 	int totalRows = userDao.getMyUserListByIdTotalRows(loginId);
 	Pagination pagination = new Pagination(pageNo, totalRows);
-	
+	System.out.println(totalRows);
 	List<Reservation> reservList = userDao.getMyUserByTrainerId(loginId, pagination.getBegin(), pagination.getEnd());
 	
 	
@@ -118,10 +118,12 @@
 %>
 				</tbody>
 			</table>
-			<% if (totalRows != 0) { %>
 			<div class="row mb-3">
 		<div class="col-12">
 			<nav>
+<%
+	if(totalRows != 0){
+%>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <%=pageNo <= 1 ? "disabled" : "" %>">
 						<a href="allMyUserList.jsp?page=<%=pageNo -1 %>"class="page-link">이전</a>
@@ -139,11 +141,13 @@
 						<a href="allMyUserList.jsp?page=<%=pageNo + 1 %>"class="page-link">다음</a>
 					</li>
 				</ul>
+<%
+	}
+%>
 			</nav>
 		</div>
 	</div>
 		</div>
-<% } %>
 	</div>
 </div>
 </body>

@@ -55,6 +55,8 @@ public class UserDao {
 			Gym gym = new Gym();
 			gym.setNo(rs.getInt("gym_no"));
 			user.setGym(gym);
+			
+			user.setFileName(rs.getString("file_name"));
 			return user;
 			
 			
@@ -116,7 +118,8 @@ public class UserDao {
 														user.getEmail(),
 														user.getStatus(),
 														user.getGym().getNo(),
-														user.getId());
+														user.getId(),
+														user.getFileName());
 		
 	}
 	

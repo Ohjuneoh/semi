@@ -163,9 +163,11 @@
 	if (likeDislike == null) {
 %>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary">
+				<i class="bi bi-hand-thumbs-up"></i>
 					좋아요<br /><%=totalLike%>
 				</a>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger">
+				<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
 <%
@@ -173,10 +175,12 @@
 %>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=like" class="btn btn-outline-primary 
 					<%="like".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					<i class="bi bi-hand-thumbs-up"></i>
 					좋아요<br /><%=totalLike%>
 				</a>
 				<a href="insertLikeDislike.jsp?boardNo=<%=boardNo %>&type=disLike" class="btn btn-outline-danger
 					<%="disLike".equals(likeDislike.getType()) ? "active" : "disabled"%>">
+					<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
 <%		
@@ -186,12 +190,13 @@
 			</div>
 			<div class="text-end">
 <%
+	String loginType = (String) session.getAttribute("loginType");
 	if(loginId.equals(board.getUser().getId())) {
 %>
 				<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleted-board-modal">삭제</button>
 				<a href="modifyForm.jsp?boardNo=<%=boardNo %>" class="btn btn-warning btn-sm">수정</a>
 <%
-	} else if(!"manager".equals(board.getType())) {
+	} else if(!"manager".equals(board.getType()) && !"manager".equals(loginType)) {
 %>
 				<div class="text-end">
 					<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#report-modal">신고</button>			
