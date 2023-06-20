@@ -30,6 +30,7 @@
 		board.setViewCnt(board.getViewCnt() + 1);
 		boardDao.updateBoard(board);
 	}
+	
 	if(!"N".equals(board.getDeleted())) {
 		response.sendRedirect("list.jsp?err=deleteBoard");
 		return;
@@ -183,7 +184,7 @@
 					<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
-<%		
+<%
 	}
 %>
 				
@@ -424,9 +425,10 @@
 					
 					if(nextComs.length === 0) {
 						more = false;
+					} else if (nextComs.length < 10) {
 						document.getElementById("comment-more-button").classList.add("d-none");
 					}
-		
+				
 					nextComs.forEach(function (comment, index) {
 						commentHTMLContents += `
 								<div class="row mb-3" id="out-row-\${comment.no}">
