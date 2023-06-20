@@ -36,10 +36,6 @@
 	
 	List<Reservation> reservList = userDao.getMyUserByTrainerId(loginId, pagination.getBegin(), pagination.getEnd());
 	
-
-
-
-	
 	
 %>
 <!doctype html>
