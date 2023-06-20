@@ -68,9 +68,6 @@
 	if("fail2".equals(err)) {
 %>
 
-			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong> 이용권을 모두 사용하였으므로 그룹수업 신청을 할 수 없습니다.
-			</div>
 <%
 	}
 %>
