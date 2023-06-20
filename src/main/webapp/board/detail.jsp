@@ -183,7 +183,7 @@
 					<i class="bi bi-hand-thumbs-down"></i>
 					싫어요<br /><%=totalDisLike %>
 				</a>
-<%		
+<%
 	}
 %>
 				
