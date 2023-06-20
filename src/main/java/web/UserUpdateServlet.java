@@ -18,7 +18,7 @@ import jakarta.servlet.http.Part;
 import vo.User;
 
 @MultipartConfig
-@WebServlet("/modify")
+@WebServlet("/user/modify")
 public class UserUpdateServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +28,7 @@ public class UserUpdateServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String tel = request.getParameter("tel");
+		
 		Part part = request.getPart("picture");
 		String filename = part.getSubmittedFileName();
 		

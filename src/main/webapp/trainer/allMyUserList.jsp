@@ -36,10 +36,6 @@
 	System.out.println(totalRows);
 	List<Reservation> reservList = userDao.getMyUserByTrainerId(loginId, pagination.getBegin(), pagination.getEnd());
 	
-
-
-
-	
 	
 %>
 <!doctype html>
@@ -77,7 +73,7 @@
 				<thead>
 					<tr>
 						<th>회원이름</th>
-						<th>회원 이메일</th>
+						<th>레슨명</th>
 						<th>회원 전화번호</th>
 						<th>가입일</th>
 						<th>회원상태</th>
@@ -89,14 +85,14 @@
 <% 
 	for(Reservation reserve : reservList) {
  %>
-						<td style="width: 10%;"><a href="../user/userDetail.jsp?userId=<%=reserve.getUser().getId() %>"><%=reserve.getUser().getName() %></a></td>
-						<td style="width: 36%;"><%=reserve.getUser().getEmail() %></td>
-						<td style="width: 12%;"><%=reserve.getUser().getTel() %></td>
-						<td style="width: 18%;"><%=reserve.getUser().getCreateDate() %></td>
+						<td style="width: 15%;"><a href="../user/userDetail.jsp?userId=<%=reserve.getUser().getId() %>"><%=reserve.getUser().getName() %></a></td>
+						<td style="width: 20%;"><%=reserve.getLesson().getName() %></td>
+						<td style="width: 20%;"><%=reserve.getUser().getTel() %></td>
+						<td style="width: 20%;"><%=reserve.getUser().getCreateDate() %></td>
 <% 
 	if ("Y".equals(reserve.getUser().getStatus())) { 
 %>
-						<td style="width: 12%;"><a class="btn btn-primary btn-sm">가입중</a></td>
+						<td style="width: 15%;"><a class="btn btn-primary btn-sm">가입중</a></td>
 <% 
 	} else if("N".equals(reserve.getUser().getStatus())) { 
 %>
@@ -107,12 +103,12 @@
 <% 
 	if("group".equals(reserve.getLesson().getType())) { 
 %>
-						<td style="width: 18%;">그룹레슨</td>
+						<td style="width: 20%;">그룹레슨</td>
 						
 <%
 	} else if("personal".equals(reserve.getLesson().getType())) {
 %>
-						<td style="width: 18%;">개인레슨</td>
+						<td style="width: 20%;">개인레슨</td>
 <%
 	}
 %>
