@@ -61,6 +61,7 @@ public class GroupLessonDao {
 		}, begin, end);
 	}
 	
+	
 	public int getTotalRows () {
 		return DaoHelper.selectOne("groupLessonDao.getTotalRows", rs->{
 			return rs.getInt("cnt");
@@ -191,4 +192,5 @@ public class GroupLessonDao {
 			return rs.getInt("cnt");
 		}, id);
 	}
+
 }
