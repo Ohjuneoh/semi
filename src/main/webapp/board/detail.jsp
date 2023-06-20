@@ -30,6 +30,7 @@
 		board.setViewCnt(board.getViewCnt() + 1);
 		boardDao.updateBoard(board);
 	}
+	
 	if(!"N".equals(board.getDeleted())) {
 		response.sendRedirect("list.jsp?err=deleteBoard");
 		return;

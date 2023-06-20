@@ -1,3 +1,5 @@
+<%@page import="vo.Lesson"%>
+<%@page import="dao.GroupLessonDao"%>
 <%@page import="dto.Pagination"%>
 <%@page import="util.StringUtils"%>
 <%@page import="dao.GroupReservationDao"%>
@@ -34,10 +36,8 @@
 	
 	List<Reservation> reservList = userDao.getMyUserByTrainerIdLessonType(loginId, lessonType, pagination.getBegin(), pagination.getEnd());
 	
-
-
-
-
+	// 레슨명 조회하기 위해 그룹조회
+	GroupLessonDao groupDao = GroupLessonDao.getinstance();
 
 %>
 <!doctype html>
@@ -67,7 +67,7 @@
 		<div class="col-12">
 			<p>내 그룹레슨 회원 목록을 확인할 수 있습니다.</p>
 			<ul class="nav nav-tabs mb-3">
-           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/allMyUserList.jsp ">전체</a></li>
+           		<li class="nav-item"><a class="nav-link" href="/semi/trainer/allMyUserList.jsp">전체</a></li>
            		<li class="nav-item"><a class="nav-link" href="/semi/trainer/personalMyUserList.jsp">개인</a></li>
            		<li class="nav-item"><a class="nav-link active" href="/semi/trainer/groupMyUserList.jsp">그룹</a></li>
 			</ul>
@@ -75,7 +75,7 @@
 				<thead>
 					<tr>
 						<th>회원이름</th>
-						<th>회원 이메일</th>
+						<th>레슨명</th>
 						<th>회원 전화번호</th>
 						<th>가입일</th>
 						<th>회원상태</th>
@@ -86,14 +86,16 @@
 <% 
 	for(Reservation reserve : reservList) {
  %>
-						<td style="width: 10%;"><a href="../user/userDetail.jsp?userId=<%=reserve.getUser().getId() %>"><%=reserve.getUser().getName() %></a></td>
-						<td style="width: 36%;"><%=reserve.getUser().getEmail() %></td>
-						<td style="width: 12%;"><%=reserve.getUser().getTel() %></td>
-						<td style="width: 18%;"><%=reserve.getUser().getCreateDate() %></td>
+ 
+						<td style="width: 15%;"><a href="../user/userDetail.jsp?userId=<%=reserve.getUser().getId() %>"><%=reserve.getUser().getName() %></a></td>
+						<td style="width: 20%;"><%=reserve.getLesson().getName() %></td>
+						<td style="width: 15%;"><%=reserve.getUser().getTel() %></td>
+						<td style="width: 15%;"><%=reserve.getUser().getCreateDate() %></td>
+						
 <% 
 	if ("Y".equals(reserve.getUser().getStatus())) { 
 %>
-						<td style="width: 12%;"><a class="btn btn-primary btn-sm">가입중</a></td>
+						<td style="width: 10%;"><a class="btn btn-primary btn-sm">가입중</a></td>
 <% 
 	} else if("N".equals(reserve.getUser().getStatus())) { 
 %>

@@ -118,8 +118,8 @@ public class UserDao {
 														user.getEmail(),
 														user.getStatus(),
 														user.getGym().getNo(),
-														user.getId(),
-														user.getFileName());
+														user.getFileName(),
+														user.getId());
 		
 	}
 	
