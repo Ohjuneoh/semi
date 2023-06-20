@@ -62,6 +62,7 @@ public class PersonalLessonDao {
 			groupLesson.setCreatDate(rs.getDate("lesson_create_date"));
 			groupLesson.setTime(rs.getString("lesson_time"));
 			groupLesson.setStatus(rs.getString("lesson_status"));
+			groupLesson.setDeleted(rs.getString("lesson_deleted"));
 
 			User user = new User();
 			user.setId(rs.getString("user_id"));

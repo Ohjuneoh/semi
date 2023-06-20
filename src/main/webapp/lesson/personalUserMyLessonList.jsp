@@ -16,11 +16,11 @@
 		// 로그인이 되지 않았을 경우
 		// 로그인 타입이 강사가 아닌경우 
 	if(loginId == null) {
-	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+	response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("개인레슨 조회", "utf-8"));
 		return;
 	}
 	if(!"user".equals(loginType)) {
-		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("전체레슨 조회", "utf-8"));
+		response.sendRedirect("../home.jsp?err=trainerdeny&job=" + URLEncoder.encode("개인레슨 조회", "utf-8"));
 		return;
 	}
 		
