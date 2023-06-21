@@ -68,7 +68,21 @@
 %>
 
 						<td><%=myMembership.getMembership().getGym().getName()%></td>
-						<td><%=myMembership.getMembership().getType()%></td>
+<%
+	if("PL".equals(myMembership.getMembership().getType())){
+%>
+						<td>개인레슨</td>
+ <%
+	} else if("GL".equals(myMembership.getMembership().getType())){
+ %> 					<td>그룹레슨</td>
+ <%
+	} else if("Health".equals(myMembership.getMembership().getType())){
+ %>						<td>시설이용</td>
+ <%
+	} else if("Option".equals(myMembership.getMembership().getType())){
+ %>						<td>옵션이용</td>
+ <% }
+ %>
 						<td><%=myMembership.getMembership().getName()%></td>
 <%
 	if("Y".equals(myMembership.getStatus())){

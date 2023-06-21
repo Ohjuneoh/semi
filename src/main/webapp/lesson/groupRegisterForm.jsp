@@ -68,9 +68,7 @@
 	if("fail2".equals(err)) {
 %>
 
-			<div class="alert alert-danger">
-				<strong>잘못된 접근</strong> 이용권을 모두 사용하였으므로 그룹수업 신청을 할 수 없습니다.
-			</div>
+
 <%
 	}
 %>
@@ -131,13 +129,10 @@
 <%
 }
 %>
-					
-<% if(totalRows != 0) { %>
-				<tr>
-					<td colspan="5" style="color: gray">그룹수업 이용권이 존재하지 않습니다.</td>
-				</tr>
 				</tbody>
 			</table>
+					
+<% if(totalRows != 0) { %>
 				
 			<div class="row mb-3">
 		<div class="col-12">
