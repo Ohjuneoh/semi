@@ -131,7 +131,6 @@
 					<th>레슨 정원</th>
 					<th>레슨 신청자수</th>
 					<th>레슨 시간</th>
-					<th>레슨 생성일</th>
 				</tr>
 			</thead>
 			<tbody></tbody>
@@ -167,13 +166,11 @@
 								<td>\${item.reqCnt}</td>
 								<td>\${item.quota}</td>
 								<td>\${item.time}</td>
-								<td>\${item.createDate}</td>
 						</tr>
 					`;
 				});
 				// 4. 화면에 html 컨텐츠 반영시키기
 				document.querySelector("#table-lessons tbody").innerHTML = htmlContent;
-				
 		}
 	}
 		// 3. XMLHttpRequest 객체 초기화하기(요청방식, 요청URL 지정)
